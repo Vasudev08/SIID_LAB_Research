@@ -1,0 +1,5 @@
+﻿XR_Interaction/Library
+XR_Interaction/Logs
+XR_Interaction/UserSettings
+*.csproj
+*.sln
