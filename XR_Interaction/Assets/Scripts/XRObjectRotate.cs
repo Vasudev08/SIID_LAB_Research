@@ -13,7 +13,7 @@ public class XRObjectRotate : MonoBehaviour
     public Transform objectTransform;
 
     [SerializeField] XRGrabInteractable grabInteractable;
-    private bool isHeld = false;
+    
 
     void Start()
     {
@@ -36,17 +36,5 @@ public class XRObjectRotate : MonoBehaviour
             objectTransform.Rotate(Vector3.up, yRotation, Space.Self);
             objectTransform.Rotate(Vector3.right, xRotation, Space.Self);
         }
-    }
-
-
-    void OnGrab(SelectEnterEventArgs args)
-    {
-        isHeld = true;
-    }
-
-
-    void OnRelease(SelectExitEventArgs args)
-    {
-        isHeld = false;
     }
 }
