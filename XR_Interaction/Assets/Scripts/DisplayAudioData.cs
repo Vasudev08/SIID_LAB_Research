@@ -7,7 +7,11 @@ public class DisplayAudioData : MonoBehaviour
     public string micDevice;
     public AudioClip micClip;
     [SerializeField] int sampleSize = 128; // Number of samples to capture
+    public TMPro.TextMeshProUGUI textField;
+    public float threshold = 0.1f;
     private float[] samples;
+    public float sensibility = 10f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +19,7 @@ public class DisplayAudioData : MonoBehaviour
         if (Microphone.devices.Length > 0)
         {
             micDevice = Microphone.devices[0]; // Use first available microphone
-            micClip = Microphone.Start(micDevice, true, 10, 44100); // 10s buffer, 44.1kHz sample rate
+            micClip = Microphone.Start(micDevice, true, 10, AudioSettings.outputSampleRate); // 10s buffer, sample rate
             samples = new float[sampleSize];
             // Debug.Log("Microphone started: " + micDevice);
         }
@@ -30,21 +34,36 @@ public class DisplayAudioData : MonoBehaviour
     {
          
         if (micClip == null || !Microphone.IsRecording(micDevice)) return;
-        if (micDevice != null)
-        {
-            Debug.Log("Microphone started: " + micDevice);
-        }
+        
         // Get current mic position
         int micPosition = Microphone.GetPosition(micDevice) - sampleSize;
         if (micPosition < 0) return;
-
-        // Get the latest audio data
+        samples = new float[sampleSize];
         micClip.GetData(samples, micPosition);
+        float loudness = GetLoudness(micPosition) * sensibility; 
+        
+        if (loudness < threshold)
+        {
+            
+            textField.text = "0";
+            return;
+        }
 
         // Print raw audio sample data
-        Debug.Log("Mic Data: " + string.Join(", ", samples));
+        // Debug.Log("Mic Data: " + string.Join(", ", samples));
+        textField.text = string.Join(", ", samples);
         
     }
+    public float GetLoudness(int startPosition)
+    {
+        float total_loudness = 0;
+        for (int i = 0 ; i <  sampleSize; i++)
+        {
+            total_loudness += Mathf.Abs(samples[i]);
+        }
+        return total_loudness / sampleSize;
+    }
+    
     void OnDestroy()
     {
         if (Microphone.IsRecording(micDevice))

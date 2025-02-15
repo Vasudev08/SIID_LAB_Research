@@ -6,8 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRObjectRotate : MonoBehaviour
 {
-    public InputActionProperty leftJoystick;  // Assign Left Controller Grip
-    public InputActionProperty rightJoystick;  // Assign Right Controller Grip
+    public InputActionProperty leftJoystick;  // Assign Left Controller Joystick
+    public InputActionProperty rightJoystick;  // Assign Right Controller Joystick
 
     public float rotationSpeed = 50f;
     public Transform objectTransform;
