@@ -20,7 +20,7 @@ public class MicDropdownManager : MonoBehaviour
     {
         micDropdown.ClearOptions();
         micDropdown.AddOptions(Microphone.devices.ToList());
-
+        
         micDropdown.onValueChanged.AddListener(delegate {
             micSelector.StartMic(micDropdown.options[micDropdown.value].text);
         });

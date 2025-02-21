@@ -11,7 +11,7 @@ public class DisplayAudioData : MonoBehaviour
     public float threshold = 0.1f;
     private float[] samples;
     public float sensibility = 10f;
-
+    public MicSelectionManager micSelectionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,8 @@ public class DisplayAudioData : MonoBehaviour
         if (Microphone.devices.Length > 0)
         {
             micDevice = Microphone.devices[0]; // Use first available microphone
-            micClip = Microphone.Start(micDevice, true, 10, AudioSettings.outputSampleRate); // 10s buffer, sample rate
+            micClip = Microphone.Start(micDevice, true, 10, AudioSettings.outputSampleRate); // 10s buffer, sample rate3
+            micSelectionManager.StartMic(micDevice);
             samples = new float[sampleSize];
             // Debug.Log("Microphone started: " + micDevice);
         }
