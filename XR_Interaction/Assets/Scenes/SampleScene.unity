@@ -1729,8 +1729,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357597855}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.6138753}
+  m_LocalRotation: {x: -0, y: -0.28649917, z: -0, w: 0.9580805}
+  m_LocalPosition: {x: 0, y: 0, z: 1.867}
   m_LocalScale: {x: 0.019771349, y: 0.013932811, z: 0.013932811}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1738,10 +1738,10 @@ RectTransform:
   - {fileID: 1985348019}
   - {fileID: 1530746942}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -33.297, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.05, y: 1.124}
+  m_AnchoredPosition: {x: -1.108, y: 1.291}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &438700667
@@ -3053,7 +3053,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentObject: {fileID: 1780847004}
-  rotationDegrees: 45
+  defaultRotationDegrees: 45
+  defaultTranslationDistance: 1
+  defaultScaleFactor: 1
 --- !u!114 &1048835514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,7 +6356,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
