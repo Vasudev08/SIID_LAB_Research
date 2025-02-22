@@ -4,3 +4,5 @@ XR_Interaction/UserSettings
 *.csproj
 *.sln
 XR_Interaction/Temp
+XR_Interaction/Assets/Resources/HuggingFaceAPIConfig.asset
+XR_Interaction/Assets/Resources/HuggingFaceAPIConfig.asset.meta
