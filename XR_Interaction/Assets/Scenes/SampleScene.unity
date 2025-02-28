@@ -3074,7 +3074,7 @@ MonoBehaviour:
   audioSource: {fileID: 1048835512}
   voiceAction: {fileID: 1048835513}
   loudnessThreshold: 0.2
-  silenceDuration: 5
+  silenceDuration: 1
 --- !u!4 &1048835515
 Transform:
   m_ObjectHideFlags: 0

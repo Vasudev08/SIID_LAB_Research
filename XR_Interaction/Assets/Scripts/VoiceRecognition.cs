@@ -5,9 +5,7 @@ using HuggingFace.API;
 using UnityEngine.UI;
 using System;
 using System.IO;
-using UnityEditor.PackageManager.UI;
-using Unity.Mathematics;
-using UnityEngine.Windows.Speech;
+using WebRtcVadSharp;
 
 public class VoiceRecognition : MonoBehaviour
 {
@@ -36,16 +34,18 @@ public class VoiceRecognition : MonoBehaviour
     private int currentPosition; // Current sample position in the audio clip.
     private int sampleDiff; // Difference between current and last sample position.
     private bool isRecording; // Flag to check if we have detected a loud enough noise and can start "recording" for ASR.
+    private WebRtcVad VAD; // Voice activity detector
+    private int messagesSent = 0;
 
     private void Start()
     {
+        // WebRTC initialization if needed
+        VAD = new WebRtcVad();
+        VAD.OperatingMode = OperatingMode.Aggressive;
+
         recognizedSpeech = "";
         inputText.text = "Initializing...";
-        /*
-        startButton.onClick.AddListener(StartRecording);
-        stopButton.onClick.AddListener(StopRecording);
-        stopButton.interactable = false;
-        */
+        isRecording = false;
 
         if (Microphone.devices.Length > 0)
         {
@@ -65,7 +65,7 @@ public class VoiceRecognition : MonoBehaviour
         */
 
         clip = Microphone.Start(micDevice, true, 10, sampleRate);
-        while (Microphone.GetPosition(micDevice) <= 0) { } // Wait until the recording starts
+        while (Microphone.GetPosition(micDevice) <= 0) { } // Controls latency. 0 means no latency.
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
@@ -105,11 +105,45 @@ public class VoiceRecognition : MonoBehaviour
     }
 
     private void ProcessSamples(float[] samples)
-    {
+    {   
+        byte[] pcmData = ConvertToPCM16(samples); // Convert Unity's float samples to 16-bit PCM
+        if (VAD.HasSpeech(pcmData, SampleRate.Is16kHz, FrameLength.Is10ms))
+        {
+            // Start recording if first valid sample detected
+            if (!isRecording)
+            {
+                Debug.Log("Speech Started");
+                isRecording = true;
+                silenceTimer = 0f;
+            }
+            speechBuffer.AddRange(samples);
+        }
+        else if (isRecording)
+        {
+            
+            //speechBuffer.AddRange(samples);
+            silenceTimer += Time.deltaTime;
+
+            if (silenceTimer >= silenceDuration)
+            {
+                Debug.Log("Speech Ended, processing segment.");
+                isRecording = false;
+                silenceTimer = 0f;
+                wavData = EncodeAsWAV(speechBuffer.ToArray(), clip.frequency, clip.channels);
+                inputText.text = wavData[0].ToString();
+                Debug.Log(wavData[0]);
+                speechBuffer.Clear();
+                // SendRecording();
+
+            }
+        }
+        
+        
+        /* Old Code
         foreach(var sample in samples)
         {   
             // if we get a sample above the threshold add it to the speech buffer
-            if (MathF.Abs(sample) > loudnessThreshold)
+            if (Mathf.Abs(sample) > loudnessThreshold)
             {
                 // Start recording if first valid sample detected
                 if (!isRecording)
@@ -133,6 +167,8 @@ public class VoiceRecognition : MonoBehaviour
                         isRecording = false;
                         silenceTimer = 0f;
                         wavData = EncodeAsWAV(speechBuffer.ToArray(), clip.frequency, clip.channels);
+                        inputText.text = wavData.ToString();
+                        Debug.Log(wavData);
                         speechBuffer.Clear();
                         // SendRecording();
 
@@ -144,6 +180,7 @@ public class VoiceRecognition : MonoBehaviour
             }
                 
         }
+        */
     }
 
 
@@ -191,6 +228,8 @@ public class VoiceRecognition : MonoBehaviour
     */
 
     private void SendRecording() {
+        messagesSent += 1;
+        Debug.Log(messagesSent);
         inputText.color = Color.yellow;
         inputText.text = "Sending...";
         stopButton.interactable = false;
@@ -233,7 +272,22 @@ public class VoiceRecognition : MonoBehaviour
             return memoryStream.ToArray();
         }
     }
-        
+    
+    private byte[] ConvertToPCM16(float[] samples)
+    {
+        short[] intData = new short[samples.Length];
+
+        for (int i = 0; i < samples.Length; i++)
+        {
+            intData[i] = (short)(samples[i] * short.MaxValue); // Convert float (-1 to 1) → short (-32768 to 32767)
+        }
+
+        byte[] bytes = new byte[intData.Length * 2]; // Each short (16-bit) needs 2 bytes
+        Buffer.BlockCopy(intData, 0, bytes, 0, bytes.Length);
+        return bytes;
+    }
+
+
     void OnDestroy()
     {
         if (Microphone.IsRecording(micDevice))
