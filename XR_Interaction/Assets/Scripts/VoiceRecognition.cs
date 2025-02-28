@@ -7,6 +7,83 @@ using System;
 using System.IO;
 using WebRtcVadSharp;
 
+/// <summary>
+/// A simple circular (ring) buffer for float audio data.
+/// </summary>
+public class CircularBuffer
+{
+    private float[] buffer;
+    private int capacity;
+    private int size;
+    private int start;
+    private int end; // tail of the buffer. Points to the next index after the last element
+
+    public CircularBuffer(int capacity)
+    {
+        this.capacity = capacity;
+        this.buffer = new float[capacity];
+        this.size = 0;
+        this.start = 0;
+        this.end = 0;
+        
+    }
+
+    public void Write(float[] data, int length)
+    {
+        for (int i = 0; i < length; i ++)
+        {
+            // Writes the next available spot with data.
+            // If capacity is full this implementation will overwrite the oldest element in the buffer with the new data.
+
+            buffer[end] = data[i];
+            end = (end + 1) % capacity;
+
+
+            if (size < capacity)
+            {
+                // If there is enough space in the buffer just increase the size.
+                size += 1;
+            }
+            else
+            {
+                // If we ran out of space in the buffer we need to overwrite data.
+                // So increase the head or start index of the array to the next index "above" it which is the next oldest element.
+                start = (start + 1) % capacity;
+
+            }
+        }
+    }
+
+
+    // Get the data in a continuous array
+    public float[] GetData()
+    {
+        float[] data = new float[size];
+
+        if (start < end)
+        {
+            Array.Copy(buffer, start, data, 0, size);
+        }
+        else // Buffer is full so we have looped around
+        {
+            int length_of_first_section = capacity - start;
+            Array.Copy(buffer, start, data, 0, length_of_first_section);
+            Array.Copy(buffer, 0, data, length_of_first_section, end);
+
+        }
+
+        return data;
+    }
+
+    // Clears the buffer resetting pointers to 0.
+    public void Clear()
+    {
+        size = 0;
+        start = 0;
+        end = 0;
+    }
+}
+
 public class VoiceRecognition : MonoBehaviour
 {
     [SerializeField] private Button startButton;
@@ -36,6 +113,10 @@ public class VoiceRecognition : MonoBehaviour
     private bool isRecording; // Flag to check if we have detected a loud enough noise and can start "recording" for ASR.
     private WebRtcVad VAD; // Voice activity detector
     private int messagesSent = 0;
+    private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
+    private CircularBuffer circularBuffer;
+
+    
 
     private void Start()
     {
@@ -46,7 +127,8 @@ public class VoiceRecognition : MonoBehaviour
         recognizedSpeech = "";
         inputText.text = "Initializing...";
         isRecording = false;
-
+        
+        // Debug block checking if there are enough microphone devices
         if (Microphone.devices.Length > 0)
         {
             micDevice = Microphone.devices[0];
@@ -55,21 +137,25 @@ public class VoiceRecognition : MonoBehaviour
         else
         {
             Debug.LogError("No microphone detected!");
+            return;
         }
-            
-        /*
-        foreach (var device in Microphone.devices)
-        {
-            Debug.Log("Microphone available: " + device);
-        }
-        */
 
+        // **** Starting Mic Input *****
         clip = Microphone.Start(micDevice, true, 10, sampleRate);
         while (Microphone.GetPosition(micDevice) <= 0) { } // Controls latency. 0 means no latency.
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
         inputText.text = "Listening...";
+
+        // Preallocate a reusable sample buffer.
+        // We assume a maximum chunk size (for example, 1024 samples per channel).
+        sampleBuffer = new float[1024 * clip.channels];
+
+        // Allocate a circular buffer for speech data.
+        // Here, we allocate enough space for 10 seconds of audio.
+        int maxSpeechSamples = sampleRate * clip.channels * 10;
+        circularBuffer = new CircularBuffer(maxSpeechSamples);
         
     }
 
@@ -88,25 +174,72 @@ public class VoiceRecognition : MonoBehaviour
         if (sampleDiff < 0)
         {
             // Wrap around to the beginning of the clip if looping
+            // means that the clip sample has looped making the current position less than
+            // just add the size of the clip samples to get the linear sequenec
             sampleDiff += clip.samples;
         }
 
         if (sampleDiff > 0)
         {
+            /* **** OLD CODE ****
             float[] samples = new float[sampleDiff * clip.channels];
             clip.GetData(samples, lastSamplePosition);
             lastSamplePosition = currentPosition;
 
             // Check if the audio samples are above the threshold
             ProcessSamples(samples);
+            */
 
+            int sampleCount = clip.channels * sampleDiff;
+
+            clip.GetData(sampleBuffer, lastSamplePosition);
+            lastSamplePosition = currentPosition;
+
+            ProcessSamples(sampleBuffer, sampleCount);
         }
 
     }
 
-    private void ProcessSamples(float[] samples)
+    private void ProcessSamples(float[] samples, int sampleCount)
     {   
         byte[] pcmData = ConvertToPCM16(samples); // Convert Unity's float samples to 16-bit PCM
+        if (VAD.HasSpeech(pcmData, SampleRate.Is16kHz, FrameLength.Is10ms))
+        {
+            // Start recording if first valid sample detected
+            if (!isRecording)
+            {
+                Debug.Log("Speech Started");
+                isRecording = true;
+                silenceTimer = 0f;
+            }
+            circularBuffer.Write(samples, sampleCount);
+        }
+        else if (isRecording)
+        {
+            
+            //speechBuffer.AddRange(samples);
+            silenceTimer += Time.deltaTime;
+
+            if (silenceTimer >= silenceDuration)
+            {
+                Debug.Log("Speech Ended, processing segment.");
+                isRecording = false;
+                silenceTimer = 0f;
+
+                float[] speech_data = circularBuffer.GetData();
+                wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
+
+                inputText.text = wavData[0].ToString();
+                Debug.Log(wavData[0]);
+                circularBuffer.Clear();
+                // SendRecording();
+
+            }
+        }
+
+
+
+        /* **** OLD CODE
         if (VAD.HasSpeech(pcmData, SampleRate.Is16kHz, FrameLength.Is10ms))
         {
             // Start recording if first valid sample detected
@@ -137,8 +270,7 @@ public class VoiceRecognition : MonoBehaviour
 
             }
         }
-        
-        
+        */
         /* Old Code
         foreach(var sample in samples)
         {   
@@ -247,6 +379,11 @@ public class VoiceRecognition : MonoBehaviour
         });
     }
 
+
+    /// <summary>
+    /// Placeholder method for encoding audio samples as WAV.
+    /// Replace with your actual implementation.
+    /// </summary>
     private byte[] EncodeAsWAV(float[] samples, int frequency, int channels) 
     {
         using (var memoryStream = new MemoryStream(44 + samples.Length * 2)) {
@@ -272,6 +409,10 @@ public class VoiceRecognition : MonoBehaviour
             return memoryStream.ToArray();
         }
     }
+
+    /// <summary>
+    /// Converts float samples (range -1 to 1) into 16-bit PCM bytes.
+    /// </summary>
     
     private byte[] ConvertToPCM16(float[] samples)
     {
