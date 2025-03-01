@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class XRObjectTranslate : MonoBehaviour
 {
@@ -13,11 +13,11 @@ public class XRObjectTranslate : MonoBehaviour
 
     public Transform objectTransform;
 
-    [SerializeField] XRGrabInteractable grabInteractable;
+    [SerializeField] UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
 
     void Start()
     {
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         
     }
 

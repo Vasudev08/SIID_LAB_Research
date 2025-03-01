@@ -14,12 +14,12 @@ public class XRObjectScale : MonoBehaviour
     public Vector3 maxScale = new Vector3(3f, 3f, 3f);
     public Transform objectTransform;
 
-    [SerializeField] XRGrabInteractable grabInteractable;
+    [SerializeField] UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
     private bool isHeld = false;
 
     void Start()
     {
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         grabInteractable.selectEntered.AddListener(OnGrab);
         grabInteractable.selectExited.AddListener(OnRelease);
     }

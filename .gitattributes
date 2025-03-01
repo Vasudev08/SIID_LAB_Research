@@ -1,0 +1,2 @@
+*.onnx filter=lfs diff=lfs merge=lfs -text
+XR_Interaction/Assets/Models/Assets%2FData%2Fvocab.json filter=lfs diff=lfs merge=lfs -text
