@@ -17,6 +17,7 @@ public class CircularBuffer
     private int size;
     private int start;
     private int end; // tail of the buffer. Points to the next index after the last element
+   
 
     public CircularBuffer(int capacity)
     {
@@ -88,13 +89,12 @@ public class VoiceRecognition : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
-    [SerializeField] private TMPro.TextMeshProUGUI inputText;
+    public TMPro.TextMeshProUGUI inputText;
     [SerializeField] private AudioSource audioSource;
     public VoiceAction voiceAction;
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
-
-
+    public RunWhisper runWhisper;
 
     private string micDevice;
     private int sampleRate = 16000;
@@ -102,8 +102,7 @@ public class VoiceRecognition : MonoBehaviour
     private byte[] wavData;
 
     private bool recording;
-    private string recognizedSpeech;
-
+    public string recognizedSpeech;
     
     private List<float> speechBuffer = new List<float>(); // Buffer to store audio samples above threshold.
     private float silenceTimer = 0f; // Amount of time elapsed after last audio sample above threshold.
@@ -233,6 +232,13 @@ public class VoiceRecognition : MonoBehaviour
                 Debug.Log(wavData[0]);
                 circularBuffer.Clear();
                 // SendRecording();
+                // 1) Convert the float[] to an AudioClip
+                // Convert that byte array into an AudioClip
+                // AudioClip myClip = WavDataToAudioClip(wavData, "CapturedSpeech");
+
+                // Now pass this audioClip into your local Whisper transcription
+                // runWhisper.TranscribeAudioLocally(myClip);
+
 
             }
         }
@@ -426,6 +432,43 @@ public class VoiceRecognition : MonoBehaviour
         byte[] bytes = new byte[intData.Length * 2]; // Each short (16-bit) needs 2 bytes
         Buffer.BlockCopy(intData, 0, bytes, 0, bytes.Length);
         return bytes;
+    }
+
+    public static AudioClip WavDataToAudioClip(byte[] wavData, string clipName = "wavClip")
+    {
+        // -- 1) Read header fields from the WAV data --
+        // Typically, the sample rate is at byte offset 24 (4 bytes, little-endian),
+        // and the number of channels is at byte offset 22 (2 bytes, little-endian).
+        int channels = BitConverter.ToInt16(wavData, 22);
+        int sampleRate = BitConverter.ToInt32(wavData, 24);
+
+        // -- 2) Calculate how many samples are in the data chunk --
+        // The first 44 bytes are the header; everything after that is raw PCM (16-bit).
+        const int headerSize = 44;
+        int bytesInData = wavData.Length - headerSize; 
+        int totalSamples = bytesInData / 2; // 2 bytes per 16-bit sample
+
+        // -- 3) Convert the 16-bit PCM to float samples in range [-1f..+1f] --
+        float[] floatSamples = new float[totalSamples];
+        int sampleIndex = 0;
+        for (int i = 0; i < bytesInData; i += 2)
+        {
+            // Read 16 bits as signed
+            short sample = BitConverter.ToInt16(wavData, headerSize + i);
+            floatSamples[sampleIndex++] = sample / 32768f; // convert short -> float
+        }
+
+        // -- 4) Create an AudioClip and fill it with the float samples --
+        AudioClip audioClip = AudioClip.Create(
+            clipName,          // name shown in the Inspector
+            totalSamples / channels, // sample frames (each frame has 'channels' samples)
+            channels,          
+            sampleRate,
+            false              // "stream" = false if we have the whole clip in memory
+        );
+        audioClip.SetData(floatSamples, 0);
+
+        return audioClip;
     }
 
 
