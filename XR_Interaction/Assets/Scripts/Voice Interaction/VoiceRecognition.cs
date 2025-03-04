@@ -102,7 +102,7 @@ public class VoiceRecognition : MonoBehaviour
     private byte[] wavData;
 
     private bool recording;
-    public string recognizedSpeech;
+    private string recognizedSpeech;
     
     private List<float> speechBuffer = new List<float>(); // Buffer to store audio samples above threshold.
     private float silenceTimer = 0f; // Amount of time elapsed after last audio sample above threshold.
@@ -111,7 +111,6 @@ public class VoiceRecognition : MonoBehaviour
     private int sampleDiff; // Difference between current and last sample position.
     private bool isRecording; // Flag to check if we have detected a loud enough noise and can start "recording" for ASR.
     private WebRtcVad VAD; // Voice activity detector
-    private int messagesSent = 0;
     private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
     private CircularBuffer circularBuffer;
 
@@ -224,22 +223,14 @@ public class VoiceRecognition : MonoBehaviour
                 Debug.Log("Speech Ended, processing segment.");
                 isRecording = false;
                 silenceTimer = 0f;
-
                 float[] speech_data = circularBuffer.GetData();
-                wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
-
-                inputText.text = wavData[0].ToString();
-                Debug.Log(wavData[0]);
                 circularBuffer.Clear();
+                runWhisper.TranscribeAudioLocally(speech_data);
+
+                // Required to send the data using the Whisper Tiny API in Huggingface
+                // Data is required to be in WAV format
+                // wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
                 // SendRecording();
-                // 1) Convert the float[] to an AudioClip
-                // Convert that byte array into an AudioClip
-                // AudioClip myClip = WavDataToAudioClip(wavData, "CapturedSpeech");
-
-                // Now pass this audioClip into your local Whisper transcription
-                // runWhisper.TranscribeAudioLocally(myClip);
-
-
             }
         }
 
@@ -366,11 +357,10 @@ public class VoiceRecognition : MonoBehaviour
     */
 
     private void SendRecording() {
-        messagesSent += 1;
-        Debug.Log(messagesSent);
         inputText.color = Color.yellow;
         inputText.text = "Sending...";
         stopButton.interactable = false;
+        
         HuggingFaceAPI.AutomaticSpeechRecognition(wavData, response => {
             inputText.color = Color.white;
             inputText.text = response;
@@ -434,44 +424,6 @@ public class VoiceRecognition : MonoBehaviour
         return bytes;
     }
 
-    public static AudioClip WavDataToAudioClip(byte[] wavData, string clipName = "wavClip")
-    {
-        // -- 1) Read header fields from the WAV data --
-        // Typically, the sample rate is at byte offset 24 (4 bytes, little-endian),
-        // and the number of channels is at byte offset 22 (2 bytes, little-endian).
-        int channels = BitConverter.ToInt16(wavData, 22);
-        int sampleRate = BitConverter.ToInt32(wavData, 24);
-
-        // -- 2) Calculate how many samples are in the data chunk --
-        // The first 44 bytes are the header; everything after that is raw PCM (16-bit).
-        const int headerSize = 44;
-        int bytesInData = wavData.Length - headerSize; 
-        int totalSamples = bytesInData / 2; // 2 bytes per 16-bit sample
-
-        // -- 3) Convert the 16-bit PCM to float samples in range [-1f..+1f] --
-        float[] floatSamples = new float[totalSamples];
-        int sampleIndex = 0;
-        for (int i = 0; i < bytesInData; i += 2)
-        {
-            // Read 16 bits as signed
-            short sample = BitConverter.ToInt16(wavData, headerSize + i);
-            floatSamples[sampleIndex++] = sample / 32768f; // convert short -> float
-        }
-
-        // -- 4) Create an AudioClip and fill it with the float samples --
-        AudioClip audioClip = AudioClip.Create(
-            clipName,          // name shown in the Inspector
-            totalSamples / channels, // sample frames (each frame has 'channels' samples)
-            channels,          
-            sampleRate,
-            false              // "stream" = false if we have the whole clip in memory
-        );
-        audioClip.SetData(floatSamples, 0);
-
-        return audioClip;
-    }
-
-
     void OnDestroy()
     {
         if (Microphone.IsRecording(micDevice))
@@ -483,6 +435,11 @@ public class VoiceRecognition : MonoBehaviour
     public string GetRecognizedSpeech()
     {
         return recognizedSpeech;
+    }
+
+    public void SetRecognizedSpeech(string transcribed_speech)
+    {
+        recognizedSpeech = transcribed_speech;
     }
 
 }

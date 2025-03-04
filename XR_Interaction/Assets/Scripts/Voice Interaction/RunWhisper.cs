@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Sentis;
 using System.Text;
 using Unity.Collections;
+using System;
 
 public class RunWhisper : MonoBehaviour
 {
@@ -47,8 +48,8 @@ public class RunWhisper : MonoBehaviour
     public ModelAsset audioEncoder;
     public ModelAsset logMelSpectro;
 
-    public string TranscriptionResult { get; private set; } = "";
-    /*
+    
+    /* DEFAULT CODE
     public async void Start()
     {
         SetupWhiteSpaceShifts();
@@ -95,15 +96,9 @@ public class RunWhisper : MonoBehaviour
         }
     }
     */
-    public async void TranscribeAudioLocally(AudioClip clip)
-    {
-        // If the user forgot to supply a clip, bail out:
-        if (clip == null) {
-            Debug.LogError("No AudioClip provided to RunWhisper!");
-            return;
-        }
 
-        // Initialize and load your model Workers just as you did in Start()
+    public async void TranscribeAudioLocally(float[] processed_data)
+    {
         SetupWhiteSpaceShifts();
         GetTokens();
 
@@ -119,103 +114,40 @@ public class RunWhisper : MonoBehaviour
         encoder = new Worker(ModelLoader.Load(audioEncoder), BackendType.GPUCompute);
         spectrogram = new Worker(ModelLoader.Load(logMelSpectro), BackendType.GPUCompute);
 
-        // Prepare token arrays, just as in your original code
-        // ...
-        const int maxTokens = 100;
-        NativeArray<int> outputTokens = new NativeArray<int>(maxTokens, Allocator.Persistent);
-        outputTokens[0] = 50258; // START_OF_TRANSCRIPT
-        outputTokens[1] = 50259; // ENGLISH
-        outputTokens[2] = 50359; // TRANSCRIBE
-        int tokenCount = 3;
+        outputTokens = new NativeArray<int>(maxTokens, Allocator.Persistent);
 
-        // Convert AudioClip data into a Tensor so it can be processed by your pipeline
-        // The code below is basically what your original "LoadAudio()" method did:
-        float[] data = new float[clip.samples];
-        clip.GetData(data, 0);
-        var audioInput = new Tensor<float>(new TensorShape(1, data.Length), data);
+        outputTokens[0] = START_OF_TRANSCRIPT;
+        outputTokens[1] = ENGLISH;// GERMAN;//FRENCH;//
+        outputTokens[2] = TRANSCRIBE; //TRANSLATE;//
+        //outputTokens[3] = NO_TIME_STAMPS;// START_TIME;//
+        tokenCount = 3;
 
-        // Create the spectrogram, encode, etc.
-        spectrogram.Schedule(audioInput);
-        var logmel = spectrogram.PeekOutput() as Tensor<float>;
-        encoder.Schedule(logmel);
-        var encodedAudio = encoder.PeekOutput() as Tensor<float>;
+        // Loading the Audio
+        // convert processed data into a Tensor
+        float[] data = new float[maxSamples];
+        numSamples = maxSamples;
+        Array.Copy(processed_data, data, processed_data.Length);
+        audioInput = new Tensor<float>(new TensorShape(1, numSamples), data);
+        
+        EncodeAudio();
 
-        // Prepare your token Tensors just like in your original code
-        var tokensTensor = new Tensor<int>(new TensorShape(1, maxTokens));
+        transcribe = true;
+
+        tokensTensor = new Tensor<int>(new TensorShape(1, maxTokens));
         ComputeTensorData.Pin(tokensTensor);
         tokensTensor.Reshape(new TensorShape(1, tokenCount));
         tokensTensor.dataOnBackend.Upload<int>(outputTokens, tokenCount);
 
-        var lastToken = new NativeArray<int>(1, Allocator.Persistent);
-        lastToken[0] = 50363; // e.g., NO_TIME_STAMPS or whichever special token
-        var lastTokenTensor = new Tensor<int>(new TensorShape(1, 1), new[] { lastToken[0] });
+        lastToken = new NativeArray<int>(1, Allocator.Persistent); lastToken[0] = NO_TIME_STAMPS;
+        lastTokenTensor = new Tensor<int>(new TensorShape(1, 1), new[] { NO_TIME_STAMPS });
 
-        bool keepTranscribing = true;
-        TranscriptionResult = "";
-
-        // Start decoding loop (similar to your `while(true)` logic)
-        while (keepTranscribing && tokenCount < (maxTokens - 1))
+        while (true)
         {
-            // 1) First forward pass
-            decoder1.SetInput("input_ids", tokensTensor);
-            decoder1.SetInput("encoder_hidden_states", encodedAudio);
-            decoder1.Schedule();
-
-            // Retrieve "present" outputs for the second pass
-            var pkv0DecKey = decoder1.PeekOutput("present.0.decoder.key") as Tensor<float>;
-            var pkv0DecVal = decoder1.PeekOutput("present.0.decoder.value") as Tensor<float>;
-            // ... do this for all present.1, present.2, present.3 ...
-            var pkv3EncVal = decoder1.PeekOutput("present.3.encoder.value") as Tensor<float>;
-
-            // 2) Second forward pass
-            decoder2.SetInput("input_ids", lastTokenTensor);
-            // Pass in everything from the first pass as in your original code
-            decoder2.SetInput("past_key_values.0.decoder.key", pkv0DecKey);
-            decoder2.SetInput("past_key_values.0.decoder.value", pkv0DecVal);
-            // ... repeated for all the past_key_values ...
-            decoder2.Schedule();
-
-            // 3) ArgMax to get the next token
-            var logits = decoder2.PeekOutput("logits") as Tensor<float>;
-            argmax.Schedule(logits);
-            using var tokenOut = await argmax.PeekOutput().ReadbackAndCloneAsync() as Tensor<int>;
-            int index = tokenOut[0];
-
-            // 4) Append lastToken to the output tokens
-            outputTokens[tokenCount] = lastToken[0];
-            lastToken[0] = index; 
-            tokenCount++;
-
-            // Update tokensTensor + lastTokenTensor to reflect newly appended token
-            tokensTensor.Reshape(new TensorShape(1, tokenCount));
-            tokensTensor.dataOnBackend.Upload<int>(outputTokens, tokenCount);
-            lastTokenTensor.dataOnBackend.Upload<int>(lastToken, 1);
-
-            // 5) Stop if we see END_OF_TEXT
-            if (index == 50257) { // END_OF_TEXT 
-                keepTranscribing = false;
-            }
-            // Otherwise decode the piece of text and add it
-            else if (index < tokens.Length) {
-                TranscriptionResult += GetUnicodeText(tokens[index]);
-            }
+            if (!transcribe || tokenCount >= (outputTokens.Length - 1))
+                return;
+            m_Awaitable = InferenceStep();
+            await m_Awaitable;
         }
-
-        // Cleanup
-        decoder1.Dispose(); 
-        decoder2.Dispose();
-        encoder.Dispose();
-        spectrogram.Dispose();
-        argmax.Dispose();
-        audioInput.Dispose();
-        tokensTensor.Dispose();
-        lastTokenTensor.Dispose();
-        outputTokens.Dispose();
-        lastToken.Dispose();
-
-        Debug.Log("Final Transcript: " + TranscriptionResult);
-        voiceRecognition.inputText.text = TranscriptionResult;
-        voiceRecognition.recognizedSpeech = TranscriptionResult;
 
     }
     Awaitable m_Awaitable;
@@ -297,7 +229,8 @@ public class RunWhisper : MonoBehaviour
         tokensTensor.Reshape(new TensorShape(1, tokenCount));
         tokensTensor.dataOnBackend.Upload<int>(outputTokens, tokenCount);
         lastTokenTensor.dataOnBackend.Upload<int>(lastToken, 1);
-
+        
+        /* DEFAULT CODE
         if (index == END_OF_TEXT)
         {
             transcribe = false;
@@ -306,8 +239,34 @@ public class RunWhisper : MonoBehaviour
         {
             outputString += GetUnicodeText(tokens[index]);
         }
-
         Debug.Log(outputString);
+        */ 
+        
+        if (index == END_OF_TEXT)
+        {
+            transcribe = false;
+
+            // Cleanup
+            decoder1.Dispose(); 
+            decoder2.Dispose();
+            encoder.Dispose();
+            spectrogram.Dispose();
+            argmax.Dispose();
+            audioInput.Dispose();
+            tokensTensor.Dispose();
+            lastTokenTensor.Dispose();
+            outputTokens.Dispose();
+            lastToken.Dispose();
+
+            Debug.Log("Final Transcript: " + outputString);
+            voiceRecognition.inputText.text = outputString;
+            voiceRecognition.SetRecognizedSpeech(outputString);
+            outputString = ""; 
+        }
+        else if (index < tokens.Length)
+        {
+            outputString += GetUnicodeText(tokens[index]);
+        }
     }
 
     // Tokenizer
@@ -365,4 +324,5 @@ public class RunWhisper : MonoBehaviour
         tokensTensor.Dispose();
     }
     */
+    
 }

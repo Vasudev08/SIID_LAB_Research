@@ -3156,7 +3156,6 @@ MonoBehaviour:
   loudnessThreshold: 0.2
   silenceDuration: 0.25
   runWhisper: {fileID: 637062758}
-  recognizedSpeech: 
 --- !u!4 &1048835515
 Transform:
   m_ObjectHideFlags: 0
