@@ -48,54 +48,6 @@ public class RunWhisper : MonoBehaviour
     public ModelAsset audioEncoder;
     public ModelAsset logMelSpectro;
 
-    
-    /* DEFAULT CODE
-    public async void Start()
-    {
-        SetupWhiteSpaceShifts();
-        GetTokens();
-
-        decoder1 = new Worker(ModelLoader.Load(audioDecoder1), BackendType.GPUCompute);
-        decoder2 = new Worker(ModelLoader.Load(audioDecoder2), BackendType.GPUCompute);
-
-        FunctionalGraph graph = new FunctionalGraph();
-        var input = graph.AddInput(DataType.Float, new DynamicTensorShape(1, 1, 51865));
-        var amax = Functional.ArgMax(input, -1, false);
-        var selectTokenModel = graph.Compile(amax);
-        argmax = new Worker(selectTokenModel, BackendType.GPUCompute);
-
-        encoder = new Worker(ModelLoader.Load(audioEncoder), BackendType.GPUCompute);
-        spectrogram = new Worker(ModelLoader.Load(logMelSpectro), BackendType.GPUCompute);
-
-        outputTokens = new NativeArray<int>(maxTokens, Allocator.Persistent);
-
-        outputTokens[0] = START_OF_TRANSCRIPT;
-        outputTokens[1] = ENGLISH;// GERMAN;//FRENCH;//
-        outputTokens[2] = TRANSCRIBE; //TRANSLATE;//
-        //outputTokens[3] = NO_TIME_STAMPS;// START_TIME;//
-        tokenCount = 3;
-
-        LoadAudio();
-        EncodeAudio();
-        transcribe = true;
-
-        tokensTensor = new Tensor<int>(new TensorShape(1, maxTokens));
-        ComputeTensorData.Pin(tokensTensor);
-        tokensTensor.Reshape(new TensorShape(1, tokenCount));
-        tokensTensor.dataOnBackend.Upload<int>(outputTokens, tokenCount);
-
-        lastToken = new NativeArray<int>(1, Allocator.Persistent); lastToken[0] = NO_TIME_STAMPS;
-        lastTokenTensor = new Tensor<int>(new TensorShape(1, 1), new[] { NO_TIME_STAMPS });
-
-        while (true)
-        {
-            if (!transcribe || tokenCount >= (outputTokens.Length - 1))
-                return;
-            m_Awaitable = InferenceStep();
-            await m_Awaitable;
-        }
-    }
-    */
 
     public async void TranscribeAudioLocally(float[] processed_data)
     {
@@ -124,11 +76,7 @@ public class RunWhisper : MonoBehaviour
 
         // Loading the Audio
         // convert processed data into a Tensor
-        float[] data = new float[maxSamples];
-        numSamples = maxSamples;
-        Array.Copy(processed_data, data, processed_data.Length);
-        audioInput = new Tensor<float>(new TensorShape(1, numSamples), data);
-        
+        LoadAudio(processed_data);
         EncodeAudio();
 
         transcribe = true;
@@ -148,8 +96,8 @@ public class RunWhisper : MonoBehaviour
             m_Awaitable = InferenceStep();
             await m_Awaitable;
         }
-
     }
+
     Awaitable m_Awaitable;
 
     NativeArray<int> lastToken;
@@ -157,12 +105,11 @@ public class RunWhisper : MonoBehaviour
     Tensor<int> tokensTensor;
     Tensor<float> audioInput;
 
-    void LoadAudio()
+    void LoadAudio(float[] received_data)
     {
-        numSamples = audioClip.samples;
-        var data = new float[maxSamples];
+        float[] data = new float[maxSamples];
         numSamples = maxSamples;
-        audioClip.GetData(data, 0);
+        Array.Copy(received_data, data, received_data.Length);
         audioInput = new Tensor<float>(new TensorShape(1, numSamples), data);
     }
 
@@ -173,6 +120,7 @@ public class RunWhisper : MonoBehaviour
         encoder.Schedule(logmel);
         encodedAudio = encoder.PeekOutput() as Tensor<float>;
     }
+
     async Awaitable InferenceStep()
     {
         decoder1.SetInput("input_ids", tokensTensor);
@@ -230,18 +178,6 @@ public class RunWhisper : MonoBehaviour
         tokensTensor.dataOnBackend.Upload<int>(outputTokens, tokenCount);
         lastTokenTensor.dataOnBackend.Upload<int>(lastToken, 1);
         
-        /* DEFAULT CODE
-        if (index == END_OF_TEXT)
-        {
-            transcribe = false;
-        }
-        else if (index < tokens.Length)
-        {
-            outputString += GetUnicodeText(tokens[index]);
-        }
-        Debug.Log(outputString);
-        */ 
-        
         if (index == END_OF_TEXT)
         {
             transcribe = false;
@@ -258,9 +194,10 @@ public class RunWhisper : MonoBehaviour
             outputTokens.Dispose();
             lastToken.Dispose();
 
-            Debug.Log("Final Transcript: " + outputString);
+            
             voiceRecognition.inputText.text = outputString;
             voiceRecognition.SetRecognizedSpeech(outputString);
+            voiceRecognition.OnTranscriptionSuccess();
             outputString = ""; 
         }
         else if (index < tokens.Length)

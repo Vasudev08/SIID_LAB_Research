@@ -30,7 +30,7 @@ public class VoiceAction : MonoBehaviour
     { 
         if (!ValidateResponse(response))
         {
-            Debug.LogError("Could not execute your command. " + chooseCommandMessage);
+            Debug.LogError("Inavlid Input. " + chooseCommandMessage);
             return;
         }
 
@@ -72,7 +72,6 @@ public class VoiceAction : MonoBehaviour
             }
              
         }
-
         Debug.LogWarning("Could not find a command in your message. " + chooseCommandMessage);
         
         

@@ -3015,6 +3015,7 @@ GameObject:
   - component: {fileID: 1048835515}
   - component: {fileID: 1048835514}
   - component: {fileID: 1048835513}
+  - component: {fileID: 1048835516}
   - component: {fileID: 1048835512}
   m_Layer: 0
   m_Name: Voice Interaction
@@ -3152,10 +3153,11 @@ MonoBehaviour:
   stopButton: {fileID: 499126226}
   inputText: {fileID: 1029013031}
   audioSource: {fileID: 1048835512}
+  runWhisper: {fileID: 637062758}
+  sentenceSimilarity: {fileID: 1048835516}
   voiceAction: {fileID: 1048835513}
   loudnessThreshold: 0.2
   silenceDuration: 0.25
-  runWhisper: {fileID: 637062758}
 --- !u!4 &1048835515
 Transform:
   m_ObjectHideFlags: 0
@@ -3171,6 +3173,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1048835516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048835511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8fdd7e444d8026498a826a0b352caf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputs:
+  - Move the blue cube.
+  - Rotate the blue cube.
+  - Scale the green cylinder.
+  similarityThreshold: 0.6
+  voiceAction: {fileID: 1048835513}
 --- !u!1 &1189700742
 GameObject:
   m_ObjectHideFlags: 0

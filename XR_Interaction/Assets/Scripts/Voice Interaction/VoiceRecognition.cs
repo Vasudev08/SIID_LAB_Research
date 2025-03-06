@@ -86,24 +86,28 @@ public class CircularBuffer
 }
 
 public class VoiceRecognition : MonoBehaviour
-{
+{   
+    [Header("UI")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
     public TMPro.TextMeshProUGUI inputText;
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Voice Interaction")]
+    public RunWhisper runWhisper;
+    public SentenceSimilarity sentenceSimilarity;
     public VoiceAction voiceAction;
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
-    public RunWhisper runWhisper;
-
+    
+    #region Microphone Input Variables
     private string micDevice;
     private int sampleRate = 16000;
     private AudioClip clip;
     private byte[] wavData;
-
-    private bool recording;
-    private string recognizedSpeech;
+    #endregion
     
+    #region Voice Detection Variables
     private List<float> speechBuffer = new List<float>(); // Buffer to store audio samples above threshold.
     private float silenceTimer = 0f; // Amount of time elapsed after last audio sample above threshold.
     private int lastSamplePosition = 0; // Last sample position in the audio clip.
@@ -113,14 +117,15 @@ public class VoiceRecognition : MonoBehaviour
     private WebRtcVad VAD; // Voice activity detector
     private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
     private CircularBuffer circularBuffer;
+    #endregion
 
-    
+    private string recognizedSpeech;
 
     private void Start()
     {
         // WebRTC initialization if needed
         VAD = new WebRtcVad();
-        VAD.OperatingMode = OperatingMode.Aggressive;
+        VAD.OperatingMode = OperatingMode.VeryAggressive;
 
         recognizedSpeech = "";
         inputText.text = "Initializing...";
@@ -206,7 +211,7 @@ public class VoiceRecognition : MonoBehaviour
             // Start recording if first valid sample detected
             if (!isRecording)
             {
-                Debug.Log("Speech Started");
+                // Debug.Log("Speech Started");
                 isRecording = true;
                 silenceTimer = 0f;
             }
@@ -220,96 +225,19 @@ public class VoiceRecognition : MonoBehaviour
 
             if (silenceTimer >= silenceDuration)
             {
-                Debug.Log("Speech Ended, processing segment.");
+                // Debug.Log("Speech Ended, processing segment.");
                 isRecording = false;
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
                 circularBuffer.Clear();
                 runWhisper.TranscribeAudioLocally(speech_data);
-
+                
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
                 // wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
                 // SendRecording();
             }
         }
-
-
-
-        /* **** OLD CODE
-        if (VAD.HasSpeech(pcmData, SampleRate.Is16kHz, FrameLength.Is10ms))
-        {
-            // Start recording if first valid sample detected
-            if (!isRecording)
-            {
-                Debug.Log("Speech Started");
-                isRecording = true;
-                silenceTimer = 0f;
-            }
-            speechBuffer.AddRange(samples);
-        }
-        else if (isRecording)
-        {
-            
-            //speechBuffer.AddRange(samples);
-            silenceTimer += Time.deltaTime;
-
-            if (silenceTimer >= silenceDuration)
-            {
-                Debug.Log("Speech Ended, processing segment.");
-                isRecording = false;
-                silenceTimer = 0f;
-                wavData = EncodeAsWAV(speechBuffer.ToArray(), clip.frequency, clip.channels);
-                inputText.text = wavData[0].ToString();
-                Debug.Log(wavData[0]);
-                speechBuffer.Clear();
-                // SendRecording();
-
-            }
-        }
-        */
-        /* Old Code
-        foreach(var sample in samples)
-        {   
-            // if we get a sample above the threshold add it to the speech buffer
-            if (Mathf.Abs(sample) > loudnessThreshold)
-            {
-                // Start recording if first valid sample detected
-                if (!isRecording)
-                {
-                    Debug.Log("Speech Started");
-                    isRecording = true;
-                    silenceTimer = 0f;
-                }
-                speechBuffer.Add(sample);
-            }
-            else // if there is no noise or silence only add it to the speech buffer if we are already recording
-            {
-                if (isRecording)
-                {
-                    speechBuffer.Add(sample);
-                    silenceTimer += Time.deltaTime;
-
-                    if (silenceTimer >= silenceDuration)
-                    {
-                        Debug.Log("Speech Ended, processing segment.");
-                        isRecording = false;
-                        silenceTimer = 0f;
-                        wavData = EncodeAsWAV(speechBuffer.ToArray(), clip.frequency, clip.channels);
-                        inputText.text = wavData.ToString();
-                        Debug.Log(wavData);
-                        speechBuffer.Clear();
-                        // SendRecording();
-
-                    }
-                }
-                
-                
-
-            }
-                
-        }
-        */
     }
 
 
@@ -409,7 +337,6 @@ public class VoiceRecognition : MonoBehaviour
     /// <summary>
     /// Converts float samples (range -1 to 1) into 16-bit PCM bytes.
     /// </summary>
-    
     private byte[] ConvertToPCM16(float[] samples)
     {
         short[] intData = new short[samples.Length];
@@ -440,6 +367,11 @@ public class VoiceRecognition : MonoBehaviour
     public void SetRecognizedSpeech(string transcribed_speech)
     {
         recognizedSpeech = transcribed_speech;
+    }
+
+    public void OnTranscriptionSuccess()
+    {
+        sentenceSimilarity.CompareInput(recognizedSpeech);
     }
 
 }
