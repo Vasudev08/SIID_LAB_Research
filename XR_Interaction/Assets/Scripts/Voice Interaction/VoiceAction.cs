@@ -15,17 +15,8 @@ public class VoiceAction : MonoBehaviour
 
     private Dictionary<string, Action<float>> transformCommands;
     private string chooseCommandMessage = "Please give a command for one of the three transformations: rotate, scale, translate";
-    void Start()
-    {
-        transformCommands = new Dictionary<string, Action<float>>
-        {
-            { "rotate", RotateObject },
-            { "scale", ScaleObject   },
-            { "translate", TranslateObject },
-            { "move", TranslateObject }
-        };
-    }
-
+    
+    /*
     public void ManipulateObject(string response)
     { 
         if (!ValidateResponse(response))
@@ -77,20 +68,21 @@ public class VoiceAction : MonoBehaviour
         
 
     }
-    
-    public void RotateObject(float value)
+    */
+
+    public void RotateObject(GameObject obj, float value)
     {
-        currentObject.Rotate(new Vector3(0, value, 0), Space.Self);
+        obj.transform.Rotate(new Vector3(0, value, 0), Space.World);
     }
 
-    public void TranslateObject(float value)
+    public void TranslateObject(GameObject obj, float value)
     {
-        currentObject.position = new Vector3(currentObject.position.x, currentObject.position.y, currentObject.position.z + value);
+        obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z + value);
     }
 
-    public void ScaleObject(float value)
+    public void ScaleObject(GameObject obj, float value)
     {
-        currentObject.localScale *= value;
+        obj.transform.localScale *= value;
     }
 
 

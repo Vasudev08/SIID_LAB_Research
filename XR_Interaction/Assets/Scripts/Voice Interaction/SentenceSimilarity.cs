@@ -6,42 +6,48 @@ using UnityEngine;
 
 public class SentenceSimilarity : MonoBehaviour
 {
-    [Header("Voice Input Commands")]
-    public List<string> inputs = new List<string>();
     [Range(0, 1)]
     public float similarityThreshold = 0.6f;
-    public VoiceAction voiceAction;
 
     private string errorOutput = "";
 
-    public void CompareInput(string source) {
+
+    /// <summary>
+    /// Compare the transcribed voice input to a collection of known commands/speech.
+    /// Use a callback or "completion handler" to return the matched command when the async call finishes.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="context"></param>
+    /// <param name="onComplete"></param>
+    public void CompareInput(string source, string[] context, Action<string> onComplete) {
 
         HuggingFaceAPI.SentenceSimilarity(source, 
         success_values =>{
-            Debug.Log("Success!");
+            Debug.Log("Successfully called the Sentence Similarity API!");
             string vals = "";
             foreach (var val in success_values)
             {
                 vals += val + " ";
             }
             Debug.Log(vals);
-            FindStrongestMatch(success_values);
+            string strongest_match = FindStrongestMatch(success_values, context);
+            onComplete.Invoke(strongest_match);
         }, 
         error => {
             errorOutput = error;
-            Debug.Log("Error! " + errorOutput);
-
+            Debug.Log("Error calling the Sentence Similarity API! " + errorOutput);
+            onComplete.Invoke(null);
         },
-        inputs.ToArray());
+        context);
     }
 
-    public void FindStrongestMatch(float[] similarity_scores)
+    public string FindStrongestMatch(float[] similarity_scores, string[] context)
     {
         // Check just in case
-        if (similarity_scores.Length !=  inputs.Count)
+        if (similarity_scores.Length != context.Length)
         {
             Debug.LogError("Number of input commands and similarity rankings do not match!!");
-            return;
+            return "";
         }
 
         float current_max = float.NegativeInfinity;
@@ -51,19 +57,21 @@ public class SentenceSimilarity : MonoBehaviour
             if(similarity_scores[i] > current_max)
             {
                 current_max = similarity_scores[i];
-                most_similar_command = inputs[i];
+                most_similar_command = context[i];
             }
         }
 
         if (current_max > similarityThreshold)
         {
             // Do the command
-            voiceAction.ManipulateObject(most_similar_command);
+            
             Debug.Log("Successfully performed action.");
+            return most_similar_command;
         }
         else
         {
             Debug.LogWarning("Unrecognizable command. Not similar enough to any known commands.");
+            return null;
         }
     }
 }

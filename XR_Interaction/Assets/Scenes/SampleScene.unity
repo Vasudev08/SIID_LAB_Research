@@ -286,6 +286,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42938040}
   m_CullTransparentMesh: 1
+--- !u!1 &51216369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51216370}
+  m_Layer: 0
+  m_Name: Play Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &51216370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51216369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06795576, y: 0.5144432, z: 0.67629236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 321520769}
+  - {fileID: 1977103594}
+  - {fileID: 1551787385}
+  - {fileID: 1637553344}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &103192327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,12 +1365,12 @@ Transform:
   m_GameObject: {fileID: 321520768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.263, y: 2.39, z: -0}
-  m_LocalScale: {x: 0.13584496, y: 3.1179833, z: 0.42548}
+  m_LocalPosition: {x: -0.6617867, y: 0.02169615, z: 0.09070766}
+  m_LocalScale: {x: 0.42548, y: 0.42548004, z: 0.42548}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1407944374}
-  m_Father: {fileID: 1637553344}
+  m_Father: {fileID: 51216370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &321520773
 MonoBehaviour:
@@ -3156,6 +3191,7 @@ MonoBehaviour:
   runWhisper: {fileID: 637062758}
   sentenceSimilarity: {fileID: 1048835516}
   voiceAction: {fileID: 1048835513}
+  commandManager: {fileID: 2123164806}
   loudnessThreshold: 0.2
   silenceDuration: 0.25
 --- !u!4 &1048835515
@@ -4185,12 +4221,12 @@ Transform:
   m_GameObject: {fileID: 1551787384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.289, y: 2.89, z: -0.003}
-  m_LocalScale: {x: 0.08794966, y: 2.018666, z: 0.27546716}
+  m_LocalPosition: {x: 1.0671327, y: 0.08992618, z: 0.08770764}
+  m_LocalScale: {x: 0.27546716, y: 0.2754672, z: 0.27546716}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1794289758}
-  m_Father: {fileID: 1637553344}
+  m_Father: {fileID: 51216370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1551787389
 MonoBehaviour:
@@ -4644,15 +4680,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637553340}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.094, y: 0.21, z: 0.767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.16195576, y: -0.30444324, z: 0.09070766}
   m_LocalScale: {x: 3.1321, y: 0.13646, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 321520769}
-  - {fileID: 1977103594}
-  - {fileID: 1551787385}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 51216370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699596680
 GameObject:
@@ -6190,12 +6223,12 @@ Transform:
   m_GameObject: {fileID: 1977103593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.006, y: 2.04, z: 0.008}
-  m_LocalScale: {x: 0.116225384, y: 2.6676645, z: 0.3640295}
+  m_LocalPosition: {x: 0.18074836, y: -0.026064843, z: 0.098707676}
+  m_LocalScale: {x: 0.36402953, y: 0.36402953, z: 0.3640295}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1780847004}
-  m_Father: {fileID: 1637553344}
+  m_Father: {fileID: 51216370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1977103598
 MonoBehaviour:
@@ -6736,13 +6769,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068694313}
   m_CullTransparentMesh: 1
+--- !u!1 &2123164805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2123164807}
+  - component: {fileID: 2123164806}
+  m_Layer: 0
+  m_Name: Command Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2123164806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123164805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed52f16988b42b4dbdecdcfd0c9dcaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandDefinitions:
+  - referencePhrase: Rotate blue cube.
+    synonyms:
+    - Turn blue cube.
+    - Turn blue cube around.
+    targetObject: {fileID: 1977103593}
+    defaultValue: 45
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1048835513}
+          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
+          m_MethodName: RotateObject
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  sentenceSimilarity: {fileID: 1048835516}
+--- !u!4 &2123164807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123164805}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06795576, y: 0.5144432, z: 0.67629236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 861947024}
-  - {fileID: 1637553344}
+  - {fileID: 51216370}
   - {fileID: 2066497820}
   - {fileID: 1306588082}
   - {fileID: 1221850456}
@@ -6755,3 +6855,4 @@ SceneRoots:
   - {fileID: 131729413}
   - {fileID: 970350247}
   - {fileID: 637062757}
+  - {fileID: 2123164807}

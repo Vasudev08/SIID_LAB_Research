@@ -97,6 +97,7 @@ public class VoiceRecognition : MonoBehaviour
     public RunWhisper runWhisper;
     public SentenceSimilarity sentenceSimilarity;
     public VoiceAction voiceAction;
+    public CommandManager commandManager;
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
     
@@ -293,7 +294,6 @@ public class VoiceRecognition : MonoBehaviour
             inputText.color = Color.white;
             inputText.text = response;
             recognizedSpeech = response;
-            voiceAction.ManipulateObject(recognizedSpeech);
             startButton.interactable = true;
         }, error => {
             inputText.color = Color.red;
@@ -371,7 +371,23 @@ public class VoiceRecognition : MonoBehaviour
 
     public void OnTranscriptionSuccess()
     {
-        sentenceSimilarity.CompareInput(recognizedSpeech);
+        commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command, value) =>{
+            if (!success || matched_command == null)
+            {
+                // No match found
+                return;
+            }
+
+            // We have a matched command. Let's invoke it:
+            if (matched_command.invokeFunction != null)
+            {
+                matched_command.invokeFunction.Invoke(matched_command.targetObject, value);
+            }
+            else
+            {
+                Debug.LogWarning($"Matched command {matched_command.referencePhrase} has no action assigned!");
+            }
+        });
     }
 
 }
