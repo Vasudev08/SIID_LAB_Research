@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using HuggingFace.API;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class SentenceSimilarity : MonoBehaviour
 {
+    [Description("Similarity threshold that the most similar command must be above to be recognized as valid.")]
     [Range(0, 1)]
     public float similarityThreshold = 0.6f;
 
@@ -64,8 +66,7 @@ public class SentenceSimilarity : MonoBehaviour
         if (current_max > similarityThreshold)
         {
             // Do the command
-            
-            Debug.Log("Successfully performed action.");
+            Debug.Log($"Recognized command {most_similar_command}.");
             return most_similar_command;
         }
         else

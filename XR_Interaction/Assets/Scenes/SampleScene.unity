@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &2395495
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000012278557
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310814, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581203047926310815, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
+      propertyPath: m_Name
+      value: House1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2f31c755d56a1f04c99079c171333c33, type: 3}
 --- !u!1 &13373600
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +367,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51216369}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06795576, y: 0.5144432, z: 0.67629236}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.31644103, y: -0.66696876, z: -0.0422287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -319,7 +376,7 @@ Transform:
   - {fileID: 1977103594}
   - {fileID: 1551787385}
   - {fileID: 1637553344}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &103192327
 GameObject:
@@ -1671,6 +1728,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332889703}
   m_CullTransparentMesh: 1
+--- !u!1 &346827012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346827013}
+  m_Layer: 0
+  m_Name: Primitive Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346827013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346827012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.24848527, y: 1.2, z: 0.71852106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 861947024}
+  - {fileID: 51216370}
+  - {fileID: 357597860}
+  - {fileID: 1474271159}
+  - {fileID: 1702083251}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357597855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,18 +1874,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357597855}
   m_LocalRotation: {x: -0, y: -0.28649917, z: -0, w: 0.9580805}
-  m_LocalPosition: {x: 0, y: 0, z: 1.867}
+  m_LocalPosition: {x: 0, y: 0, z: 1.148479}
   m_LocalScale: {x: 0.019771349, y: 0.013932811, z: 0.013932811}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1835004255}
   - {fileID: 1985348019}
   - {fileID: 1530746942}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: -33.297, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.108, y: 1.291}
+  m_AnchoredPosition: {x: -1.3564854, y: 0.09099984}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &438700667
@@ -2440,12 +2533,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861947020}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24848527, y: -1.181412, z: -0.71852106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &890077741
 GameObject:
@@ -2488,6 +2581,99 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.9527167, y: 0.9586568, z: -1.2454224}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &969424348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 969424351}
+  - component: {fileID: 969424350}
+  - component: {fileID: 969424349}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!154 &969424349
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969424348}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: b688142bcefebb2438e562099215dbdd, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &969424350
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969424348}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: b688142bcefebb2438e562099215dbdd, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMinimumLODSimplification: 0
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
+--- !u!4 &969424351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969424348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -467.3, y: 0, z: -466.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3168,10 +3354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d867c18b824af3240a24fa270d4b05ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 1780847004}
-  defaultRotationDegrees: 45
-  defaultTranslationDistance: 1
-  defaultScaleFactor: 1
+  chooseCommandMessage: 'Please give a command for one of the three transformations:
+    rotate, scale, translate'
 --- !u!114 &1048835514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3221,12 +3405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fdd7e444d8026498a826a0b352caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputs:
-  - Move the blue cube.
-  - Rotate the blue cube.
-  - Scale the green cylinder.
-  similarityThreshold: 0.6
-  voiceAction: {fileID: 1048835513}
+  similarityThreshold: 0.873
 --- !u!1 &1189700742
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,16 +4199,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474271158}
   m_LocalRotation: {x: -0, y: 0.35075375, z: -0, w: 0.9364678}
-  m_LocalPosition: {x: 0, y: 0, z: 0.621}
-  m_LocalScale: {x: 0.005482278, y: 0.005482278, z: 0.005482278}
+  m_LocalPosition: {x: 0, y: 0, z: -0.09752107}
+  m_LocalScale: {x: 0.0054822783, y: 0.005482278, z: 0.0054822783}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1336677614}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: 41.067, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.183, y: 0.822}
+  m_AnchoredPosition: {x: 1.9345148, y: -0.37800002}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1474271160
@@ -4903,12 +5082,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702083248}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24848527, y: -1.2, z: -0.71852106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1711016276
 GameObject:
@@ -6799,10 +6978,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandDefinitions:
-  - referencePhrase: Rotate blue cube.
+  - referencePhrase: Rotate blue cube
     synonyms:
-    - Turn blue cube.
-    - Turn blue cube around.
+    - Turn blue cube
+    - Turn blue cube around
     targetObject: {fileID: 1977103593}
     defaultValue: 45
     invokeFunction:
@@ -6811,6 +6990,27 @@ MonoBehaviour:
         - m_Target: {fileID: 1048835513}
           m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
           m_MethodName: RotateObject
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - referencePhrase: Move blue cube
+    synonyms:
+    - Translate blue cube
+    - Push blue cube
+    targetObject: {fileID: 1977103593}
+    defaultValue: 0.5
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1048835513}
+          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
+          m_MethodName: TranslateObject
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6841,18 +7041,16 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
-  - {fileID: 861947024}
-  - {fileID: 51216370}
+  - {fileID: 346827013}
+  - {fileID: 2395495}
   - {fileID: 2066497820}
   - {fileID: 1306588082}
   - {fileID: 1221850456}
   - {fileID: 312096535}
-  - {fileID: 357597860}
-  - {fileID: 1474271159}
-  - {fileID: 1702083251}
   - {fileID: 1048835515}
   - {fileID: 890077743}
   - {fileID: 131729413}
   - {fileID: 970350247}
   - {fileID: 637062757}
   - {fileID: 2123164807}
+  - {fileID: 969424351}

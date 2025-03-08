@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class CommandManager : MonoBehaviour
 {
-    [Header("Known Commands")]
+    [Description("Known Commands")]
     public List<CommandDefinition> commandDefinitions;
     public SentenceSimilarity sentenceSimilarity;
 
@@ -37,9 +38,6 @@ public class CommandManager : MonoBehaviour
             {
                 Debug.LogWarning(String.Format("You have duplicates of the same command: {0}! Please fix, each command must be unique.", command.referencePhrase));
             }
-            
-            
-
         }
 
     }
