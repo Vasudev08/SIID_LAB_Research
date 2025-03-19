@@ -121,7 +121,17 @@ public class VoiceRecognition : MonoBehaviour
     #endregion
 
     private string recognizedSpeech;
+    void Awake()
+    {
+        // Preallocate a reusable sample buffer.
+        // We assume a maximum chunk size (for example, 1024 samples per channel (8 = max number of channels)).
+        sampleBuffer = new float[1024 * 8];
 
+        // Allocate a circular buffer for speech data.
+        // Here, we allocate enough space for 10 seconds of audio.
+        int maxSpeechSamples = sampleRate * 8 * 10;
+        circularBuffer = new CircularBuffer(maxSpeechSamples);
+    }
     private void Start()
     {
         // WebRTC initialization if needed
@@ -144,23 +154,26 @@ public class VoiceRecognition : MonoBehaviour
             return;
         }
 
+        // StartCoroutine(InitializaMicrophone());
+
         // **** Starting Mic Input *****
         clip = Microphone.Start(micDevice, true, 10, sampleRate);
-        while (Microphone.GetPosition(micDevice) <= 0) { } // Controls latency. 0 means no latency.
+        while (Microphone.GetPosition(micDevice) <= 0) {  } // Controls latency. 0 means no latency.
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
         inputText.text = "Listening...";
-
-        // Preallocate a reusable sample buffer.
-        // We assume a maximum chunk size (for example, 1024 samples per channel).
-        sampleBuffer = new float[1024 * clip.channels];
-
-        // Allocate a circular buffer for speech data.
-        // Here, we allocate enough space for 10 seconds of audio.
-        int maxSpeechSamples = sampleRate * clip.channels * 10;
-        circularBuffer = new CircularBuffer(maxSpeechSamples);
         
+    }
+    private IEnumerator InitializaMicrophone()
+    {
+        // **** Starting Mic Input *****
+        clip = Microphone.Start(micDevice, true, 10, sampleRate);
+        while (Microphone.GetPosition(micDevice) <= 0) { yield return null; } // Controls latency. 0 means no latency.
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
+        inputText.text = "Listening...";
     }
 
     private void Update() 
@@ -195,7 +208,11 @@ public class VoiceRecognition : MonoBehaviour
             */
 
             int sampleCount = clip.channels * sampleDiff;
-
+            if (sampleCount > sampleBuffer.Length)
+            {
+                Debug.LogWarning("Sample count exceeds buffer size, truncating!");
+                sampleCount = sampleBuffer.Length;
+            }
             clip.GetData(sampleBuffer, lastSamplePosition);
             lastSamplePosition = currentPosition;
 
