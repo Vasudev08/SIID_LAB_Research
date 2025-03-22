@@ -101,15 +101,17 @@ public class VoiceRecognition : MonoBehaviour
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
     
+
     #region Microphone Input Variables
     private string micDevice;
     private int sampleRate = 16000;
     private AudioClip clip;
     private byte[] wavData;
+    private bool isListening = false; // check if user has started voice interaction
     #endregion
     
+    
     #region Voice Detection Variables
-    private List<float> speechBuffer = new List<float>(); // Buffer to store audio samples above threshold.
     private float silenceTimer = 0f; // Amount of time elapsed after last audio sample above threshold.
     private int lastSamplePosition = 0; // Last sample position in the audio clip.
     private int currentPosition; // Current sample position in the audio clip.
@@ -139,7 +141,7 @@ public class VoiceRecognition : MonoBehaviour
         VAD.OperatingMode = OperatingMode.VeryAggressive;
 
         recognizedSpeech = "";
-        inputText.text = "Initializing...";
+        inputText.text = "Press the Start button to start voice interaction.";
         isRecording = false;
         
         // Debug block checking if there are enough microphone devices
@@ -153,33 +155,15 @@ public class VoiceRecognition : MonoBehaviour
             Debug.LogError("No microphone detected!");
             return;
         }
-
-        // StartCoroutine(InitializaMicrophone());
-
-        // **** Starting Mic Input *****
-        clip = Microphone.Start(micDevice, true, 10, sampleRate);
-        while (Microphone.GetPosition(micDevice) <= 0) {  } // Controls latency. 0 means no latency.
-        audioSource.clip = clip;
         audioSource.loop = true;
-        audioSource.Play();
-        inputText.text = "Listening...";
         
     }
-    private IEnumerator InitializaMicrophone()
-    {
-        // **** Starting Mic Input *****
-        clip = Microphone.Start(micDevice, true, 10, sampleRate);
-        while (Microphone.GetPosition(micDevice) <= 0) { yield return null; } // Controls latency. 0 means no latency.
-        audioSource.clip = clip;
-        audioSource.loop = true;
-        audioSource.Play();
-        inputText.text = "Listening...";
-    }
+   
 
     private void Update() 
     {   
         // If the microphone is not recording, return
-        if (clip == null || !Microphone.IsRecording(micDevice)) 
+        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening) 
         {
             return;
         }
@@ -198,19 +182,10 @@ public class VoiceRecognition : MonoBehaviour
 
         if (sampleDiff > 0)
         {
-            /* **** OLD CODE ****
-            float[] samples = new float[sampleDiff * clip.channels];
-            clip.GetData(samples, lastSamplePosition);
-            lastSamplePosition = currentPosition;
-
-            // Check if the audio samples are above the threshold
-            ProcessSamples(samples);
-            */
-
             int sampleCount = clip.channels * sampleDiff;
             if (sampleCount > sampleBuffer.Length)
             {
-                Debug.LogWarning("Sample count exceeds buffer size, truncating!");
+                Debug.Log("Sample count exceeds buffer size, truncating!");
                 sampleCount = sampleBuffer.Length;
             }
             clip.GetData(sampleBuffer, lastSamplePosition);
@@ -237,8 +212,6 @@ public class VoiceRecognition : MonoBehaviour
         }
         else if (isRecording)
         {
-            
-            //speechBuffer.AddRange(samples);
             silenceTimer += Time.deltaTime;
 
             if (silenceTimer >= silenceDuration)
@@ -259,96 +232,26 @@ public class VoiceRecognition : MonoBehaviour
     }
 
 
-    /*
-    private void StartRecording()
+    
+    public void StartRecording()
     {
-        if (string.IsNullOrEmpty(micDevice))
-        {
-            Debug.LogError("No microphone available!");
-            return;
-        }
-
-        inputText.color = Color.white;
-        inputText.text = "Recording...";
-        startButton.interactable = false;
-        stopButton.interactable = true;
-
-        clip = Microphone.Start(micDevice, false, 10, 44100);
+        // **** Starting Mic Input *****
+        clip = Microphone.Start(micDevice, true, 10, sampleRate);
+        while (Microphone.GetPosition(micDevice) <= 0) {  } // Controls latency. 0 means no latency.
         audioSource.clip = clip;
-        audioSource.loop = true;
-        recording = true;
         
-        while (!(Microphone.GetPosition(micDevice) > 0)){}
-        // Now that mic has data, start playback
         audioSource.Play();
+        inputText.text = "Listening...";
+        isListening = true;
        
     }
-    */
-
-    /*
-    private void StopRecording()
+    
+    public void StopRecording()
     {
-       
-        var position = Microphone.GetPosition(micDevice);
+        inputText.text = "Press the Start button to start voice interaction.";
         Microphone.End(micDevice);
         audioSource.Stop();
-        var samples = new float[position * clip.channels];
-        clip.GetData(samples, 0);
-        wavData = EncodeAsWAV(samples, clip.frequency, clip.channels);
-        recording = false;
-        
-        SendRecording();
-    }
-
-    */
-
-    private void SendRecording() {
-        inputText.color = Color.yellow;
-        inputText.text = "Sending...";
-        stopButton.interactable = false;
-        
-        HuggingFaceAPI.AutomaticSpeechRecognition(wavData, response => {
-            inputText.color = Color.white;
-            inputText.text = response;
-            recognizedSpeech = response;
-            startButton.interactable = true;
-        }, error => {
-            inputText.color = Color.red;
-            inputText.text = error;
-            recognizedSpeech = "error";
-            startButton.interactable = true;
-        });
-    }
-
-
-    /// <summary>
-    /// Placeholder method for encoding audio samples as WAV.
-    /// Replace with your actual implementation.
-    /// </summary>
-    private byte[] EncodeAsWAV(float[] samples, int frequency, int channels) 
-    {
-        using (var memoryStream = new MemoryStream(44 + samples.Length * 2)) {
-            using (var writer = new BinaryWriter(memoryStream)) {
-                writer.Write("RIFF".ToCharArray());
-                writer.Write(36 + samples.Length * 2);
-                writer.Write("WAVE".ToCharArray());
-                writer.Write("fmt ".ToCharArray());
-                writer.Write(16);
-                writer.Write((ushort)1);
-                writer.Write((ushort)channels);
-                writer.Write(frequency);
-                writer.Write(frequency * channels * 2);
-                writer.Write((ushort)(channels * 2));
-                writer.Write((ushort)16);
-                writer.Write("data".ToCharArray());
-                writer.Write(samples.Length * 2);
-
-                foreach (var sample in samples) {
-                    writer.Write((short)(sample * short.MaxValue));
-                }
-            }
-            return memoryStream.ToArray();
-        }
+        isListening = false;
     }
 
     /// <summary>

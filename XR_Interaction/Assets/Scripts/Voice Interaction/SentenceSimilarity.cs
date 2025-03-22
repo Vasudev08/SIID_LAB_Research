@@ -31,7 +31,7 @@ public class SentenceSimilarity : MonoBehaviour
             {
                 vals += val + " ";
             }
-            Debug.Log(vals);
+            
             string strongest_match = FindStrongestMatch(success_values, context);
             onComplete.Invoke(strongest_match);
         }, 
