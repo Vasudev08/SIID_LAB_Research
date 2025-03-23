@@ -12,6 +12,7 @@ public class MixedOrbitandZoom : MonoBehaviour
     public float zoomOutDuration = 1.0f;
     public float orbitDuration   = 1.0f;
     public float zoomInDuration  = 1.0f;
+    public float rotateSpeed = 10f;
 
     // Public entry point for external scripts:
     public void TransitionToViewpoint(Viewpoint target_viewpoint)
@@ -21,15 +22,12 @@ public class MixedOrbitandZoom : MonoBehaviour
 
     private IEnumerator MixedOrbitAndZoomRoutine(Viewpoint from_viewpoint, Viewpoint target_viewpoint)
     {
-        // 1) Find the LCA between from_viewpoint and target_viewpoint
         Viewpoint lca = FindLeastCommonAncestor(from_viewpoint, target_viewpoint);
 
-        // 2) Zoom Out to LCA vantage point
+        
         yield return StartCoroutine(ZoomOutPhase(lca));
 
-        // 3) Orbit around LCA (or around the ultimate target’s pivot)
-        //    Use whichever pivot or position you prefer for “constant distance” orbit
-        //yield return StartCoroutine(OrbitPhase(target_viewpoint.pivot, orbitDuration));
+        yield return StartCoroutine(OrbitPhase(target_viewpoint));
 
         // 4) Zoom In to the target viewpoint
        //yield return StartCoroutine(ZoomInPhase(target_viewpoint));
@@ -65,6 +63,33 @@ public class MixedOrbitandZoom : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private IEnumerator OrbitPhase(Viewpoint target_viewpoint)
+    {
+        Quaternion start_rotation = userCamera.rotation;
+
+        Vector3 start_position = userCamera.position;
+        float radius = Vector3.Distance(userCamera.position, target_viewpoint.pivot.localPosition);
+        Vector3 direction_to_look = (target_viewpoint.pivot.position - userCamera.position).normalized; // view direction the camera needs to match to
+        Quaternion end_rotation = Quaternion.identity;
+
+        Vector3 end_position = target_viewpoint.pivot.position + (target_viewpoint.pivot.forward * radius);
+
+        float elapsed_time = 0f;
+        Debug.Log(Quaternion.Dot(userCamera.rotation, end_rotation));
+        while (elapsed_time < orbitDuration)
+        {   
+            elapsed_time += Time.deltaTime;
+            
+            float t = Mathf.Clamp01(elapsed_time / orbitDuration);
+            userCamera.position   = Vector3.Slerp(start_position, end_position, t);
+            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
+            yield return null;
+           
+        }
+        Debug.Log("Finished orbit for: " + target_viewpoint.name);
+        
     }
 
     private Viewpoint FindLeastCommonAncestor(Viewpoint current_viewpoint, Viewpoint target_viewpoint)
