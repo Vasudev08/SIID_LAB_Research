@@ -27,12 +27,8 @@ public class MixedOrbitandZoom : MonoBehaviour
 
         Viewpoint lca = FindLeastCommonAncestor(from_viewpoint, target_viewpoint);
 
-        
         yield return StartCoroutine(ZoomOutPhase(lca));
 
-        yield return StartCoroutine(OrbitPhase(lca, target_viewpoint));
-
-        // 4) Zoom In to the target viewpoint
         yield return StartCoroutine(ZoomInPhase(target_viewpoint));
 
         // Update current viewpoint reference
@@ -42,36 +38,41 @@ public class MixedOrbitandZoom : MonoBehaviour
 
     private IEnumerator ZoomOutPhase(Viewpoint lca)
     {
+        if (userViewpoint == lca)
+        {
+            Debug.Log("Can't zoom out more already in the LCA");
+            yield break;
+        }
         Vector3 start_scale = modelRoot.localScale;
         Vector3 target_scale = Vector3.one * lca.levelOfScale;
 
         Vector3 start_position = userCamera.position;
         Quaternion start_rotation = userCamera.rotation;
 
-        // Get radius of the circular arc that the LCA LoS is at. This is based on where the intended position of the camera at the LoS is at.
-        float distance = Vector3.Distance(lca.pivot.localPosition, lca.pivot.localPosition + lca.cameraOffsetPosition);
-        Vector3 direction_to_camera = (userCamera.position - lca.pivot.position).normalized;
-        Debug.Log("Zoom out distance: " + distance);
         
-        Vector3 vantage_position = lca.pivot.position + direction_to_camera * distance;
-        Vector3 x = userCamera.position - lca.pivot.position;
-        Debug.Log("Vantage Point: " + x +  " " + lca.pivot.position + " " + userCamera.position + " " + vantage_position);
-        Quaternion vantage_rotation = lca.cameraOffsetRotation;
+        Vector3 lca_offset_position = lca.pivot.position + lca.cameraOffsetPosition; // Pre set offset position at the LCA. So where we want the camera to be when we want to transition to that LCA
+        float distance_to_lca_offset = Vector3.Distance(lca.pivot.position, lca_offset_position); // Distance to that offset position from the LCA's pivot
+        Vector3 direction_to_lca_offset = (lca_offset_position - lca.pivot.position).normalized; // Direction to that offset position from the LCA's pivot
+
+       
         float elapsed_time = 0f;
         
         while (elapsed_time < zoomOutDuration)
         {
             elapsed_time += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed_time / zoomOutDuration);
+            
 
             // Scale model
             modelRoot.localScale = Vector3.Lerp(start_scale, target_scale, t);
 
-            // Move camera
+            Vector3 vantage_position = lca.pivot.position + direction_to_lca_offset * distance_to_lca_offset;
+            // Move camera and zoom out towards the intedned offset position
             userCamera.position = Vector3.Lerp(start_position, vantage_position, t);
 
             // Rotate camera
-            // userCamera.rotation = Quaternion.Slerp(start_rotation, vantage_rotation, t);
+            Quaternion end_rotation = Quaternion.LookRotation((lca.pivot.position - userCamera.position), Vector3.up);
+            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
 
             yield return null;
         }
@@ -115,6 +116,11 @@ public class MixedOrbitandZoom : MonoBehaviour
 
     private IEnumerator ZoomInPhase(Viewpoint target_viewpoint)
     {
+        if (userViewpoint == target_viewpoint)
+        {
+            Debug.Log("Can't zoom in more already in the LCA");
+            yield break;
+        }
         Vector3 start_scale = modelRoot.localScale;
         Vector3 start_position = userCamera.position;
         Quaternion start_rotation = userCamera.rotation;
@@ -123,19 +129,18 @@ public class MixedOrbitandZoom : MonoBehaviour
         Vector3 end_scale = Vector3.one * target_viewpoint.levelOfScale;
         Quaternion end_rotation = target_viewpoint.cameraOffsetRotation;
 
-
+        Vector3 target_viewpoint_offset_position = target_viewpoint.pivot.position + target_viewpoint.cameraOffsetPosition; // Pre set offset position at the target_viewpoint. So where we want the camera to be when we want to transition to that target_viewpoint
+        float distance_to_target_viewpoint_offset = Vector3.Distance(target_viewpoint.pivot.position, target_viewpoint_offset_position); // Distance to that offset position from the target_viewpoint's pivot
+        Vector3 direction_to_target_viewpoint_offset = (target_viewpoint_offset_position - target_viewpoint.pivot.position).normalized; // Direction to that offset position from the target_viewpoint's pivot
 
         float elapsed_time = 0f;
         while (elapsed_time < zoomInDuration)
         {
-            Vector3 new_camera_offset_position = target_viewpoint.pivot.TransformPoint(target_viewpoint.cameraOffsetPosition);
-            Debug.Log(new_camera_offset_position);
-            new_camera_offset_position = new_camera_offset_position - target_viewpoint.pivot.position;
-            Vector3 end_position = target_viewpoint.pivot.position + new_camera_offset_position;
-
             elapsed_time += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed_time / zoomInDuration);
             modelRoot.localScale = Vector3.Lerp(start_scale, end_scale, t);
+            
+            Vector3 end_position = target_viewpoint.pivot.position + direction_to_target_viewpoint_offset * distance_to_target_viewpoint_offset;
             userCamera.position = Vector3.Lerp(start_position, end_position, t);
             userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
             yield return null;
