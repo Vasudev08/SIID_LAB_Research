@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class MixedOrbitandZoom : MonoBehaviour
+public class ViewpointTransitionController : MonoBehaviour
 {
     public Transform userCamera;
     public Transform modelRoot;
@@ -54,6 +54,8 @@ public class MixedOrbitandZoom : MonoBehaviour
         float distance_to_lca_offset = Vector3.Distance(lca.pivot.position, lca_offset_position); // Distance to that offset position from the LCA's pivot
         Vector3 direction_to_lca_offset = (lca_offset_position - lca.pivot.position).normalized; // Direction to that offset position from the LCA's pivot
 
+
+        Quaternion end_rotation = Quaternion.identity;
        
         float elapsed_time = 0f;
         
@@ -64,18 +66,22 @@ public class MixedOrbitandZoom : MonoBehaviour
             
 
             // Scale model
-            modelRoot.localScale = Vector3.Lerp(start_scale, target_scale, t);
+            modelRoot.localScale = Vector3.Lerp(start_scale, target_scale, t );
+
+            // Rotate camera
+            
+            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
 
             Vector3 vantage_position = lca.pivot.position + direction_to_lca_offset * distance_to_lca_offset;
             // Move camera and zoom out towards the intedned offset position
             userCamera.position = Vector3.Lerp(start_position, vantage_position, t);
 
-            // Rotate camera
-            Quaternion end_rotation = Quaternion.LookRotation((lca.pivot.position - userCamera.position), Vector3.up);
-            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
+            
 
             yield return null;
         }
+        userCamera.position = lca.pivot.position + direction_to_lca_offset * distance_to_lca_offset;
+        userCamera.rotation = Quaternion.LookRotation((lca.pivot.position - userCamera.position), Vector3.up);
         Debug.Log("Finished Zoom out for: " + userViewpoint);
     }
 
@@ -138,14 +144,17 @@ public class MixedOrbitandZoom : MonoBehaviour
         {
             elapsed_time += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed_time / zoomInDuration);
-            modelRoot.localScale = Vector3.Lerp(start_scale, end_scale, t);
-            
+            modelRoot.localScale = Vector3.Lerp(start_scale, end_scale, t );
+
+            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
+
             Vector3 end_position = target_viewpoint.pivot.position + direction_to_target_viewpoint_offset * distance_to_target_viewpoint_offset;
             userCamera.position = Vector3.Lerp(start_position, end_position, t);
-            userCamera.rotation = Quaternion.Slerp(start_rotation, end_rotation, t);
+            
             yield return null;
         }
-
+        userCamera.position = target_viewpoint.pivot.position + direction_to_target_viewpoint_offset * distance_to_target_viewpoint_offset;
+        userCamera.rotation = target_viewpoint.cameraOffsetRotation;
         Debug.Log("Finished zooming in for target: " + target_viewpoint.name);
     }
 

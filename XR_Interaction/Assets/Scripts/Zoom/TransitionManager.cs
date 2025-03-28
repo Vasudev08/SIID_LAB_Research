@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TransitionManager : MonoBehaviour
 {
-    public MixedOrbitandZoom mixedOrbitAndZoom;
+    public ViewpointTransitionController mixedOrbitAndZoom;
     public Viewpoint startingViewpoint;
     public Viewpoint nextViewpoint;
 
