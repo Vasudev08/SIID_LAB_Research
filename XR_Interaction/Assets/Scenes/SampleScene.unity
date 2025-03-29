@@ -454,6 +454,11 @@ Transform:
   - {fileID: 1637553344}
   m_Father: {fileID: 346827013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &90588324 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6652725513331149018, guid: b551850e79e339d479269f3c52025aef, type: 3}
+  m_PrefabInstance: {fileID: 196767103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &103192327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,9 +1206,10 @@ MonoBehaviour:
   parent: {fileID: 329042513}
   button: {fileID: 104195390}
   childrenViewpoints: []
+  modelRenderer: {fileID: 1063597381}
   levelOfScale: 12.5
   pivot: {fileID: 226970137}
-  cameraOffsetPosition: {x: 0, y: 0, z: 0}
+  cameraOffsetPosition: {x: 0, y: 0, z: -2.5}
   cameraOffsetRotation: {x: 0, y: 0.17364818, z: 0, w: 0.9848077}
 --- !u!4 &226970137
 Transform:
@@ -1214,7 +1220,7 @@ Transform:
   m_GameObject: {fileID: 226970135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 11.1, z: 15.1}
+  m_LocalPosition: {x: -6.9, y: 11.1, z: 15.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2436,6 +2442,7 @@ MonoBehaviour:
   - {fileID: 1577236666}
   - {fileID: 1893246366}
   - {fileID: 226970136}
+  modelRenderer: {fileID: 0}
   levelOfScale: 4
   pivot: {fileID: 329042512}
   cameraOffsetPosition: {x: 0, y: 0, z: -2.5}
@@ -3548,6 +3555,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6445537640210706534, guid: 26d160590c290d6479ff3ef9ccfa6ab8, type: 3}
   m_PrefabInstance: {fileID: 531067538}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &549867031 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7314739234025689934, guid: b551850e79e339d479269f3c52025aef, type: 3}
+  m_PrefabInstance: {fileID: 196767103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &560488847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4572,9 +4584,10 @@ MonoBehaviour:
   parent: {fileID: 329042513}
   button: {fileID: 1381416367}
   childrenViewpoints: []
+  modelRenderer: {fileID: 972787923}
   levelOfScale: 12.5
   pivot: {fileID: 949359261}
-  cameraOffsetPosition: {x: 0, y: 0, z: 0}
+  cameraOffsetPosition: {x: 0, y: 0, z: -2.5}
   cameraOffsetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &969424348
 GameObject:
@@ -4863,6 +4876,11 @@ MonoBehaviour:
 --- !u!4 &972787922 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8838867995417835251, guid: b551850e79e339d479269f3c52025aef, type: 3}
+  m_PrefabInstance: {fileID: 196767103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &972787923 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -652153338537307377, guid: b551850e79e339d479269f3c52025aef, type: 3}
   m_PrefabInstance: {fileID: 196767103}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &998708329
@@ -5660,6 +5678,16 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6445537640210706534, guid: 26d160590c290d6479ff3ef9ccfa6ab8, type: 3}
   m_PrefabInstance: {fileID: 1057361937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1063597381 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7072803761481211958, guid: b551850e79e339d479269f3c52025aef, type: 3}
+  m_PrefabInstance: {fileID: 196767103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1141019765 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4898907090667641323, guid: b551850e79e339d479269f3c52025aef, type: 3}
+  m_PrefabInstance: {fileID: 196767103}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1189700742
 GameObject:
@@ -6578,6 +6606,7 @@ MonoBehaviour:
   button: {fileID: 21621530}
   childrenViewpoints:
   - {fileID: 329042513}
+  modelRenderer: {fileID: 90588324}
   levelOfScale: 1
   pivot: {fileID: 1345837712}
   cameraOffsetPosition: {x: 0, y: 0, z: -5}
@@ -8146,9 +8175,10 @@ MonoBehaviour:
   parent: {fileID: 329042513}
   button: {fileID: 464732355}
   childrenViewpoints: []
+  modelRenderer: {fileID: 1141019765}
   levelOfScale: 12.5
   pivot: {fileID: 1577236667}
-  cameraOffsetPosition: {x: 0, y: 0, z: 0}
+  cameraOffsetPosition: {x: 0, y: 0, z: -2.5}
   cameraOffsetRotation: {x: 0, y: -0.1305262, z: 0, w: 0.9914449}
 --- !u!4 &1577236667
 Transform:
@@ -10307,7 +10337,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1860691013}
   - component: {fileID: 1860691012}
-  - component: {fileID: 1860691011}
   m_Layer: 0
   m_Name: Viewpoint Manager
   m_TagString: Untagged
@@ -10315,21 +10344,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1860691011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860691010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc1a29dd9549bf4ba206234619d413d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixedOrbitAndZoom: {fileID: 1860691012}
-  startingViewpoint: {fileID: 1345837711}
-  nextViewpoint: {fileID: 329042513}
 --- !u!114 &1860691012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10345,6 +10359,7 @@ MonoBehaviour:
   userCamera: {fileID: 1221850456}
   modelRoot: {fileID: 2032849184}
   userViewpoint: {fileID: 1345837711}
+  clippingBoxManager: {fileID: 2032849185}
   zoomOutDuration: 2
   orbitDuration: 2
   zoomInDuration: 2
@@ -10410,9 +10425,10 @@ MonoBehaviour:
   parent: {fileID: 329042513}
   button: {fileID: 1581625598}
   childrenViewpoints: []
+  modelRenderer: {fileID: 549867031}
   levelOfScale: 12.5
   pivot: {fileID: 1893246365}
-  cameraOffsetPosition: {x: 0, y: 0, z: 0}
+  cameraOffsetPosition: {x: 0, y: 0, z: -2.5}
   cameraOffsetRotation: {x: 0, y: -0.17364818, z: 0, w: 0.9848077}
 --- !u!1 &1915065636
 GameObject:
@@ -11013,7 +11029,7 @@ GameObject:
   - component: {fileID: 2032849184}
   - component: {fileID: 2032849185}
   m_Layer: 0
-  m_Name: Human Model
+  m_Name: Human Model Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11036,51 +11052,24 @@ Transform:
   - {fileID: 1476456337}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &2032849185
-MeshRenderer:
+--- !u!114 &2032849185
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032849183}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fd9fc24eedc4343a04e9d919572c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userCamera: {fileID: 1022902465}
+  clippingShader: {fileID: 4800000, guid: 5a2f6381e85e56c45a0a5230585ae085, type: 3}
+  clippingBoxSize: 1.5
+  testRend: {fileID: 1141019765}
+  targetViewpoint: {fileID: 1345837711}
+  padding: 1.1
 --- !u!1 &2066497819
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,16 +8,23 @@ public class ViewpointTransitionController : MonoBehaviour
     public Transform userCamera;
     public Transform modelRoot;
     public Viewpoint userViewpoint; // current viewpoint the user is at
+    public ClippingBoxManager clippingBoxManager;
 
     [Header("Transition Timing")]
     public float zoomOutDuration = 1.0f;
     public float orbitDuration   = 1.0f;
     public float zoomInDuration  = 1.0f;
 
-
+    void Start()
+    {
+        userCamera.position = userViewpoint.pivot.position + userViewpoint.cameraOffsetPosition;
+        userCamera.rotation = userViewpoint.cameraOffsetRotation;
+        
+    }
     // Public entry point for external scripts:
     public void TransitionToViewpoint(Viewpoint target_viewpoint)
     {
+        clippingBoxManager.targetViewpoint = target_viewpoint;
         target_viewpoint.button.interactable = false;
         StartCoroutine(MixedOrbitAndZoomRoutine(userViewpoint, target_viewpoint));
     }

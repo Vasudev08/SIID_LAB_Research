@@ -7,6 +7,7 @@ public class Viewpoint : MonoBehaviour
     public Viewpoint parent;
     public Button button;
     public List<Viewpoint> childrenViewpoints;
+    public Renderer modelRenderer;
 
     [Header("Transform Data for This Level of Scale")]
     public float levelOfScale = 1f;            // Scale for the entire model at this LoS
