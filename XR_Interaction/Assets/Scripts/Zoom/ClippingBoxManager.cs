@@ -10,12 +10,18 @@ public class ClippingBoxManager : MonoBehaviour
     public Renderer testRend;
     public Viewpoint targetViewpoint;
     public float padding = 1.1f;
+    public float lerpSpeed = 2.0f;
+
 
     private List<Material> clippingMaterials = new List<Material>();
     private Renderer targetRenderer = new Renderer();
+
+    private Vector3 currentCenter;
+    private Vector3 currentExtents;
     
     void Start()
     {
+        
         ApplyClippingMaterials();
     }
 
@@ -90,23 +96,27 @@ public class ClippingBoxManager : MonoBehaviour
             Vector3 center  = targetRenderer.bounds.center;
             Vector3 extents = targetRenderer.bounds.extents * padding;
 
-            foreach (var mat in clippingMaterials)
-            {
-                mat.SetVector("_ClipBoxCenter", center);
-                mat.SetVector("_ClipBoxExtents", extents);
-            }
+            currentCenter = Vector3.Lerp(currentCenter, center, Time.deltaTime * lerpSpeed);
+            currentExtents = Vector3.Lerp(currentExtents, extents, Time.deltaTime * lerpSpeed);
+
+            
         }
         else
         {
-            // Fallback if there’s no targetRenderer
+            // Set center to current viewpoint pivot if there’s no targetRenderer
             Vector3 center  = targetViewpoint.pivot.position;
             Vector3 extents = Vector3.one * clippingBoxSize ;
             
-            foreach (var mat in clippingMaterials)
-            {
-                mat.SetVector("_ClipBoxCenter", center);
-                mat.SetVector("_ClipBoxExtents", extents);
-            }
+            currentCenter = Vector3.Lerp(currentCenter, center, Time.deltaTime * lerpSpeed);
+            currentExtents = Vector3.Lerp(currentExtents, extents, Time.deltaTime * lerpSpeed);
+
+            
+        }
+
+        foreach (var mat in clippingMaterials)
+        {
+            mat.SetVector("_ClipBoxCenter", currentCenter);
+            mat.SetVector("_ClipBoxExtents", currentExtents);
         }
     }
 
@@ -115,20 +125,12 @@ public class ClippingBoxManager : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        if (targetRenderer != null)
-        {
-            // If you want to see the bounding box of the target
-            var bounds = targetRenderer.bounds;
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(bounds.center, bounds.size * padding);
-        }
-        else if (userCamera != null)
-        {
-            // Fallback: draw the userCamera-based box
-            Vector3 center = targetViewpoint.pivot.position;
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(center, Vector3.one * clippingBoxSize * 2);
-        }
+        // If you want to see the bounding box of the target
+        // var bounds = targetRenderer.bounds;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(currentCenter, currentExtents * 2.0f);
+        
+        
     }
     
     // Draws a wireframe box around the selected object,

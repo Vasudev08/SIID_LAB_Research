@@ -7,6 +7,7 @@ public class ViewpointTransitionController : MonoBehaviour
 {
     public Transform userCamera;
     public Transform modelRoot;
+    public Viewpoint modelRootViewpoint;
     public Viewpoint userViewpoint; // current viewpoint the user is at
     public ClippingBoxManager clippingBoxManager;
 
@@ -24,7 +25,7 @@ public class ViewpointTransitionController : MonoBehaviour
     // Public entry point for external scripts:
     public void TransitionToViewpoint(Viewpoint target_viewpoint)
     {
-        clippingBoxManager.targetViewpoint = target_viewpoint;
+        
         target_viewpoint.button.interactable = false;
         StartCoroutine(MixedOrbitAndZoomRoutine(userViewpoint, target_viewpoint));
     }
@@ -45,6 +46,7 @@ public class ViewpointTransitionController : MonoBehaviour
 
     private IEnumerator ZoomOutPhase(Viewpoint lca)
     {
+        clippingBoxManager.targetViewpoint = modelRootViewpoint;
         if (userViewpoint == lca)
         {
             Debug.Log("Can't zoom out more already in the LCA");
@@ -129,6 +131,7 @@ public class ViewpointTransitionController : MonoBehaviour
 
     private IEnumerator ZoomInPhase(Viewpoint target_viewpoint)
     {
+        clippingBoxManager.targetViewpoint = target_viewpoint;
         if (userViewpoint == target_viewpoint)
         {
             Debug.Log("Can't zoom in more already in the LCA");

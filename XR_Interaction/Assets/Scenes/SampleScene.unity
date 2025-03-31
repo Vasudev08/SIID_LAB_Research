@@ -10358,6 +10358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userCamera: {fileID: 1221850456}
   modelRoot: {fileID: 2032849184}
+  modelRootViewpoint: {fileID: 1345837711}
   userViewpoint: {fileID: 1345837711}
   clippingBoxManager: {fileID: 2032849185}
   zoomOutDuration: 2
@@ -11070,6 +11071,7 @@ MonoBehaviour:
   testRend: {fileID: 1141019765}
   targetViewpoint: {fileID: 1345837711}
   padding: 1.1
+  lerpSpeed: 5
 --- !u!1 &2066497819
 GameObject:
   m_ObjectHideFlags: 0
