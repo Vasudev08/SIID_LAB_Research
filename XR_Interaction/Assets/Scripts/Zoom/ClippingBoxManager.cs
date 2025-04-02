@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -5,8 +6,10 @@ using UnityEngine.UIElements;
 public class ClippingBoxManager : MonoBehaviour
 {
     public Transform userCamera;
+    public Viewpoint rootViewpoint;
     public Shader clippingShader; // Shader to not render parts of the model outside of the clipping box
-    public float clippingBoxSize = 3f;
+    public float boundingBoxDistance = 2.0f;
+    public float boundingBoxHalfSize = 3f;
     public Renderer testRend;
     public Viewpoint targetViewpoint;
     public float padding = 1.1f;
@@ -16,23 +19,28 @@ public class ClippingBoxManager : MonoBehaviour
     private List<Material> clippingMaterials = new List<Material>();
     private Renderer targetRenderer = new Renderer();
 
-    private Vector3 currentCenter;
-    private Vector3 currentExtents;
+    [NonSerialized]
+    public Vector3 currentCenter;
+    [NonSerialized]
+    public Vector3 currentExtents;
+
+
     
     void Start()
     {
         
-        ApplyClippingMaterials();
+        SetClippingMaterials();
+        SetBoundingBox();
     }
 
-    // Update is called once per frame
+    /*
     void Update()
     {
-        UpdateClippingBox();
+        UpdateBoundingBox();
     }
+    */
 
-
-    void ApplyClippingMaterials()
+    void SetClippingMaterials()
     {
         foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
         {
@@ -63,7 +71,7 @@ public class ClippingBoxManager : MonoBehaviour
         if (targetRenderer == null)
         {
             Vector3 center = targetViewpoint.pivot.position;
-            Vector3 extents = Vector3.one * clippingBoxSize;
+            Vector3 extents = Vector3.one * boundingBoxHalfSize;
             foreach (var mat in clippingMaterials)
             {
                 mat.SetVector("_ClipBoxCenter", center);
@@ -81,12 +89,26 @@ public class ClippingBoxManager : MonoBehaviour
                 mat.SetVector("_ClipBoxExtents", extents);
             }
         }
-        
+    }
 
+    void SetBoundingBox()
+    {
+        Vector3 center = userCamera.position + Vector3.forward * boundingBoxDistance;
+        currentCenter = center;
+        Vector3 extents = Vector3.one * boundingBoxHalfSize;
+        currentExtents = extents;
+
+        Vector3 direction_to_center = currentCenter - rootViewpoint.pivot.position;
+        this.transform.position = this.transform.position + direction_to_center;
+        foreach (var mat in clippingMaterials)
+        {
+            mat.SetVector("_ClipBoxCenter", center);
+            mat.SetVector("_ClipBoxExtents", extents);
+        }
 
     }
 
-    void UpdateClippingBox()
+    void UpdateBoundingBox()
     {
         targetRenderer = targetViewpoint.modelRenderer;
         
@@ -105,7 +127,7 @@ public class ClippingBoxManager : MonoBehaviour
         {
             // Set center to current viewpoint pivot if there’s no targetRenderer
             Vector3 center  = targetViewpoint.pivot.position;
-            Vector3 extents = Vector3.one * clippingBoxSize ;
+            Vector3 extents = Vector3.one * boundingBoxHalfSize ;
             
             currentCenter = Vector3.Lerp(currentCenter, center, Time.deltaTime * lerpSpeed);
             currentExtents = Vector3.Lerp(currentExtents, extents, Time.deltaTime * lerpSpeed);
@@ -120,21 +142,16 @@ public class ClippingBoxManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Optional: draw the clipping box in the Scene view for debugging.
-    /// </summary>
+    
     void OnDrawGizmos()
     {
-        // If you want to see the bounding box of the target
-        // var bounds = targetRenderer.bounds;
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(currentCenter, currentExtents * 2.0f);
         
         
     }
     
-    // Draws a wireframe box around the selected object,
-    // indicating world space bounding volume.
+    
     public void OnDrawGizmosSelected()
     {
         var r = testRend;
@@ -145,6 +162,7 @@ public class ClippingBoxManager : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(bounds.center, bounds.extents * 2);
     }
+    
     
 
     void OnDestroy()
