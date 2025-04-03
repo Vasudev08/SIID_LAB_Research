@@ -291,7 +291,7 @@ public class VoiceRecognition : MonoBehaviour
 
     public void OnTranscriptionSuccess()
     {
-        commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command, value) =>{
+        commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command) =>{
             if (!success || matched_command == null)
             {
                 // No match found
@@ -301,7 +301,8 @@ public class VoiceRecognition : MonoBehaviour
             // We have a matched command. Let's invoke it:
             if (matched_command.invokeFunction != null)
             {
-                matched_command.invokeFunction.Invoke(matched_command.targetObject, value);
+                Debug.Log(matched_command.targetViewpoint.name);
+                matched_command.invokeFunction.Invoke(matched_command.targetViewpoint);
             }
             else
             {

@@ -2586,7 +2586,6 @@ Transform:
   m_Children:
   - {fileID: 861947024}
   - {fileID: 51216370}
-  - {fileID: 357597860}
   - {fileID: 1474271159}
   - {fileID: 1702083251}
   m_Father: {fileID: 0}
@@ -2669,7 +2668,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &357597859
 Canvas:
   m_ObjectHideFlags: 0
@@ -2679,7 +2678,7 @@ Canvas:
   m_GameObject: {fileID: 357597855}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 1022902468}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2700,21 +2699,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357597855}
-  m_LocalRotation: {x: -0, y: -0.20991525, z: -0, w: 0.97771966}
-  m_LocalPosition: {x: 0, y: 0, z: 1.285}
-  m_LocalScale: {x: 0.019771349, y: 0.013932811, z: 0.013932811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1835004255}
-  - {fileID: 1985348019}
-  - {fileID: 1530746942}
-  m_Father: {fileID: 346827013}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -24.235, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.032, y: -0.324}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &395987782
 GameObject:
   m_ObjectHideFlags: 0
@@ -5182,7 +5179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: -0.00048828125}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.0002746582}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1029013028
@@ -5616,7 +5613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fdd7e444d8026498a826a0b352caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  similarityThreshold: 0.873
+  similarityThreshold: 0.694
 --- !u!1001 &1057361937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7580,18 +7577,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530746941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.20237, y: 0.1964, z: 1}
+  m_LocalScale: {x: 0.619151, y: 0.6008858, z: 3.0595}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 235743396}
   - {fileID: 499126224}
-  m_Father: {fileID: 357597860}
+  m_Father: {fileID: 1835004255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 3.7, y: 2.5}
+  m_AnchoredPosition: {x: 3.7000122, y: 2.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1530746943
@@ -10281,14 +10278,16 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1985348019}
+  - {fileID: 1530746942}
   m_Father: {fileID: 357597860}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 311.7476, y: 109.8595}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1835004256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10764,14 +10763,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985348018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04161046, y: 0.04161046, z: 0.04161046}
+  m_LocalScale: {x: 0.1519571, y: 0.1519571, z: 0.1519571}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1450121779}
   - {fileID: 1570742470}
-  m_Father: {fileID: 357597860}
+  m_Father: {fileID: 1835004255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -11210,204 +11209,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandDefinitions:
-  - referencePhrase: Rotate the blue cube
+  - referencePhrase: Go to the organ system.
     synonyms:
-    - Turn the blue cube
-    - Turn the blue box
-    - Rotate the blue box
-    targetObject: {fileID: 1977103593}
-    defaultValue: 45
+    - Go to the Oregon system.
+    targetViewpoint: {fileID: 329042513}
     invokeFunction:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: RotateObject
-          m_Mode: 0
+        - m_Target: {fileID: 1860691012}
+          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
+          m_MethodName: TransitionToViewpoint
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Move the blue cube
-    synonyms:
-    - Translate the blue cube
-    - Push the blue cube
-    - Move the blue box
-    - Translate the blue box
-    targetObject: {fileID: 1977103593}
-    defaultValue: 0.5
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: TranslateObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Scale the blue cube
-    synonyms:
-    - Make the blue cube bigger
-    - Increase the size of the blue cube
-    - Make the blue cube smaller
-    - Decrease the size of the blue cube
-    - Change the size of the blue cube
-    - Make the blue box bigger
-    targetObject: {fileID: 1977103593}
-    defaultValue: 1.2
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: ScaleObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Rotate the green cylinder
-    synonyms:
-    - Turn the green cylinder
-    targetObject: {fileID: 1551787384}
-    defaultValue: 45
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: RotateObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Move the green cylinder
-    synonyms:
-    - Translate the green cylinder
-    - Push the green cylinder
-    targetObject: {fileID: 1551787384}
-    defaultValue: 0.5
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: TranslateObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Scale the green cylinder
-    synonyms:
-    - Make the green cylinder bigger
-    - Increase the size of the green cylinder
-    - Make the green cylinder smaller
-    - Decrease the size of the green cylinder
-    - Change the size of the green cylinder
-    targetObject: {fileID: 1551787384}
-    defaultValue: 1.2
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: ScaleObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Rotate the orange ball
-    synonyms:
-    - Turn the orange ball
-    - Rotate the orange sphere
-    targetObject: {fileID: 321520768}
-    defaultValue: 45
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: RotateObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Scale the orange ball
-    synonyms:
-    - Scale the orange sphere
-    - Make the orange sphere bigger
-    - Make the orange sphere smaller
-    - Decrease the size of the orange sphere
-    - Increase the size of the orange sphere
-    - Make the orange ball bigger
-    targetObject: {fileID: 321520768}
-    defaultValue: 1.2
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: ScaleObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - referencePhrase: Move the orange ball
-    synonyms:
-    - Move the orange sphere
-    - Push the orange sphere
-    - Translate the orange sphere
-    targetObject: {fileID: 321520768}
-    defaultValue: 0.5
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1048835513}
-          m_TargetAssemblyTypeName: VoiceAction, Assembly-CSharp
-          m_MethodName: TranslateObject
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 329042513}
+            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -11465,6 +11280,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
+  - {fileID: 357597860}
   - {fileID: 346827013}
   - {fileID: 1713880562}
   - {fileID: 969424351}

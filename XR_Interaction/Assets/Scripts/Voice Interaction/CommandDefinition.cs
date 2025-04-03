@@ -12,7 +12,6 @@ public class CommandDefinition
 {
     public string referencePhrase;
     public List<string> synonyms;
-    public GameObject targetObject;
-    public float defaultValue = 45f;
-    public UnityEvent<GameObject, float> invokeFunction;
+    public Viewpoint targetViewpoint;
+    public UnityEvent<Viewpoint> invokeFunction;
 }

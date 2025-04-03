@@ -30,8 +30,9 @@ public class SentenceSimilarity : MonoBehaviour
             foreach (var val in success_values)
             {
                 vals += val + " ";
+                
             }
-            
+            Debug.Log(vals);
             string strongest_match = FindStrongestMatch(success_values, context);
             onComplete.Invoke(strongest_match);
         }, 
