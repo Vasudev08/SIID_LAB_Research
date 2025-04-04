@@ -11,11 +11,13 @@ public class ViewpointTransitionController : MonoBehaviour
     public Viewpoint modelRootViewpoint;
     public Viewpoint userViewpoint; // current viewpoint the user is at
     public ClippingBoxManager clippingBoxManager;
+    public VoiceRecognition voiceRecognition;
 
     [Header("Transition Timing")]
     public float zoomOutDuration = 1.0f;
     public float orbitDuration   = 1.0f;
     public float zoomInDuration  = 1.0f;
+
 
     void Start()
     {
@@ -28,6 +30,7 @@ public class ViewpointTransitionController : MonoBehaviour
     {
         
         target_viewpoint.button.interactable = false;
+        voiceRecognition.inTransition = true;
         StartCoroutine(MixedOrbitAndZoomRoutine(userViewpoint, target_viewpoint));
     }
 
@@ -43,6 +46,7 @@ public class ViewpointTransitionController : MonoBehaviour
         // Update current viewpoint reference
         userViewpoint = target_viewpoint;
         target_viewpoint.button.interactable = true;
+        voiceRecognition.inTransition = false;
     }
     
 

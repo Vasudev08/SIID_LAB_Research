@@ -100,7 +100,7 @@ public class VoiceRecognition : MonoBehaviour
     public CommandManager commandManager;
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
-    
+    [NonSerialized] public bool inTransition = false;
 
     #region Microphone Input Variables
     private string micDevice;
@@ -162,8 +162,8 @@ public class VoiceRecognition : MonoBehaviour
 
     private void Update() 
     {   
-        // If the microphone is not recording, return
-        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening) 
+        // If the microphone is not recording or we are in a viewpoint transition, return
+        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition) 
         {
             return;
         }

@@ -718,170 +718,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104195388}
   m_CullTransparentMesh: 1
---- !u!1 &131729409
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 131729413}
-  - component: {fileID: 131729412}
-  - component: {fileID: 131729411}
-  - component: {fileID: 131729410}
-  m_Layer: 0
-  m_Name: Microphone Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &131729410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131729409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cba7508595c16e4ba6ba6b4f772940f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  micDevice: 
-  micClip: {fileID: 0}
-  sampleSize: 64
-  textField: {fileID: 0}
-  threshold: 0.01
-  sensibility: 100
-  micSelectionManager: {fileID: 131729411}
---- !u!114 &131729411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131729409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0112b745ebdae4db2f7ae1beff5bc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 131729412}
-  displayAudioData: {fileID: 131729410}
---- !u!82 &131729412
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131729409}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.729
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &131729413
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131729409}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.71751785, y: 1.4700378, z: -0.9199612}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &137876948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4488,52 +4324,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6445537640210706534, guid: 26d160590c290d6479ff3ef9ccfa6ab8, type: 3}
   m_PrefabInstance: {fileID: 886134250}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &890077741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 890077743}
-  - component: {fileID: 890077742}
-  m_Layer: 0
-  m_Name: UI Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &890077742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890077741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d60ec29b38fedf49ac3a6978fa0076c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  micDropdown: {fileID: 1336677613}
-  micSelector: {fileID: 131729411}
---- !u!4 &890077743
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890077741}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9527167, y: 0.9586568, z: -1.2454224}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949359260
 GameObject:
   m_ObjectHideFlags: 0
@@ -5613,7 +5403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fdd7e444d8026498a826a0b352caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  similarityThreshold: 0.694
+  similarityThreshold: 0.5
 --- !u!1001 &1057361937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10360,6 +10150,7 @@ MonoBehaviour:
   modelRootViewpoint: {fileID: 1345837711}
   userViewpoint: {fileID: 1345837711}
   clippingBoxManager: {fileID: 2032849185}
+  voiceRecognition: {fileID: 1048835514}
   zoomOutDuration: 2
   orbitDuration: 2
   zoomInDuration: 2
@@ -11212,6 +11003,8 @@ MonoBehaviour:
   - referencePhrase: Go to the organ system.
     synonyms:
     - Go to the Oregon system.
+    - View the Oregon system.
+    - View the organ system.
     targetViewpoint: {fileID: 329042513}
     invokeFunction:
       m_PersistentCalls:
@@ -11222,6 +11015,86 @@ MonoBehaviour:
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 329042513}
+            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - referencePhrase: Go to the heart.
+    synonyms:
+    - View the heart.
+    - Look at the heart.
+    targetViewpoint: {fileID: 949359262}
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1860691012}
+          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
+          m_MethodName: TransitionToViewpoint
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 949359262}
+            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - referencePhrase: Go to the stomach.
+    synonyms:
+    - View the stomach.
+    - Look at the stomach.
+    targetViewpoint: {fileID: 1577236666}
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1860691012}
+          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
+          m_MethodName: TransitionToViewpoint
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1577236666}
+            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - referencePhrase: Go to the left lung.
+    synonyms:
+    - View the left lung.
+    - Look at the left lung.
+    targetViewpoint: {fileID: 1893246366}
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1860691012}
+          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
+          m_MethodName: TransitionToViewpoint
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1893246366}
+            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - referencePhrase: Go to the right lung.
+    synonyms:
+    - View the right lung.
+    - Look at the right lung.
+    targetViewpoint: {fileID: 226970136}
+    invokeFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1860691012}
+          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
+          m_MethodName: TransitionToViewpoint
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 226970136}
             m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -11294,8 +11167,6 @@ SceneRoots:
   - {fileID: 1048835515}
   - {fileID: 637062757}
   - {fileID: 2123164807}
-  - {fileID: 890077743}
-  - {fileID: 131729413}
   - {fileID: 2032849184}
   - {fileID: 844001931}
   - {fileID: 1860691013}
