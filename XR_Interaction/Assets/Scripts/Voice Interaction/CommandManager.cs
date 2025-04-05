@@ -9,6 +9,7 @@ public class CommandManager : MonoBehaviour
     [Description("Known Commands")]
     public List<CommandDefinition> commandDefinitions;
     public SentenceSimilarity sentenceSimilarity;
+    public ViewpointTransitionController vtc;
 
     private List<string> knownCommands = new List<string>(); // All known command phrases including synonyms written in the inspector.
     private Dictionary<string, CommandDefinition> stringToCommand = new Dictionary<string, CommandDefinition>(); // Mapping command phrases and synonyms to a command in case that is the best match.
@@ -17,6 +18,7 @@ public class CommandManager : MonoBehaviour
     {
         foreach (var command in commandDefinitions)
         {
+            command.invokeFunction = vtc.TransitionToViewpoint;
             knownCommands.Add(command.referencePhrase);
             if (!stringToCommand.ContainsKey(command.referencePhrase))
             {
