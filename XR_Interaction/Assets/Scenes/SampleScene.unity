@@ -11006,102 +11006,33 @@ MonoBehaviour:
     - View the Oregon system.
     - View the organ system.
     targetViewpoint: {fileID: 329042513}
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1860691012}
-          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
-          m_MethodName: TransitionToViewpoint
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 329042513}
-            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - referencePhrase: Go to the heart.
     synonyms:
     - View the heart.
     - Look at the heart.
     targetViewpoint: {fileID: 949359262}
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1860691012}
-          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
-          m_MethodName: TransitionToViewpoint
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 949359262}
-            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - referencePhrase: Go to the stomach.
     synonyms:
     - View the stomach.
     - Look at the stomach.
     targetViewpoint: {fileID: 1577236666}
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1860691012}
-          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
-          m_MethodName: TransitionToViewpoint
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1577236666}
-            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - referencePhrase: Go to the left lung.
     synonyms:
     - View the left lung.
     - Look at the left lung.
     targetViewpoint: {fileID: 1893246366}
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1860691012}
-          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
-          m_MethodName: TransitionToViewpoint
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1893246366}
-            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - referencePhrase: Go to the right lung.
     synonyms:
     - View the right lung.
     - Look at the right lung.
     targetViewpoint: {fileID: 226970136}
-    invokeFunction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1860691012}
-          m_TargetAssemblyTypeName: ViewpointTransitionController, Assembly-CSharp
-          m_MethodName: TransitionToViewpoint
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 226970136}
-            m_ObjectArgumentAssemblyTypeName: Viewpoint, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - referencePhrase: Go to the entire body.
+    synonyms:
+    - View the entire body.
+    - Look at the entire body.
+    targetViewpoint: {fileID: 1345837711}
   sentenceSimilarity: {fileID: 1048835516}
+  vtc: {fileID: 1860691012}
 --- !u!4 &2123164807
 Transform:
   m_ObjectHideFlags: 0

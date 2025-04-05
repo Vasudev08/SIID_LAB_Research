@@ -13,5 +13,5 @@ public class CommandDefinition
     public string referencePhrase;
     public List<string> synonyms;
     public Viewpoint targetViewpoint;
-    public UnityEvent<Viewpoint> invokeFunction;
+    public Action<Viewpoint> invokeFunction;
 }
