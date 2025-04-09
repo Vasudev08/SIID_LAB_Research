@@ -51,6 +51,7 @@ public class RunWhisper : MonoBehaviour
 
     public async void TranscribeAudioLocally(float[] processed_data)
     {
+        
         SetupWhiteSpaceShifts();
         GetTokens();
 
@@ -88,7 +89,7 @@ public class RunWhisper : MonoBehaviour
 
         lastToken = new NativeArray<int>(1, Allocator.Persistent); lastToken[0] = NO_TIME_STAMPS;
         lastTokenTensor = new Tensor<int>(new TensorShape(1, 1), new[] { NO_TIME_STAMPS });
-
+        voiceRecognition.debugText.text = "Called Whisper Script";
         while (true)
         {
             if (!transcribe || tokenCount >= (outputTokens.Length - 1))
@@ -96,6 +97,7 @@ public class RunWhisper : MonoBehaviour
             m_Awaitable = InferenceStep();
             await m_Awaitable;
         }
+        
     }
 
     Awaitable m_Awaitable;

@@ -13,12 +13,7 @@ public class InteractionManager : MonoBehaviour
         stopVoiceButton.interactable =false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void StartListening()
     {
         startVoiceButton.interactable = false;

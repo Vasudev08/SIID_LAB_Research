@@ -27,12 +27,12 @@ public class SentenceSimilarity : MonoBehaviour
         success_values =>{
             Debug.Log("Successfully called the Sentence Similarity API!");
             string vals = "";
-            foreach (var val in success_values)
+            for (int i = 0; i < success_values.Length; i++)
             {
-                vals += val + " ";
-                
+                vals += success_values[i] + " ";
+                // Debug.Log(context[i] + ": " + success_values[i]);
             }
-            Debug.Log(vals);
+            
             string strongest_match = FindStrongestMatch(success_values, context);
             onComplete.Invoke(strongest_match);
         }, 

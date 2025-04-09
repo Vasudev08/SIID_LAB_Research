@@ -91,6 +91,7 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
     public TMPro.TextMeshProUGUI inputText;
+    public TMPro.TextMeshProUGUI debugText;
     [SerializeField] private AudioSource audioSource;
 
     [Header("Voice Interaction")]
@@ -100,6 +101,12 @@ public class VoiceRecognition : MonoBehaviour
     public CommandManager commandManager;
     public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
+
+    [Header("Viewpoint Transition")]
+    public ViewpointTransitionController viewpointTransitionController;
+    public string zoomOutCommandKeyPhrase;
+
+
     [NonSerialized] public bool inTransition = false;
 
     #region Microphone Input Variables
@@ -136,6 +143,7 @@ public class VoiceRecognition : MonoBehaviour
     }
     private void Start()
     {
+
         // WebRTC initialization if needed
         VAD = new WebRtcVad();
         VAD.OperatingMode = OperatingMode.VeryAggressive;
@@ -149,6 +157,7 @@ public class VoiceRecognition : MonoBehaviour
         {
             micDevice = Microphone.devices[0];
             Debug.Log("Using microphone: " + micDevice);
+            debugText.text = micDevice;
         }
         else
         {
@@ -156,6 +165,7 @@ public class VoiceRecognition : MonoBehaviour
             return;
         }
         audioSource.loop = true;
+
         
     }
    
@@ -240,7 +250,7 @@ public class VoiceRecognition : MonoBehaviour
         while (Microphone.GetPosition(micDevice) <= 0) {  } // Controls latency. 0 means no latency.
         audioSource.clip = clip;
         
-        audioSource.Play();
+        // audioSource.Play();
         inputText.text = "Listening...";
         isListening = true;
        
@@ -250,7 +260,7 @@ public class VoiceRecognition : MonoBehaviour
     {
         inputText.text = "Press the Start button to start voice interaction.";
         Microphone.End(micDevice);
-        audioSource.Stop();
+        // audioSource.Stop();
         isListening = false;
     }
 
@@ -291,6 +301,7 @@ public class VoiceRecognition : MonoBehaviour
 
     public void OnTranscriptionSuccess()
     {
+        debugText.text = "Successful Transcription";
         commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command) =>{
             if (!success || matched_command == null)
             {
@@ -301,7 +312,18 @@ public class VoiceRecognition : MonoBehaviour
             // We have a matched command. Let's invoke it:
             if (matched_command.invokeFunction != null)
             {
-                Debug.Log(matched_command.targetViewpoint.name);
+                if (matched_command.targetViewpoint)
+                    Debug.Log(matched_command.targetViewpoint.name);
+                if (matched_command.referencePhrase == zoomOutCommandKeyPhrase)
+                {
+                    Viewpoint current_viewpoint = viewpointTransitionController.userViewpoint;
+                    
+                    if (current_viewpoint.parent)
+                        matched_command.targetViewpoint = current_viewpoint.parent;
+                    else
+                        matched_command.targetViewpoint = current_viewpoint;
+
+                }
                 matched_command.invokeFunction.Invoke(matched_command.targetViewpoint);
             }
             else

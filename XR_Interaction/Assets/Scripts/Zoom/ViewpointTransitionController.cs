@@ -18,12 +18,9 @@ public class ViewpointTransitionController : MonoBehaviour
     public float orbitDuration   = 1.0f;
     public float zoomInDuration  = 1.0f;
 
-
     void Start()
     {
-        // userCamera.position = userViewpoint.pivot.position + userViewpoint.cameraOffsetPosition;
-        // userCamera.rotation = userViewpoint.cameraOffsetRotation;
-
+        TransitionToViewpoint(modelRootViewpoint);
     }
     // Public entry point for external scripts:
     public void TransitionToViewpoint(Viewpoint target_viewpoint)
