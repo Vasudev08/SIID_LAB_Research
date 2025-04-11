@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using HuggingFace.API;
 using UnityEngine.UI;
 using System;
-using System.IO;
 using WebRtcVadSharp;
+
 
 /// <summary>
 /// A simple circular (ring) buffer for float audio data.
@@ -127,27 +124,26 @@ public class VoiceRecognition : MonoBehaviour
     private WebRtcVad VAD; // Voice activity detector
     private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
     private CircularBuffer circularBuffer;
+    
     #endregion
 
     private string recognizedSpeech;
     void Awake()
     {
+
         // Preallocate a reusable sample buffer.
         // We assume a maximum chunk size (for example, 1024 samples per channel (8 = max number of channels)).
         sampleBuffer = new float[1024 * 8];
 
         // Allocate a circular buffer for speech data.
-        // Here, we allocate enough space for 10 seconds of audio.
+        // allocate enough space for 10 seconds of audio.
         int maxSpeechSamples = sampleRate * 8 * 10;
         circularBuffer = new CircularBuffer(maxSpeechSamples);
     }
     private void Start()
     {
-
-        // WebRTC initialization if needed
         VAD = new WebRtcVad();
         VAD.OperatingMode = OperatingMode.VeryAggressive;
-
         recognizedSpeech = "";
         inputText.text = "Press the Start button to start voice interaction.";
         isRecording = false;
@@ -157,13 +153,13 @@ public class VoiceRecognition : MonoBehaviour
         {
             micDevice = Microphone.devices[0];
             Debug.Log("Using microphone: " + micDevice);
-            debugText.text = micDevice;
         }
         else
         {
             Debug.LogError("No microphone detected!");
             return;
         }
+        
         audioSource.loop = true;
 
         
@@ -172,6 +168,7 @@ public class VoiceRecognition : MonoBehaviour
 
     private void Update() 
     {   
+        
         // If the microphone is not recording or we are in a viewpoint transition, return
         if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition) 
         {
@@ -195,7 +192,6 @@ public class VoiceRecognition : MonoBehaviour
             int sampleCount = clip.channels * sampleDiff;
             if (sampleCount > sampleBuffer.Length)
             {
-                Debug.Log("Sample count exceeds buffer size, truncating!");
                 sampleCount = sampleBuffer.Length;
             }
             clip.GetData(sampleBuffer, lastSamplePosition);
@@ -203,7 +199,7 @@ public class VoiceRecognition : MonoBehaviour
 
             ProcessSamples(sampleBuffer, sampleCount);
         }
-
+        
     }
 
     private void ProcessSamples(float[] samples, int sampleCount)
