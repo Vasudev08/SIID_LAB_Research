@@ -14,9 +14,9 @@ public class ViewpointTransitionController : MonoBehaviour
     public VoiceRecognition voiceRecognition;
 
     [Header("Transition Timing")]
-    public float zoomOutDuration = 1.0f;
-    public float orbitDuration   = 1.0f;
-    public float zoomInDuration  = 1.0f;
+    public float transitionBaseDuration = 1f; 
+    public float minDurationFactor = 1f; 
+    public float maxDurationFactor = 5f; 
 
     void Start()
     {
@@ -53,7 +53,6 @@ public class ViewpointTransitionController : MonoBehaviour
         clippingBoxManager.targetViewpoint = modelRootViewpoint;
         if (userViewpoint == lca)
         {
-            Debug.Log("Can't zoom out more already in the LCA");
             yield break;
         }
         
@@ -69,13 +68,15 @@ public class ViewpointTransitionController : MonoBehaviour
 
         Vector3 end_position = modelRoot.position + offset;
 
-
-        float elapsed_time = 0f;
         
-        while (elapsed_time < zoomOutDuration)
+        float elapsed_time = 0f;
+        float scale_ratio = start_scale.x / end_scale.x;
+        float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
+        Debug.Log("Zoom Out: " + transition_duration);
+        while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed_time / zoomOutDuration);
+            float t = Mathf.Clamp01(elapsed_time / transition_duration);
             
             modelRoot.localScale = Vector3.Lerp(start_scale, end_scale, t);
 
@@ -88,6 +89,7 @@ public class ViewpointTransitionController : MonoBehaviour
         modelRoot.localScale = end_scale;
         modelRoot.position = end_position;
         Debug.Log("Finished Zoom out for: " + userViewpoint);
+        userViewpoint = lca;
     }
     
 
@@ -97,7 +99,6 @@ public class ViewpointTransitionController : MonoBehaviour
         clippingBoxManager.targetViewpoint = target_viewpoint;
         if (userViewpoint == target_viewpoint)
         {
-            Debug.Log("Can't zoom in more already at the target viewpoint");
             yield break;
         }  
         
@@ -115,11 +116,13 @@ public class ViewpointTransitionController : MonoBehaviour
 
 
         float elapsed_time = 0f;
-        
-        while (elapsed_time < zoomOutDuration)
+        float scale_ratio = end_scale.x / start_scale.x;
+        float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
+        Debug.Log("Zoom In: " + transition_duration);
+        while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed_time / zoomOutDuration);
+            float t = Mathf.Clamp01(elapsed_time / transition_duration);
             
             modelRoot.localScale = Vector3.Lerp(start_scale, end_scale, t);
 

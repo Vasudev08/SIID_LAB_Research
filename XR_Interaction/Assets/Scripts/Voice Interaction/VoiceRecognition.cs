@@ -1,86 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using WebRtcVadSharp;
-
-
-/// <summary>
-/// A simple circular (ring) buffer for float audio data.
-/// </summary>
-public class CircularBuffer
-{
-    private float[] buffer;
-    private int capacity;
-    private int size;
-    private int start;
-    private int end; // tail of the buffer. Points to the next index after the last element
-   
-
-    public CircularBuffer(int capacity)
-    {
-        this.capacity = capacity;
-        this.buffer = new float[capacity];
-        this.size = 0;
-        this.start = 0;
-        this.end = 0;
-        
-    }
-
-    public void Write(float[] data, int length)
-    {
-        for (int i = 0; i < length; i ++)
-        {
-            // Writes the next available spot with data.
-            // If capacity is full this implementation will overwrite the oldest element in the buffer with the new data.
-
-            buffer[end] = data[i];
-            end = (end + 1) % capacity;
-
-
-            if (size < capacity)
-            {
-                // If there is enough space in the buffer just increase the size.
-                size += 1;
-            }
-            else
-            {
-                // If we ran out of space in the buffer we need to overwrite data.
-                // So increase the head or start index of the array to the next index "above" it which is the next oldest element.
-                start = (start + 1) % capacity;
-
-            }
-        }
-    }
-
-
-    // Get the data in a continuous array
-    public float[] GetData()
-    {
-        float[] data = new float[size];
-
-        if (start < end)
-        {
-            Array.Copy(buffer, start, data, 0, size);
-        }
-        else // Buffer is full so we have looped around
-        {
-            int length_of_first_section = capacity - start;
-            Array.Copy(buffer, start, data, 0, length_of_first_section);
-            Array.Copy(buffer, 0, data, length_of_first_section, end);
-
-        }
-
-        return data;
-    }
-
-    // Clears the buffer resetting pointers to 0.
-    public void Clear()
-    {
-        size = 0;
-        start = 0;
-        end = 0;
-    }
-}
 
 public class VoiceRecognition : MonoBehaviour
 {   
@@ -96,7 +16,9 @@ public class VoiceRecognition : MonoBehaviour
     public SentenceSimilarity sentenceSimilarity;
     public VoiceAction voiceAction;
     public CommandManager commandManager;
-    public float loudnessThreshold = 0.1f; // Threshold for audio sample to be above to detect a "voice" or noise
+    
+    [Header("Voice Detection")]
+    public float energyThreshold = 0.01f;  // Energy required to detect speech
     public float silenceDuration = 1f; // Seconds of silence to consider the end of  speech.
 
     [Header("Viewpoint Transition")]
@@ -121,29 +43,26 @@ public class VoiceRecognition : MonoBehaviour
     private int currentPosition; // Current sample position in the audio clip.
     private int sampleDiff; // Difference between current and last sample position.
     private bool isRecording; // Flag to check if we have detected a loud enough noise and can start "recording" for ASR.
-    private WebRtcVad VAD; // Voice activity detector
+    // private WebRtcVad VAD; // Voice activity detector
     private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
     private CircularBuffer circularBuffer;
-    
+    private string recognizedSpeech;
     #endregion
 
-    private string recognizedSpeech;
+    
     void Awake()
     {
-
         // Preallocate a reusable sample buffer.
-        // We assume a maximum chunk size (for example, 1024 samples per channel (8 = max number of channels)).
+        // assume a maximum chunk size (for example, 1024 samples per channel (8 = max number of channels)).
         sampleBuffer = new float[1024 * 8];
 
-        // Allocate a circular buffer for speech data.
+        // allocate a circular buffer for speech data.
         // allocate enough space for 10 seconds of audio.
         int maxSpeechSamples = sampleRate * 8 * 10;
         circularBuffer = new CircularBuffer(maxSpeechSamples);
     }
     private void Start()
     {
-        VAD = new WebRtcVad();
-        VAD.OperatingMode = OperatingMode.VeryAggressive;
         recognizedSpeech = "";
         inputText.text = "Press the Start button to start voice interaction.";
         isRecording = false;
@@ -168,7 +87,6 @@ public class VoiceRecognition : MonoBehaviour
 
     private void Update() 
     {   
-        
         // If the microphone is not recording or we are in a viewpoint transition, return
         if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition) 
         {
@@ -204,8 +122,7 @@ public class VoiceRecognition : MonoBehaviour
 
     private void ProcessSamples(float[] samples, int sampleCount)
     {   
-        byte[] pcmData = ConvertToPCM16(samples); // Convert Unity's float samples to 16-bit PCM
-        if (VAD.HasSpeech(pcmData, SampleRate.Is16kHz, FrameLength.Is10ms))
+        if (DetectedSpeech(samples))
         {
             // Start recording if first valid sample detected
             if (!isRecording)
@@ -237,6 +154,15 @@ public class VoiceRecognition : MonoBehaviour
         }
     }
 
+    public bool DetectedSpeech(float[] samples)
+    {
+        float sum = 0f;
+        foreach (float s in samples)
+            sum += s * s;
+
+        float rms = Mathf.Sqrt(sum / samples.Length);
+        return rms > energyThreshold;
+    }
 
     
     public void StartRecording()
@@ -258,23 +184,6 @@ public class VoiceRecognition : MonoBehaviour
         Microphone.End(micDevice);
         // audioSource.Stop();
         isListening = false;
-    }
-
-    /// <summary>
-    /// Converts float samples (range -1 to 1) into 16-bit PCM bytes.
-    /// </summary>
-    private byte[] ConvertToPCM16(float[] samples)
-    {
-        short[] intData = new short[samples.Length];
-
-        for (int i = 0; i < samples.Length; i++)
-        {
-            intData[i] = (short)(samples[i] * short.MaxValue); // Convert float (-1 to 1) → short (-32768 to 32767)
-        }
-
-        byte[] bytes = new byte[intData.Length * 2]; // Each short (16-bit) needs 2 bytes
-        Buffer.BlockCopy(intData, 0, bytes, 0, bytes.Length);
-        return bytes;
     }
 
     void OnDestroy()
