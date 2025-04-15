@@ -67,7 +67,7 @@ public class SentenceSimilarity : MonoBehaviour
         if (current_max > similarityThreshold)
         {
             // Do the command
-            Debug.Log($"Recognized command {most_similar_command}.");
+            Debug.Log($"Recognized command: {most_similar_command}.");
             return most_similar_command;
         }
         else

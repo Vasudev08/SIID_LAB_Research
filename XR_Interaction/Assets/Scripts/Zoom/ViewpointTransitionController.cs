@@ -72,7 +72,7 @@ public class ViewpointTransitionController : MonoBehaviour
         float elapsed_time = 0f;
         float scale_ratio = start_scale.x / end_scale.x;
         float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
-        Debug.Log("Zoom Out: " + transition_duration);
+        // Debug.Log("Zoom Out: " + transition_duration);
         while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
@@ -88,7 +88,7 @@ public class ViewpointTransitionController : MonoBehaviour
         }
         modelRoot.localScale = end_scale;
         modelRoot.position = end_position;
-        Debug.Log("Finished Zoom out for: " + userViewpoint);
+        // Debug.Log("Finished Zoom out for: " + userViewpoint);
         userViewpoint = lca;
     }
     
@@ -118,7 +118,7 @@ public class ViewpointTransitionController : MonoBehaviour
         float elapsed_time = 0f;
         float scale_ratio = end_scale.x / start_scale.x;
         float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
-        Debug.Log("Zoom In: " + transition_duration);
+        // Debug.Log("Zoom In: " + transition_duration);
         while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
@@ -132,7 +132,7 @@ public class ViewpointTransitionController : MonoBehaviour
         }
         modelRoot.localScale = end_scale;
         modelRoot.position = end_position;
-        Debug.Log("Finished zooming in for target: " + target_viewpoint.name);
+        // Debug.Log("Finished zooming in for target: " + target_viewpoint.name);
     }
     
 

@@ -54,10 +54,10 @@ public class CommandManager : MonoBehaviour
     {
         
         sentenceSimilarity.CompareInput(voiceInput, knownCommands.ToArray(), matched_string =>{
-            Debug.Log(voiceInput);
+            // Debug.Log(voiceInput);
             if (string.IsNullOrEmpty(matched_string))
             {
-                Debug.Log(String.Format("Could not find a matching command from input: {0}.", voiceInput));
+                Debug.Log(String.Format("Could not find a matching command for input: {0}.", voiceInput));
                 onComplete.Invoke(false, null);
                 return;
             }

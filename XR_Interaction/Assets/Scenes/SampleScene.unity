@@ -4668,7 +4668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0.0007019043}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1029013028
@@ -5075,7 +5075,7 @@ MonoBehaviour:
   voiceAction: {fileID: 1048835513}
   commandManager: {fileID: 2123164806}
   energyThreshold: 0.005
-  silenceDuration: 0.4
+  silenceDuration: 0.125
   viewpointTransitionController: {fileID: 1860691012}
   zoomOutCommandKeyPhrase: Zoom out.
 --- !u!4 &1048835515
@@ -5105,7 +5105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fdd7e444d8026498a826a0b352caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  similarityThreshold: 0.5
+  similarityThreshold: 0.6
 --- !u!23 &1063597381 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7072803761481211958, guid: b551850e79e339d479269f3c52025aef, type: 3}
@@ -7496,7 +7496,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 597165755}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.999995
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9744,7 +9744,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 311.7476, y: 109.8595}
+  m_SizeDelta: {x: 319, y: 121.09}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1835004256
 MonoBehaviour:
@@ -10693,38 +10693,41 @@ MonoBehaviour:
     - Go to the Oregon system.
     - View the Oregon system.
     - View the organ system.
+    - Zoom into the organ system.
+    - the organ system.
     targetViewpoint: {fileID: 329042513}
   - referencePhrase: Go to the heart.
     synonyms:
     - View the heart.
     - Look at the heart.
+    - Zoom into the heart.
+    - the heart.
     targetViewpoint: {fileID: 949359262}
   - referencePhrase: Go to the stomach.
     synonyms:
     - View the stomach.
     - Look at the stomach.
+    - Zoom into the stomach.
+    - the stomach.
     targetViewpoint: {fileID: 1577236666}
   - referencePhrase: Go to the left lung.
     synonyms:
     - View the left lung.
     - Look at the left lung.
     - Go to the left long.
-    - View the left long.
-    - Look at the left long.
+    - the left lung.
+    - the left long.
     targetViewpoint: {fileID: 1893246366}
   - referencePhrase: Go to the right lung.
     synonyms:
     - View the right lung.
     - Look at the right lung.
-    - Go to the right long.
-    - View the right long.
-    - Look at the right long.
+    - the right lung.
+    - the right long
     targetViewpoint: {fileID: 226970136}
   - referencePhrase: Go to the body.
     synonyms:
-    - View the entire body.
-    - Look at the entire body.
-    - Look at the body.
+    - the body.
     targetViewpoint: {fileID: 1345837711}
   - referencePhrase: Zoom out.
     synonyms:
@@ -10738,16 +10741,19 @@ MonoBehaviour:
     - Look at the heart's vein.
     - Look at the vein on the heart.
     - View the heart's vein.
+    - Zoom into the heart's vein.
     targetViewpoint: {fileID: 522999363}
   - referencePhrase: Go to the blood cells in the vein.
     synonyms:
     - Look at the blood cells in the vein.
     - View the blood cells in the vein.
+    - Zoom into the blood cells in the vein.
     targetViewpoint: {fileID: 280182475}
   - referencePhrase: Go to the aortic valve.
     synonyms:
     - Look at the aortic valve.
     - View the aortic valve.
+    - Zoom into the aortic valve.
     targetViewpoint: {fileID: 563024007}
   sentenceSimilarity: {fileID: 1048835516}
   vtc: {fileID: 1860691012}
