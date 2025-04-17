@@ -19,6 +19,13 @@
       },
       "hash": "577bfe23c286a605f58d328ea991aa4d4d06f4c8"
     },
+    "com.meta.xr.sdk.core": {
+      "version": "74.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.19",
       "depth": 1,

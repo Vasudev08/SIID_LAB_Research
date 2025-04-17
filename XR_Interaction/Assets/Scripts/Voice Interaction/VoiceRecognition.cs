@@ -43,7 +43,6 @@ public class VoiceRecognition : MonoBehaviour
     private int currentPosition; // Current sample position in the audio clip.
     private int sampleDiff; // Difference between current and last sample position.
     private bool isRecording; // Flag to check if we have detected a loud enough noise and can start "recording" for ASR.
-    // private WebRtcVad VAD; // Voice activity detector
     private float[] sampleBuffer; // Preallocated buffer for reading from the AudioClip.
     private CircularBuffer circularBuffer;
     private string recognizedSpeech;
@@ -71,6 +70,7 @@ public class VoiceRecognition : MonoBehaviour
         if (Microphone.devices.Length > 0)
         {
             micDevice = Microphone.devices[0];
+            debugText.text = micDevice;
             Debug.Log("Using microphone: " + micDevice);
         }
         else
