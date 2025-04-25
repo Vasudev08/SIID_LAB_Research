@@ -1,18 +1,26 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GazeInteractor : MonoBehaviour
 {
+    [Header("Ray Settings")]
     [SerializeField] float maxRayDistance = 10f;
     [SerializeField] Transform rayReticle;
     [SerializeReference] float reticleDistance = 2f;
 
 
-    [NonSerialized] public GameObject currentTarget;   
-    private Color oldColor;
+    [NonSerialized] public GameObject currentTarget;  // Current gaze target. 
+    private List<Color> previousColors = new List<Color>(); // Stores the original color of the model before the highlighting from gaze
+    [NonSerialized] public bool onTarget;
+    [NonSerialized] public Viewpoint gazeTargetViewpoint;
 
-    // Update is called once per frame
     void Update()
+    {
+        StartGaze();
+    }
+
+    void StartGaze()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         rayReticle.position = ray.origin + reticleDistance * ray.direction;
@@ -27,13 +35,12 @@ public class GazeInteractor : MonoBehaviour
                     OnGazeExit();
                 }
 
-                currentTarget = target;
-                if (currentTarget.GetComponent<Renderer>())
+                GazeTargetController gazeTargetController = target.GetComponent<GazeTargetController>();
+                if (gazeTargetController)
                 {
-                    oldColor = currentTarget.GetComponent<Renderer>().material.color;
+                    currentTarget = target;
+                    OnGazeEnter();
                 }
-                
-                OnGazeEnter();
             }
         }
         else
@@ -41,7 +48,6 @@ public class GazeInteractor : MonoBehaviour
             if (currentTarget != null)
             {
                 OnGazeExit();
-                currentTarget = null;
             }
             
         }
@@ -49,19 +55,30 @@ public class GazeInteractor : MonoBehaviour
 
     void OnGazeEnter()
     {
-        if (currentTarget.GetComponent<Renderer>())
+        onTarget = true;
+        GazeTargetController gazeTargetController = currentTarget.GetComponent<GazeTargetController>();
+        gazeTargetViewpoint = gazeTargetController.respectiveViewpoint;
+        foreach (var renderer in gazeTargetController.renderers)
         {
-            currentTarget.GetComponent<Renderer>().material.color = Color.green;
+            previousColors.Add(renderer.material.color);
+            renderer.material.color = Color.yellow;
         }
+        
+
     }
 
 
     void OnGazeExit()
     {
-        if (currentTarget.GetComponent<Renderer>())
+        onTarget = false;
+        GazeTargetController gazeTargetController = currentTarget.GetComponent<GazeTargetController>();
+        gazeTargetViewpoint = null;
+        for (int i = 0; i < gazeTargetController.renderers.Count; i++)
         {
-            currentTarget.GetComponent<Renderer>().material.color = oldColor;
+            gazeTargetController.renderers[i].material.color = previousColors[i];
         }
+        previousColors.Clear();
+        currentTarget = null;
     }
 
 

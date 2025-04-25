@@ -10,7 +10,6 @@ public class ClippingBoxManager : MonoBehaviour
     public Shader clippingShader; // Shader to not render parts of the model outside of the clipping box
     public float boundingBoxDistance = 2.0f;
     public float boundingBoxHalfSize = 3f;
-    public Renderer testRend;
     public Viewpoint targetViewpoint;
     public float padding = 1.1f;
     public float lerpSpeed = 2.0f;
@@ -145,23 +144,13 @@ public class ClippingBoxManager : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(currentCenter, currentExtents * 2.0f);
         
         
     }
     
     
-    public void OnDrawGizmosSelected()
-    {
-        var r = testRend;
-        if (r == null)
-            return;
-        var bounds = r.bounds;
-        Gizmos.matrix = Matrix4x4.identity;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(bounds.center, bounds.extents * 2);
-    }
     
     
 

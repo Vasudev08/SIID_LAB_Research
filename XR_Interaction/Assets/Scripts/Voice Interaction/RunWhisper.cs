@@ -40,6 +40,7 @@ public class RunWhisper : MonoBehaviour
 
     bool transcribe = false;
     string outputString = "";
+    [NonSerialized] public bool isRunning = false;
 
     // Maximum size of audioClip (30s at 16kHz)
     const int maxSamples = 30 * 16000;
@@ -47,11 +48,13 @@ public class RunWhisper : MonoBehaviour
     public ModelAsset audioDecoder1, audioDecoder2;
     public ModelAsset audioEncoder;
     public ModelAsset logMelSpectro;
-
+    
 
     public async void TranscribeAudioLocally(float[] processed_data)
     {
-        
+        if (isRunning)
+            return;
+        isRunning = true;
         SetupWhiteSpaceShifts();
         GetTokens();
 
@@ -89,7 +92,6 @@ public class RunWhisper : MonoBehaviour
 
         lastToken = new NativeArray<int>(1, Allocator.Persistent); lastToken[0] = NO_TIME_STAMPS;
         lastTokenTensor = new Tensor<int>(new TensorShape(1, 1), new[] { NO_TIME_STAMPS });
-        voiceRecognition.debugText.text = "Called Whisper Script";
         while (true)
         {
             if (!transcribe || tokenCount >= (outputTokens.Length - 1))
@@ -97,6 +99,7 @@ public class RunWhisper : MonoBehaviour
             m_Awaitable = InferenceStep();
             await m_Awaitable;
         }
+        
         
     }
 
@@ -185,6 +188,7 @@ public class RunWhisper : MonoBehaviour
             transcribe = false;
 
             // Cleanup
+            
             decoder1.Dispose(); 
             decoder2.Dispose();
             encoder.Dispose();
@@ -195,12 +199,14 @@ public class RunWhisper : MonoBehaviour
             lastTokenTensor.Dispose();
             outputTokens.Dispose();
             lastToken.Dispose();
+            
 
             
             voiceRecognition.inputText.text = outputString;
             voiceRecognition.SetRecognizedSpeech(outputString);
             voiceRecognition.OnTranscriptionSuccess();
             outputString = ""; 
+            isRunning = false;
         }
         else if (index < tokens.Length)
         {
@@ -250,18 +256,26 @@ public class RunWhisper : MonoBehaviour
         return !(('!' <= c && c <= '~') || ('�' <= c && c <= '�') || ('�' <= c && c <= '�'));
     }
 
-    /*
+    
     private void OnDestroy()
     {
-        decoder1.Dispose();
-        decoder2.Dispose();
-        encoder.Dispose();
-        spectrogram.Dispose();
-        argmax.Dispose();
-        audioInput.Dispose();
-        lastTokenTensor.Dispose();
-        tokensTensor.Dispose();
+        if (decoder1 != null)
+            decoder1.Dispose();
+        if (decoder2 != null)
+            decoder2.Dispose();
+        if (encoder != null)
+            encoder.Dispose();
+        if (spectrogram != null)
+            spectrogram.Dispose();
+        if (argmax != null)
+            argmax.Dispose();
+        if (audioInput != null)
+            audioInput.Dispose();
+        if (lastTokenTensor != null)
+            lastTokenTensor.Dispose();
+        if (tokensTensor != null)
+            tokensTensor.Dispose();
     }
-    */
+    
     
 }

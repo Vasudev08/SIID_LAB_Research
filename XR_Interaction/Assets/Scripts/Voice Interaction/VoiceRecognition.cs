@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.Mathematics;
 
 public class VoiceRecognition : MonoBehaviour
 {   
@@ -8,7 +9,6 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button stopButton;
     public TMPro.TextMeshProUGUI inputText;
-    public TMPro.TextMeshProUGUI debugText;
     [SerializeField] private AudioSource audioSource;
 
     [Header("Voice Interaction")]
@@ -16,6 +16,7 @@ public class VoiceRecognition : MonoBehaviour
     public SentenceSimilarity sentenceSimilarity;
     public VoiceAction voiceAction;
     public CommandManager commandManager;
+    GazeInteractor gazeInteractor;
     
     [Header("Voice Detection")]
     public float energyThreshold = 0.01f;  // Energy required to detect speech
@@ -24,6 +25,7 @@ public class VoiceRecognition : MonoBehaviour
     [Header("Viewpoint Transition")]
     public ViewpointTransitionController viewpointTransitionController;
     public string zoomOutCommandKeyPhrase;
+    public string zoomInCommandKeyPhrase;
 
 
     [NonSerialized] public bool inTransition = false;
@@ -70,7 +72,6 @@ public class VoiceRecognition : MonoBehaviour
         if (Microphone.devices.Length > 0)
         {
             micDevice = Microphone.devices[0];
-            debugText.text = micDevice;
             Debug.Log("Using microphone: " + micDevice);
         }
         else
@@ -81,6 +82,7 @@ public class VoiceRecognition : MonoBehaviour
         
         audioSource.loop = true;
 
+        gazeInteractor = Camera.main.GetComponent<GazeInteractor>();
         
     }
    
@@ -88,7 +90,7 @@ public class VoiceRecognition : MonoBehaviour
     private void Update() 
     {   
         // If the microphone is not recording or we are in a viewpoint transition, return
-        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition) 
+        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition || runWhisper.isRunning) 
         {
             return;
         }
@@ -124,6 +126,7 @@ public class VoiceRecognition : MonoBehaviour
     {   
         if (DetectedSpeech(samples))
         {
+            // Debug.Log("recording");
             // Start recording if first valid sample detected
             if (!isRecording)
             {
@@ -206,7 +209,6 @@ public class VoiceRecognition : MonoBehaviour
 
     public void OnTranscriptionSuccess()
     {
-        debugText.text = "Successful Transcription";
         commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command) =>{
             if (!success || matched_command == null)
             {
@@ -218,18 +220,35 @@ public class VoiceRecognition : MonoBehaviour
             if (matched_command.invokeFunction != null)
             {
                 if (matched_command.targetViewpoint)
-                    Debug.Log(matched_command.targetViewpoint.name);
+                    Debug.Log("Matched Viewpoint " + matched_command.targetViewpoint.name);
                 if (matched_command.referencePhrase == zoomOutCommandKeyPhrase)
                 {
-                    Viewpoint current_viewpoint = viewpointTransitionController.userViewpoint;
+                    Viewpoint target_viewpoint = viewpointTransitionController.userViewpoint;
                     
-                    if (current_viewpoint.parent)
-                        matched_command.targetViewpoint = current_viewpoint.parent;
+                    if (target_viewpoint.parent)
+                        matched_command.targetViewpoint = target_viewpoint.parent;
                     else
-                        matched_command.targetViewpoint = current_viewpoint;
+                        matched_command.targetViewpoint = target_viewpoint;
 
                 }
-                matched_command.invokeFunction.Invoke(matched_command.targetViewpoint);
+                else if(matched_command.referencePhrase == zoomInCommandKeyPhrase)
+                {
+                    if (gazeInteractor.onTarget && gazeInteractor.gazeTargetViewpoint)
+                    {
+                        Viewpoint target_viewpoint = gazeInteractor.gazeTargetViewpoint;
+                        matched_command.targetViewpoint = target_viewpoint;
+                    }
+                    else
+                    {
+                        matched_command.targetViewpoint = null;
+                    }
+                        
+                }
+                if(matched_command.targetViewpoint)
+                {
+                    matched_command.invokeFunction.Invoke(matched_command.targetViewpoint);
+                }
+                
             }
             else
             {
