@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Unity.Mathematics;
+using System.IO;
+using HuggingFace.API;
 
 public class VoiceRecognition : MonoBehaviour
 {   
@@ -34,7 +36,7 @@ public class VoiceRecognition : MonoBehaviour
     private string micDevice;
     private int sampleRate = 16000;
     private AudioClip clip;
-    private byte[] wavData;
+    // private byte[] wavData;
     private bool isListening = false; // check if user has started voice interaction
     #endregion
     
@@ -90,8 +92,13 @@ public class VoiceRecognition : MonoBehaviour
     private void Update() 
     {   
         // If the microphone is not recording or we are in a viewpoint transition, return
-        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition || runWhisper.isRunning) 
+        // if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition || runWhisper.isRunning) 
+        // {
+        //     return;
+        // }
+        if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition) 
         {
+            
             return;
         }
 
@@ -123,7 +130,8 @@ public class VoiceRecognition : MonoBehaviour
     }
 
     private void ProcessSamples(float[] samples, int sampleCount)
-    {   
+    { 
+       
         if (DetectedSpeech(samples))
         {
             // Debug.Log("recording");
@@ -139,21 +147,62 @@ public class VoiceRecognition : MonoBehaviour
         else if (isRecording)
         {
             silenceTimer += Time.deltaTime;
-
+            
             if (silenceTimer >= silenceDuration)
             {
                 // Debug.Log("Speech Ended, processing segment.");
                 isRecording = false;
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
-                circularBuffer.Clear();
-                runWhisper.TranscribeAudioLocally(speech_data);
+                // circularBuffer.Clear();
+                // runWhisper.TranscribeAudioLocally(speech_data);
                 
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
-                // wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
-                // SendRecording();
+                byte[] wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
+                circularBuffer.Clear();
+                
+                SendRecording(wavData);
             }
+        }
+    }
+
+    public void SendRecording(byte[] data)
+    {
+        HuggingFaceAPI.AutomaticSpeechRecognition(data, response => {
+            inputText.text = response;
+            Debug.Log(response);
+            SetRecognizedSpeech(response);
+            OnTranscriptionSuccess();
+            
+        }, error => {
+            inputText.text = error;
+            Debug.Log("Error from calling ASR API for transcription: " + error);
+        });
+    }
+
+    private byte[] EncodeAsWAV(float[] samples, int frequency, int channels) {
+        using (var memoryStream = new MemoryStream(44 + samples.Length * 2)) {
+            using (var writer = new BinaryWriter(memoryStream)) {
+                writer.Write("RIFF".ToCharArray());
+                writer.Write(36 + samples.Length * 2);
+                writer.Write("WAVE".ToCharArray());
+                writer.Write("fmt ".ToCharArray());
+                writer.Write(16);
+                writer.Write((ushort)1);
+                writer.Write((ushort)channels);
+                writer.Write(frequency);
+                writer.Write(frequency * channels * 2);
+                writer.Write((ushort)(channels * 2));
+                writer.Write((ushort)16);
+                writer.Write("data".ToCharArray());
+                writer.Write(samples.Length * 2);
+
+                foreach (var sample in samples) {
+                    writer.Write((short)(sample * short.MaxValue));
+                }
+            }
+            return memoryStream.ToArray();
         }
     }
 
@@ -208,7 +257,14 @@ public class VoiceRecognition : MonoBehaviour
     }
 
     public void OnTranscriptionSuccess()
-    {
+    {   
+        string trimmed_string = recognizedSpeech;
+        trimmed_string = trimmed_string.Trim();
+        if (trimmed_string == "[BLANK_AUDIO]" || trimmed_string == "you") // Unsuccessful transcription or backgroind noise
+        {
+            Debug.Log("Background noise");
+            return;
+        }
         commandManager.UnderstoodCommand(recognizedSpeech, (success, matched_command) =>{
             if (!success || matched_command == null)
             {

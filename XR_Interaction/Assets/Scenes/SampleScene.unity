@@ -1610,7 +1610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &292575325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2891,57 +2891,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6d121f2112a9b149b6811a5a34a95fb, type: 3}
   m_PrefabInstance: {fileID: 1633405080}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &637062754
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 637062757}
-  - component: {fileID: 637062758}
-  m_Layer: 0
-  m_Name: Run Whisper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &637062757
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637062754}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.541716, y: 0.7118712, z: 0.979661}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &637062758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637062754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab50b532ff508e479ee34e09992663b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
-  voiceRecognition: {fileID: 1048835514}
-  audioDecoder1: {fileID: 5022602860645237092, guid: be6b6777c98d5434197c73830282395c, type: 3}
-  audioDecoder2: {fileID: 5022602860645237092, guid: 3a8ac624c18660f47acea2fc651a411b, type: 3}
-  audioEncoder: {fileID: 5022602860645237092, guid: 2c2f94b868fd5a84c8578d46779eea32, type: 3}
-  logMelSpectro: {fileID: 5022602860645237092, guid: 62b06f26063d0da41be5fa32d4905327, type: 3}
-  jsonFile: {fileID: 4900000, guid: 7eef56816db6c0543b7521f09ce88f5b, type: 3}
 --- !u!1001 &661559686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3570,7 +3519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &891740103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3742,7 +3691,7 @@ Transform:
   m_GameObject: {fileID: 891740102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.89, y: 4.85, z: 0}
+  m_LocalPosition: {x: 0.59, y: 4.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4191,8 +4140,8 @@ Camera:
   m_GameObject: {fileID: 1022902464}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4240,14 +4189,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022902464}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57aff99debd0207449ae65d5192f007c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxRayDistance: 10
   rayReticle: {fileID: 2073141785}
-  reticleDistance: 2
+  reticleDistance: 4
+  reticleOffset: {x: 0, y: 0, z: -1}
 --- !u!115 &1028851881
 MonoScript:
   m_ObjectHideFlags: 0
@@ -4298,7 +4248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.00024414062}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.0041503906}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1029013028
@@ -4741,11 +4691,11 @@ MonoBehaviour:
   stopButton: {fileID: 499126226}
   inputText: {fileID: 1029013031}
   audioSource: {fileID: 1048835512}
-  runWhisper: {fileID: 637062758}
+  runWhisper: {fileID: 0}
   sentenceSimilarity: {fileID: 1048835516}
   voiceAction: {fileID: 1048835513}
   commandManager: {fileID: 2123164806}
-  energyThreshold: 0.0025
+  energyThreshold: 0.003
   silenceDuration: 0.3
   viewpointTransitionController: {fileID: 1860691012}
   zoomOutCommandKeyPhrase: Zoom out.
@@ -5231,7 +5181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.656, y: 4.941}
+  m_AnchoredPosition: {x: 0.656, y: 5.613}
   m_SizeDelta: {x: 702, y: 626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1208629335 stripped
@@ -6248,14 +6198,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1487457203}
   - component: {fileID: 1487457204}
-  - component: {fileID: 1487457205}
+  - component: {fileID: 1487457206}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1487457203
 Transform:
   m_ObjectHideFlags: 0
@@ -6322,14 +6272,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1487457205
-AudioListener:
+--- !u!114 &1487457206
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487457202}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57aff99debd0207449ae65d5192f007c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRayDistance: 10
+  rayReticle: {fileID: 2073141785}
+  reticleDistance: 2
+  reticleOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1530746941
 GameObject:
   m_ObjectHideFlags: 0
@@ -6629,8 +6587,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 597165756}
   m_HandleRect: {fileID: 597165755}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999939
+  m_Value: 1
+  m_Size: 0.99999523
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8505,7 +8463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1896506064
 Transform:
   m_ObjectHideFlags: 0
@@ -8779,7 +8737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fd9fc24eedc4343a04e9d919572c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userCamera: {fileID: 1022902465}
   rootViewpoint: {fileID: 1345837711}
   clippingShader: {fileID: 4800000, guid: 5a2f6381e85e56c45a0a5230585ae085, type: 3}
   boundingBoxDistance: 5
@@ -9040,6 +8997,10 @@ MonoBehaviour:
     - Go there.
     - Focus on that.
     - Go inside of that.
+    - Look at that.
+    - Look there.
+    - Look over there.
+    - Go over there.
     targetViewpoint: {fileID: 0}
   sentenceSimilarity: {fileID: 1048835516}
   vtc: {fileID: 1860691012}
@@ -9075,7 +9036,6 @@ SceneRoots:
   - {fileID: 1310139957}
   - {fileID: 1048835515}
   - {fileID: 2123164807}
-  - {fileID: 637062757}
   - {fileID: 216078018}
   - {fileID: 1860691013}
   - {fileID: 2045666435}

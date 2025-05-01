@@ -8,6 +8,7 @@ public class GazeInteractor : MonoBehaviour
     [SerializeField] float maxRayDistance = 10f;
     [SerializeField] Transform rayReticle;
     [SerializeReference] float reticleDistance = 2f;
+    public Vector3 reticleOffset = new Vector3();
 
 
     [NonSerialized] public GameObject currentTarget;  // Current gaze target. 
@@ -24,7 +25,7 @@ public class GazeInteractor : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
         rayReticle.position = ray.origin + reticleDistance * ray.direction;
-        
+        rayReticle.position += reticleOffset;
         if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance))
         {
             GameObject target = hit.collider.gameObject;

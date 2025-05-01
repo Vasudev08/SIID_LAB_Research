@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class ClippingBoxManager : MonoBehaviour
 {
-    public Transform userCamera;
+    Camera userCamera;
     public Viewpoint rootViewpoint;
     public Shader clippingShader; // Shader to not render parts of the model outside of the clipping box
     public float boundingBoxDistance = 2.0f;
@@ -27,7 +27,7 @@ public class ClippingBoxManager : MonoBehaviour
     
     void Start()
     {
-        
+        userCamera = Camera.main;
         SetClippingMaterials();
         SetBoundingBox();
     }
@@ -92,7 +92,7 @@ public class ClippingBoxManager : MonoBehaviour
 
     void SetBoundingBox()
     {
-        Vector3 center = userCamera.position + Vector3.forward * boundingBoxDistance;
+        Vector3 center = userCamera.transform.position + Vector3.forward * boundingBoxDistance;
         currentCenter = center;
         Vector3 extents = Vector3.one * boundingBoxHalfSize;
         currentExtents = extents;

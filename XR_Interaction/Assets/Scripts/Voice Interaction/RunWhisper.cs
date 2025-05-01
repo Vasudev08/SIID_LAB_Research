@@ -203,6 +203,7 @@ public class RunWhisper : MonoBehaviour
 
             
             voiceRecognition.inputText.text = outputString;
+            Debug.Log(outputString);
             voiceRecognition.SetRecognizedSpeech(outputString);
             voiceRecognition.OnTranscriptionSuccess();
             outputString = ""; 
