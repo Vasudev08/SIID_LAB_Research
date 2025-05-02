@@ -16,7 +16,6 @@ public class VoiceRecognition : MonoBehaviour
     [Header("Voice Interaction")]
     public RunWhisper runWhisper;
     public SentenceSimilarity sentenceSimilarity;
-    public VoiceAction voiceAction;
     public CommandManager commandManager;
     GazeInteractor gazeInteractor;
     

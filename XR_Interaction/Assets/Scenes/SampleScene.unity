@@ -4248,7 +4248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: -0.0041503906}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.0025024414}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1029013028
@@ -4693,7 +4693,6 @@ MonoBehaviour:
   audioSource: {fileID: 1048835512}
   runWhisper: {fileID: 0}
   sentenceSimilarity: {fileID: 1048835516}
-  voiceAction: {fileID: 1048835513}
   commandManager: {fileID: 2123164806}
   energyThreshold: 0.003
   silenceDuration: 0.3
@@ -8739,7 +8738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootViewpoint: {fileID: 1345837711}
   clippingShader: {fileID: 4800000, guid: 5a2f6381e85e56c45a0a5230585ae085, type: 3}
-  boundingBoxDistance: 5
+  boundingBoxDistance: 7
   boundingBoxHalfSize: 2
   targetViewpoint: {fileID: 1345837711}
   padding: 1
