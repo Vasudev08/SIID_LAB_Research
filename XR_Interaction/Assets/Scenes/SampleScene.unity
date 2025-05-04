@@ -701,6 +701,93 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3613460664139785715, guid: b551850e79e339d479269f3c52025aef, type: 3}
   m_PrefabInstance: {fileID: 196767103}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &160033121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160033124}
+  - component: {fileID: 160033123}
+  - component: {fileID: 160033122}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &160033122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160033121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab68ce6587aab0146b8dabefbd806791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_ClickSpeed: 0.3
+  m_MoveDeadzone: 0.6
+  m_RepeatDelay: 0.5
+  m_RepeatRate: 0.1
+  m_TrackedDeviceDragThresholdMultiplier: 2
+  m_TrackedScrollDeltaMultiplier: 5
+  m_BypassUIToolkitEvents: 0
+  m_ActiveInputMode: 0
+  m_EnableXRInput: 1
+  m_EnableMouseInput: 1
+  m_EnableTouchInput: 1
+  m_PointAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_NavigateAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
+  m_EnableBuiltinActionsAsFallback: 1
+  m_EnableGamepadInput: 1
+  m_EnableJoystickInput: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+--- !u!114 &160033123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160033121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &160033124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160033121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.656, y: 5.613, z: 2.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &196767103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2024,7 +2111,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357597855}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.07}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0006113584, y: 0.0006113584, z: 0.0006113584}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2033,7 +2120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -24.235, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 326, y: 201.6254}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &364199642
@@ -4248,7 +4335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: -0.0025024414}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0.0021362305}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1029013028
@@ -4673,8 +4760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d867c18b824af3240a24fa270d4b05ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chooseCommandMessage: 'Please give a command for one of the three transformations:
-    rotate, scale, translate'
 --- !u!114 &1048835514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5092,6 +5177,7 @@ GameObject:
   - component: {fileID: 1208082240}
   - component: {fileID: 1208082239}
   - component: {fileID: 1208082238}
+  - component: {fileID: 1208082242}
   m_Layer: 5
   m_Name: Viewpoint Transition Canvas
   m_TagString: Untagged
@@ -5149,7 +5235,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1022902468}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -5169,20 +5255,39 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208082237}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.61}
-  m_LocalScale: {x: 0.0032282178, y: 0.0032282178, z: 0.0018497042}
+  m_LocalRotation: {x: -0, y: 0.11326264, z: -0, w: 0.9935651}
+  m_LocalPosition: {x: 0, y: 0, z: 5.48}
+  m_LocalScale: {x: 0.0074009397, y: 0.0074009397, z: 0.00424059}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1833760552}
   - {fileID: 1915065637}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 13.007, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.656, y: 5.613}
+  m_AnchoredPosition: {x: 1.08, y: 5.89}
   m_SizeDelta: {x: 702, y: 626}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1208082242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208082237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!23 &1208629335 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4929363789341574723, guid: d6d121f2112a9b149b6811a5a34a95fb, type: 3}
@@ -6586,8 +6691,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 597165756}
   m_HandleRect: {fileID: 597165755}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999523
+  m_Value: 0
+  m_Size: 0.9999928
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8738,7 +8843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootViewpoint: {fileID: 1345837711}
   clippingShader: {fileID: 4800000, guid: 5a2f6381e85e56c45a0a5230585ae085, type: 3}
-  boundingBoxDistance: 7
+  boundingBoxDistance: 9
   boundingBoxHalfSize: 2
   targetViewpoint: {fileID: 1345837711}
   padding: 1
@@ -8962,7 +9067,9 @@ MonoBehaviour:
     targetViewpoint: {fileID: 226970136}
   - referencePhrase: Go to the body.
     synonyms:
+    - I want to see the bigger picture.
     - the body.
+    - Show the whole body.
     targetViewpoint: {fileID: 1345837711}
   - referencePhrase: Zoom out.
     synonyms:
@@ -8970,6 +9077,7 @@ MonoBehaviour:
     - Go back one level.
     - Go back to the previous view.
     - Return.
+    - I want to see a wider view.
     targetViewpoint: {fileID: 0}
   - referencePhrase: Go to the vein on the heart.
     synonyms:
@@ -9023,12 +9131,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
+  - {fileID: 1208082241}
   - {fileID: 2032849184}
   - {fileID: 292575325}
   - {fileID: 891740106}
   - {fileID: 2066497820}
   - {fileID: 1306588082}
-  - {fileID: 1208082241}
   - {fileID: 1221850456}
   - {fileID: 970350247}
   - {fileID: 312096535}
@@ -9038,3 +9146,4 @@ SceneRoots:
   - {fileID: 216078018}
   - {fileID: 1860691013}
   - {fileID: 2045666435}
+  - {fileID: 160033124}

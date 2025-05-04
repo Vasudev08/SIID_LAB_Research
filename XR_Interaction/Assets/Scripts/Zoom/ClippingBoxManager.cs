@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,12 +24,25 @@ public class ClippingBoxManager : MonoBehaviour
     [NonSerialized]
     public Vector3 currentExtents;
 
+    void Awake()
+    {
+        Shader.WarmupAllShaders(); // Call before any materials are created
+    }
 
     
     void Start()
     {
         userCamera = Camera.main;
+        // SetClippingMaterials();
+        // SetBoundingBox();
+        StartCoroutine(DelayedInit());
+    }
+
+    IEnumerator DelayedInit()
+    {
+        yield return null; // let initial frame stabilize
         SetClippingMaterials();
+        yield return null;
         SetBoundingBox();
     }
 
