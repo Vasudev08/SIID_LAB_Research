@@ -64,8 +64,6 @@ public class GazeInteractor : MonoBehaviour
             previousColors.Add(renderer.material.color);
             renderer.material.color = Color.yellow;
         }
-        
-
     }
 
 

@@ -5,5 +5,4 @@ public class GazeTargetController : MonoBehaviour
 {
     public Viewpoint respectiveViewpoint;
     public List<Renderer> renderers = new List<Renderer>();
-    
 }

@@ -4,7 +4,7 @@ using Unity.Sentis;
 using System.Text;
 using Unity.Collections;
 using System;
-
+// Script to run the ASR models locally.
 public class RunWhisper : MonoBehaviour
 {
     Worker decoder1, decoder2, encoder, spectrogram;

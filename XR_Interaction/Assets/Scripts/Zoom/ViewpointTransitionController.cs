@@ -22,7 +22,7 @@ public class ViewpointTransitionController : MonoBehaviour
     {
         TransitionToViewpoint(modelRootViewpoint);
     }
-    // Public entry point for external scripts:
+    
     public void TransitionToViewpoint(Viewpoint target_viewpoint)
     {
         
@@ -33,7 +33,6 @@ public class ViewpointTransitionController : MonoBehaviour
 
     private IEnumerator MixedOrbitAndZoomRoutine(Viewpoint from_viewpoint, Viewpoint target_viewpoint)
     {
-
         Viewpoint lca = FindLeastCommonAncestor(from_viewpoint, target_viewpoint);
 
         yield return StartCoroutine(ZoomOutPhase(lca));
@@ -60,19 +59,15 @@ public class ViewpointTransitionController : MonoBehaviour
         Vector3 start_scale = modelRoot.localScale;
 
         Vector3 end_scale = Vector3.one * lca.levelOfScale;
-        
         // Temporarily set the model to the end scale to get the center of the bounding box to move the viewpoint to.
         modelRoot.localScale = end_scale;
         Vector3 offset = clippingBoxManager.currentCenter - lca.pivot.position;
         modelRoot.localScale = start_scale;
 
         Vector3 end_position = modelRoot.position + offset;
-
-        
         float elapsed_time = 0f;
         float scale_ratio = start_scale.x / end_scale.x;
         float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
-        // Debug.Log("Zoom Out: " + transition_duration);
         while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
@@ -88,7 +83,6 @@ public class ViewpointTransitionController : MonoBehaviour
         }
         modelRoot.localScale = end_scale;
         modelRoot.position = end_position;
-        // Debug.Log("Finished Zoom out for: " + userViewpoint);
         userViewpoint = lca;
     }
     
@@ -106,19 +100,14 @@ public class ViewpointTransitionController : MonoBehaviour
         Vector3 start_scale = modelRoot.localScale;
 
         Vector3 end_scale = Vector3.one * target_viewpoint.levelOfScale;
-        
-        // Temporarily set the model to the end scale to get the center of the bounding box to move the viewpoint to.
         modelRoot.localScale = end_scale;
         Vector3 offset = clippingBoxManager.currentCenter - target_viewpoint.pivot.position;
         modelRoot.localScale = start_scale;
 
         Vector3 end_position = modelRoot.position + offset;
-
-
         float elapsed_time = 0f;
         float scale_ratio = end_scale.x / start_scale.x;
         float transition_duration = transitionBaseDuration * Mathf.Clamp(Mathf.Log(scale_ratio, 10), minDurationFactor, maxDurationFactor);
-        // Debug.Log("Zoom In: " + transition_duration);
         while (elapsed_time < transition_duration)
         {
             elapsed_time += Time.deltaTime;
@@ -132,7 +121,6 @@ public class ViewpointTransitionController : MonoBehaviour
         }
         modelRoot.localScale = end_scale;
         modelRoot.position = end_position;
-        // Debug.Log("Finished zooming in for target: " + target_viewpoint.name);
     }
     
 

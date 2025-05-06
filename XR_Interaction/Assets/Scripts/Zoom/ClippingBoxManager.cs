@@ -46,13 +46,6 @@ public class ClippingBoxManager : MonoBehaviour
         SetBoundingBox();
     }
 
-    /*
-    void Update()
-    {
-        UpdateBoundingBox();
-    }
-    */
-
     void SetClippingMaterials()
     {
         foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
@@ -120,41 +113,6 @@ public class ClippingBoxManager : MonoBehaviour
         }
 
     }
-
-    void UpdateBoundingBox()
-    {
-        targetRenderer = targetViewpoint.modelRenderer;
-        
-        if (targetRenderer != null)
-        {
-            // Center & extents from the actual bounding box
-            Vector3 center  = targetRenderer.bounds.center;
-            Vector3 extents = targetRenderer.bounds.extents * padding;
-
-            currentCenter = Vector3.Lerp(currentCenter, center, Time.deltaTime * lerpSpeed);
-            currentExtents = Vector3.Lerp(currentExtents, extents, Time.deltaTime * lerpSpeed);
-
-            
-        }
-        else
-        {
-            // Set center to current viewpoint pivot if there’s no targetRenderer
-            Vector3 center  = targetViewpoint.pivot.position;
-            Vector3 extents = Vector3.one * boundingBoxHalfSize ;
-            
-            currentCenter = Vector3.Lerp(currentCenter, center, Time.deltaTime * lerpSpeed);
-            currentExtents = Vector3.Lerp(currentExtents, extents, Time.deltaTime * lerpSpeed);
-
-            
-        }
-
-        foreach (var mat in clippingMaterials)
-        {
-            mat.SetVector("_ClipBoxCenter", currentCenter);
-            mat.SetVector("_ClipBoxExtents", currentExtents);
-        }
-    }
-
     
     void OnDrawGizmos()
     {
@@ -164,10 +122,6 @@ public class ClippingBoxManager : MonoBehaviour
         
     }
     
-    
-    
-    
-
     void OnDestroy()
     {
         // Clean up runtime-generated materials to avoid memory leaks

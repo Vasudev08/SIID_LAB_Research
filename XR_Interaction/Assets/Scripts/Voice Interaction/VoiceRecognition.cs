@@ -63,7 +63,8 @@ public class VoiceRecognition : MonoBehaviour
         int maxSpeechSamples = sampleRate * 8 * 10;
         circularBuffer = new CircularBuffer(maxSpeechSamples);
     }
-    private void Start()
+
+    void Start()
     {
         recognizedSpeech = "";
         inputText.text = "Press the Start button to start voice interaction.";
@@ -88,9 +89,9 @@ public class VoiceRecognition : MonoBehaviour
     }
    
 
-    private void Update() 
+    void Update() 
     {   
-        // If the microphone is not recording or we are in a viewpoint transition, return
+        // If the microphone is not recording or we are in a viewpoint transition, return. Use if running ASR models locally
         // if (clip == null || !Microphone.IsRecording(micDevice) || !isListening || inTransition || runWhisper.isRunning) 
         // {
         //     return;
@@ -133,11 +134,9 @@ public class VoiceRecognition : MonoBehaviour
        
         if (DetectedSpeech(samples))
         {
-            // Debug.Log("recording");
             // Start recording if first valid sample detected
             if (!isRecording)
             {
-                // Debug.Log("Speech Started");
                 isRecording = true;
                 silenceTimer = 0f;
             }
@@ -149,19 +148,17 @@ public class VoiceRecognition : MonoBehaviour
             
             if (silenceTimer >= silenceDuration)
             {
-                // Debug.Log("Speech Ended, processing segment.");
                 isRecording = false;
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
-                // circularBuffer.Clear();
                 // runWhisper.TranscribeAudioLocally(speech_data);
                 
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
                 byte[] wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
-                circularBuffer.Clear();
-                
                 SendRecording(wavData);
+
+                circularBuffer.Clear();
             }
         }
     }
@@ -170,7 +167,6 @@ public class VoiceRecognition : MonoBehaviour
     {
         HuggingFaceAPI.AutomaticSpeechRecognition(data, response => {
             inputText.text = response;
-            Debug.Log(response);
             SetRecognizedSpeech(response);
             OnTranscriptionSuccess();
             

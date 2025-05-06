@@ -7,7 +7,6 @@ public class InteractionManager : MonoBehaviour
     public Button stopVoiceButton;
     public VoiceRecognition voiceRecognition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         stopVoiceButton.interactable =false;

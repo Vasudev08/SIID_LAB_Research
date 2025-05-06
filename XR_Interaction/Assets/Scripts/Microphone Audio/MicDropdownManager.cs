@@ -10,7 +10,6 @@ public class MicDropdownManager : MonoBehaviour
     [SerializeField] TMPro.TMP_Dropdown micDropdown;
     [SerializeField] private MicSelectionManager micSelector;
 
-    // Start is called before the first frame update
     void Start()
     {
         UpdateMicDropdown();

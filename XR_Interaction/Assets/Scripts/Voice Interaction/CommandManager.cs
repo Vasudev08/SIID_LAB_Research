@@ -47,7 +47,7 @@ public class CommandManager : MonoBehaviour
 
     /// <summary>
     /// Attempt to match the voiceInput to a known command. Because
-    /// we call an async method (CompareInput), we provide a callback
+    /// we call an async method (SentenceSimilarity.CompareInput()), we provide a callback
     /// that is invoked once a match is found.
     /// </summary>
     public void UnderstoodCommand(string voiceInput, Action<bool, CommandDefinition> onComplete)

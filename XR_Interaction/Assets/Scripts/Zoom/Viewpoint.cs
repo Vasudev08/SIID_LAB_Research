@@ -11,14 +11,10 @@ public class Viewpoint : MonoBehaviour
 
     [Header("Transform Data for This Level of Scale")]
     public float levelOfScale = 1f;            // Scale for the entire model at this LoS
-    public Transform pivot;       // Transform/pivot of this LoS. For example, center of whole body
+    public Transform pivot;                    // Transform/pivot of this LoS. For example, center of whole body
     
-    // Transform the viewpoint will be at the target viewpoint based on the pivot
     public Vector3 cameraOffsetPosition;
     public Quaternion cameraOffsetRotation;
-
-    
-    // Transform the viewpoint will zoom out to for the zoom out phase
 
 
     // Auto-update child-parent relationships when viewed in inspector

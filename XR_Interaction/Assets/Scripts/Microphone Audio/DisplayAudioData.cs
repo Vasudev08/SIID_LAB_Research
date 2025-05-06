@@ -13,7 +13,6 @@ public class DisplayAudioData : MonoBehaviour
     public float sensibility = 10f;
     public MicSelectionManager micSelectionManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (Microphone.devices.Length > 0)
@@ -22,7 +21,6 @@ public class DisplayAudioData : MonoBehaviour
             micClip = Microphone.Start(micDevice, true, 10, AudioSettings.outputSampleRate); // 10s buffer, sample rate
             micSelectionManager.StartMic(micDevice);
             samples = new float[sampleSize];
-            // Debug.Log("Microphone started: " + micDevice);
         }
         else
         {
@@ -30,7 +28,6 @@ public class DisplayAudioData : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
          
@@ -49,9 +46,6 @@ public class DisplayAudioData : MonoBehaviour
             textField.text = "0";
             return;
         }
-
-        // Print raw audio sample data
-        // Debug.Log("Mic Data: " + string.Join(", ", samples));
         textField.text = string.Join(", ", samples);
         
     }

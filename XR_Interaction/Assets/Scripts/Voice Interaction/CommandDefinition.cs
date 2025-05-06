@@ -4,7 +4,7 @@ using System;
 using UnityEngine.Events;
 
 /// <summary>
-/// Holds data about a possible command (e.g. "rotate", "scale", "move"),
+/// Holds data about a possible command,
 /// any synonyms, and the associated Action that performs it.
 /// </summary>
 [Serializable]
