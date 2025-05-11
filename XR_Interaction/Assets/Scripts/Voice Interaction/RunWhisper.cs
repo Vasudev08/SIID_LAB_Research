@@ -186,7 +186,7 @@ public class RunWhisper : MonoBehaviour
         if (index == END_OF_TEXT)
         {
             transcribe = false;
-
+            // Added changes to incorporate with voice recognition system.
             // Cleanup
             
             decoder1.Dispose(); 

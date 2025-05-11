@@ -151,13 +151,16 @@ public class VoiceRecognition : MonoBehaviour
                 isRecording = false;
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
+                // Uncomment below line to do transcription by the Whisper-Tiny model locally instead of using the Hugging Face API
                 // runWhisper.TranscribeAudioLocally(speech_data);
                 
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
                 byte[] wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
-                SendRecording(wavData);
 
+                // Uncomment below line to do transcription by the ASR model using the Hugging Face API
+                SendRecording(wavData);
+                
                 circularBuffer.Clear();
             }
         }
