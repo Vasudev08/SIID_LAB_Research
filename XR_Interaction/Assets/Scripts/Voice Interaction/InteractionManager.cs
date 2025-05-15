@@ -18,6 +18,7 @@ public class InteractionManager : MonoBehaviour
         startVoiceButton.interactable = false;
         stopVoiceButton.interactable = true;
         voiceRecognition.StartRecording();
+        Debug.LogAssertion("Start Button Works");
     }
     
     public void StopListening()

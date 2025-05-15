@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, Request, HTTPException
 from transformers import pipeline
 import io
 import soundfile as sf
@@ -9,9 +9,11 @@ app = FastAPI()
 asr_pipeline = pipeline("automatic-speech-recognition", model="openai/whisper-small")
 
 @app.post("/transcribe")
-async def transcribe(audio: UploadFile = File(...)):
+async def transcribe(request: Request):
+    data = await request.body()
+
     try:
-        data = await audio.read()
+        # data = await audio.read()
         audio_np, sr = sf.read(io.BytesIO(data))
 
         if audio_np.ndim > 1:
@@ -20,8 +22,6 @@ async def transcribe(audio: UploadFile = File(...)):
         result = asr_pipeline({"array": audio_np, "sampling_rate": sr})
 
         return {"text": result["text"]}
-
-
 
 
     except Exception as e:

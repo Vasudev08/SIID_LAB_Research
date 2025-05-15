@@ -4,6 +4,11 @@ using System;
 using Unity.Mathematics;
 using System.IO;
 using HuggingFace.API;
+using System.Collections;
+using System.Security.Cryptography;
+using System.IO.Enumeration;
+using UnityEngine.Networking;
+//using UnityEditor.PackageManager;
 
 public class VoiceRecognition : MonoBehaviour
 {   
@@ -168,15 +173,55 @@ public class VoiceRecognition : MonoBehaviour
 
     public void SendRecording(byte[] data)
     {
-        HuggingFaceAPI.AutomaticSpeechRecognition(data, response => {
-            inputText.text = response;
-            SetRecognizedSpeech(response);
+        //HuggingFaceAPI.AutomaticSpeechRecognition(data, response =>
+        //{
+        //    inputText.text = response;
+        //    SetRecognizedSpeech(response);
+        //    OnTranscriptionSuccess();
+
+        //}, error =>
+        //{
+        //    inputText.text = error;
+        //    Debug.Log("Error from calling ASR API for transcription: " + error);
+        //});
+
+        Debug.Log("Reached SendRecording; launching PostRawWav");
+        StartCoroutine(PostRawWav(data));
+    }
+
+    private IEnumerator PostRawWav(byte[] wavData)
+    {
+        Debug.Log("Reached PostRawWav ");
+
+        // URL for request
+        string url = Application.isEditor
+            ? "http://localhost:5000/transcribe"
+            : "http://127.0.0.1:5000/transcribe";
+
+        // Creating POST request
+        using var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
+        uwr.uploadHandler = new UploadHandlerRaw(wavData);
+        uwr.downloadHandler = new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "audio/wav");
+
+
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            inputText.text = $"ASR Error: {uwr.error}";
+            Debug.LogError(uwr.error);
+        }
+        else
+        {
+            var json = uwr.downloadHandler.text;
+            var result = JsonUtility.FromJson<TranscriptionResult>(json);
+            var txt = result.text.Trim();
+
+            inputText.text = txt;
+            SetRecognizedSpeech(txt);
             OnTranscriptionSuccess();
-            
-        }, error => {
-            inputText.text = error;
-            Debug.Log("Error from calling ASR API for transcription: " + error);
-        });
+        }
     }
 
     private byte[] EncodeAsWAV(float[] samples, int frequency, int channels) {
@@ -311,4 +356,6 @@ public class VoiceRecognition : MonoBehaviour
         });
     }
 
+    [System.Serializable]
+    private class TranscriptionResult { public string text; }
 }
