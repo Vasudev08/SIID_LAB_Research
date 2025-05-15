@@ -848,7 +848,13 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -870,11 +876,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 31eb5c65-81c5-4824-85ce-a861d1fa57c3
+  cloudProjectId: e588b4e2-b3c1-4b61-b779-380b6b255b82
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: VR Interaction
-  organizationId: mariocreates
+  projectName: XR Interaction
+  organizationId: vasudev14
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

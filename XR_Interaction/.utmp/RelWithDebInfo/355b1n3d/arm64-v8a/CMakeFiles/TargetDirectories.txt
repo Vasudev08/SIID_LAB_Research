@@ -1,0 +1,8 @@
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/vasu14devagarwal/SIID_Lab_Research/XR_Interaction/.utmp/RelWithDebInfo/355b1n3d/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
