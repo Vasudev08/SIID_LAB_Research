@@ -19,7 +19,7 @@ public class VoiceRecognition : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [Header("Voice Interaction")]
-    public RunWhisper runWhisper;
+    [SerializeField] private RunWhisper runWhisper;
     public SentenceSimilarity sentenceSimilarity;
     public CommandManager commandManager;
     GazeInteractor gazeInteractor;
@@ -67,6 +67,21 @@ public class VoiceRecognition : MonoBehaviour
         // allocate enough space for 10 seconds of audio.
         int maxSpeechSamples = sampleRate * 8 * 10;
         circularBuffer = new CircularBuffer(maxSpeechSamples);
+
+        if (runWhisper == null)
+        {
+            runWhisper = FindFirstObjectByType<RunWhisper>();
+            if (runWhisper == null )
+            {
+                Debug.LogError("No RunWhisper found in scence");
+
+            }
+            else
+            {
+                Debug.Log("Auto-assigned RunWhisper from scence.");
+            }
+
+        }
     }
 
     void Start()
@@ -156,15 +171,25 @@ public class VoiceRecognition : MonoBehaviour
                 isRecording = false;
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
+                Debug.Log("Transcribe By Using Local whisper-tiny model");
                 // Uncomment below line to do transcription by the Whisper-Tiny model locally instead of using the Hugging Face API
-                 //runWhisper.TranscribeAudioLocally(speech_data);
-                
+
+                if (runWhisper == null)
+                {
+                    Debug.LogError("[VoiceRecognition] runWhisper is still NULL — cannot transcribe locally!");
+                }
+                else
+                {
+                    runWhisper.TranscribeAudioLocally(speech_data);
+                    Debug.Log("Called TranscribeAudioLocally");
+                }
+
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
                 byte[] wavData = EncodeAsWAV(speech_data, clip.frequency, clip.channels);
 
                 // Uncomment below line to do transcription by the ASR model using the Hugging Face API
-                SendRecording(wavData);
+                //SendRecording(wavData);
                 
                 circularBuffer.Clear();
             }
@@ -173,20 +198,20 @@ public class VoiceRecognition : MonoBehaviour
 
     public void SendRecording(byte[] data)
     {
-        //HuggingFaceAPI.AutomaticSpeechRecognition(data, response =>
-        //{
-        //    inputText.text = response;
-        //    SetRecognizedSpeech(response);
-        //    OnTranscriptionSuccess();
+        HuggingFaceAPI.AutomaticSpeechRecognition(data, response =>
+        {
+            inputText.text = response;
+            SetRecognizedSpeech(response);
+            OnTranscriptionSuccess();
 
-        //}, error =>
-        //{
-        //    inputText.text = error;
-        //    Debug.Log("Error from calling ASR API for transcription: " + error);
-        //});
+        }, error =>
+        {
+            inputText.text = error;
+            Debug.Log("Error from calling ASR API for transcription: " + error);
+        });
 
-        Debug.Log("Reached SendRecording; launching PostRawWav");
-        StartCoroutine(PostRawWav(data));
+        //Debug.Log("Reached SendRecording; launching PostRawWav");
+        //StartCoroutine(PostRawWav(data));
     }
 
     private IEnumerator PostRawWav(byte[] wavData)
@@ -196,7 +221,7 @@ public class VoiceRecognition : MonoBehaviour
         // URL for request
         string url = Application.isEditor
             ? "http://localhost:5000/transcribe"
-            : "http://127.0.0.1:5000/transcribe";
+            : "http://192.168.18.243/transcribe";
 
         // Creating POST request
         using var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);

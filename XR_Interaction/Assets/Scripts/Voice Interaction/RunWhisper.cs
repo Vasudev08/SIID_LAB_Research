@@ -52,6 +52,7 @@ public class RunWhisper : MonoBehaviour
 
     public async void TranscribeAudioLocally(float[] processed_data)
     {
+        Debug.Log("TranscribedAudioLocally");
         if (isRunning)
             return;
         isRunning = true;
