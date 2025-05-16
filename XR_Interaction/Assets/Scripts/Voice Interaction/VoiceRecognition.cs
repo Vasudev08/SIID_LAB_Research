@@ -157,7 +157,7 @@ public class VoiceRecognition : MonoBehaviour
                 silenceTimer = 0f;
                 float[] speech_data = circularBuffer.GetData();
                 // Uncomment below line to do transcription by the Whisper-Tiny model locally instead of using the Hugging Face API
-                // runWhisper.TranscribeAudioLocally(speech_data);
+                 //runWhisper.TranscribeAudioLocally(speech_data);
                 
                 // Required to send the data using the Whisper Tiny API in Huggingface
                 // Data is required to be in WAV format
@@ -209,7 +209,7 @@ public class VoiceRecognition : MonoBehaviour
 
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            inputText.text = $"ASR Error: {uwr.error}";
+            inputText.text = $"ASR Error: {uwr.error} + url {url}";
             Debug.LogError(uwr.error);
         }
         else

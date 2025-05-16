@@ -1,10 +1,16 @@
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from transformers import pipeline
-import io
-import soundfile as sf
-
+import io, soundfile as sf
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],            # or lock this down to specific domains
+    allow_methods=["POST"],
+    allow_headers=["*"],
+)
 
 asr_pipeline = pipeline("automatic-speech-recognition", model="openai/whisper-small")
 
