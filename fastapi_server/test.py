@@ -1,6 +1,6 @@
 import requests
 
-url = "http://localhost:5000/transcribe"
+url = "https://siidlabresearch-production.up.railway.app/transcribe"
 headers = {"Content-Type": "audio/wav"}
 with open("hello.wav", "rb") as f:
     resp = requests.post(url, headers=headers, data=f.read())
