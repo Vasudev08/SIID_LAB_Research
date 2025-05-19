@@ -1,6 +1,0 @@
-fastapi
-uvicorn[standard]
-transformers
-torch          # or torch-cpu if you don’t have a GPU
-soundfile
-torchaudio
