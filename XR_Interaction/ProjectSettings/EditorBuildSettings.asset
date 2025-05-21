@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/MicChangeScence.unity
+    guid: b8339d9895ea21d48b12751074adb565
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: c726a85c7144f654ab587e2aa4b434e8, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 857b0dd4001dadd4ab5ea2f5ffd3b618, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c79c3906b3d1b404cb8571fcd7bf7541, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 05001edcb9067e64e84c279167a1f8c2, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: b7c2ba3a5cce97a45acc84dc49e81d3c, type: 2}
   m_UseUCBPForAssetBundles: 0

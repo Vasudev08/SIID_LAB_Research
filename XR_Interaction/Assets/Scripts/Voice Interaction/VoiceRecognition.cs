@@ -220,7 +220,7 @@ public class VoiceRecognition : MonoBehaviour
 
         // URL for request
         //string url = "http://192.168.18.243:5000/transcribe";
-        string url = "https://e819-165-91-13-70.ngrok-free.app/transcribe";
+        string url = "https://1999-165-91-13-70.ngrok-free.app/transcribe";
         //string url = "https://siidlabresearch-production.up.railway.app/transcribe";
 
         // Creating POST request
