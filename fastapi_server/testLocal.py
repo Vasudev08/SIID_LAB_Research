@@ -1,6 +1,6 @@
 import requests
 
-url = "https://vasu14devagarwal--whisper-fastapi-fastapi-app.modal.run/transcribe"
+url = "http://localhost:5000/transcribe"
 headers = {"Content-Type": "audio/wav"}
 with open("hello.wav", "rb") as f:
     resp = requests.post(url, headers=headers, data=f.read())

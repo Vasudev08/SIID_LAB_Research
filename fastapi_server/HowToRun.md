@@ -19,3 +19,10 @@ Testing the server
 - in the unity editor, under edit/XR Plug-in Management, make sure to selection PC build not the andriod build
 - Had to manually enable XR Runtime setting by going into the windows registry, which enabled to see the app in the meta quest #3
 - 'ngrok.exe' is now listed as an potential virus, so no longer can be use ngork.exe unless we ask the admin to fix it
+
+# Quest Link Working
+- this set-up worked
+    - having no usb devices connected to the laptop
+    - the USB-C VR cable link is connected to the back of the laptop
+    - restart the laptop and meta quest #3
+    - uninstall and reinstall the meta quest link app

@@ -19,13 +19,8 @@ with image.imports():
 @modal.asgi_app()
 def fastapi_app():
     app = FastAPI()
-    # asr_pipeline = pipeline("automatic-speech-recognition", model="openai/whisper-small", device=0)
-    asr_pipeline = pipeline(
-    "automatic-speech-recognition",
-    model="openai/whisper-tiny.en",  # this is the key change
-    device=0,                        # use GPU if available
-    return_timestamps=False          # optional: speeds up even more
-)
+    asr_pipeline = pipeline("automatic-speech-recognition", model="openai/whisper-small", device=0)
+ 
 
 
     @app.post("/transcribe")

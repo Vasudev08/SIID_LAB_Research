@@ -1,0 +1,176 @@
+2025-05-22 15:30:53,911 [INFO] Response:  Hello world, my name is Vasudeva Gurbana.
+2025-05-22 15:30:53,912 [INFO] POST /transcribe | Size: 988882 bytes | Status: 200 | Time: 1511.94 ms
+2025-05-22 15:32:42,043 [INFO] Response:  Moves back to entire body.
+2025-05-22 15:32:42,044 [INFO] POST /transcribe | Size: 74284 bytes | Status: 200 | Time: 1240.22 ms
+2025-05-22 15:32:43,325 [INFO] POST /transcribe | Size: 20204 bytes | Status: 200 | Time: 1279.94 ms
+2025-05-22 15:32:44,616 [INFO] POST /transcribe | Size: 17004 bytes | Status: 200 | Time: 1290.41 ms
+2025-05-22 15:32:45,758 [INFO] POST /transcribe | Size: 37484 bytes | Status: 200 | Time: 1141.25 ms
+2025-05-22 15:32:46,895 [INFO] POST /transcribe | Size: 25644 bytes | Status: 200 | Time: 1136.44 ms
+2025-05-22 15:32:48,048 [INFO] POST /transcribe | Size: 24364 bytes | Status: 200 | Time: 1152.18 ms
+2025-05-22 15:33:10,090 [INFO] Response:  Move to left lung. Move to right lung.
+2025-05-22 15:33:10,091 [INFO] POST /transcribe | Size: 661484 bytes | Status: 200 | Time: 1337.50 ms
+2025-05-22 15:33:16,443 [INFO] Response:  Move right down.
+2025-05-22 15:33:16,443 [INFO] POST /transcribe | Size: 62188 bytes | Status: 200 | Time: 1145.46 ms
+2025-05-22 15:33:18,840 [INFO] Response:  Move the right lung.
+2025-05-22 15:33:18,841 [INFO] POST /transcribe | Size: 68524 bytes | Status: 200 | Time: 1174.35 ms
+2025-05-22 15:33:58,872 [INFO] POST /transcribe | Size: 633068 bytes | Status: 200 | Time: 16548.49 ms
+2025-05-22 15:34:01,359 [INFO] POST /transcribe | Size: 26284 bytes | Status: 200 | Time: 2485.46 ms
+2025-05-22 15:34:02,665 [INFO] POST /transcribe | Size: 21804 bytes | Status: 200 | Time: 3791.14 ms
+2025-05-22 15:34:03,845 [INFO] POST /transcribe | Size: 25964 bytes | Status: 200 | Time: 4971.41 ms
+2025-05-22 15:34:03,846 [INFO] POST /transcribe | Size: 31404 bytes | Status: 200 | Time: 4972.09 ms
+2025-05-22 15:34:05,109 [INFO] Response:  Move to hot exterior vent.
+2025-05-22 15:34:05,109 [INFO] POST /transcribe | Size: 243244 bytes | Status: 200 | Time: 6234.68 ms
+2025-05-22 15:58:50,377 [INFO] Response:  Hello world, my name is Vasudeva Garbha.
+2025-05-22 15:58:50,378 [INFO] POST /transcribe | Size: 988882 bytes | Status: 200 | Time: 819.20 ms
+2025-05-22 15:59:32,502 [INFO] Response:  Hello, my name is Vasudev.
+2025-05-22 15:59:32,502 [INFO] POST /transcribe | Size: 59884 bytes | Status: 200 | Time: 527.31 ms
+2025-05-22 15:59:33,132 [INFO] POST /transcribe | Size: 11244 bytes | Status: 200 | Time: 487.20 ms
+2025-05-22 15:59:33,831 [INFO] POST /transcribe | Size: 7404 bytes | Status: 200 | Time: 482.18 ms
+2025-05-22 15:59:34,675 [INFO] POST /transcribe | Size: 12524 bytes | Status: 200 | Time: 478.03 ms
+2025-05-22 15:59:35,488 [INFO] POST /transcribe | Size: 11244 bytes | Status: 200 | Time: 470.43 ms
+2025-05-22 15:59:36,219 [INFO] POST /transcribe | Size: 9324 bytes | Status: 200 | Time: 451.15 ms
+2025-05-22 15:59:37,191 [INFO] POST /transcribe | Size: 15724 bytes | Status: 200 | Time: 492.34 ms
+2025-05-22 15:59:37,935 [INFO] POST /transcribe | Size: 11244 bytes | Status: 200 | Time: 461.34 ms
+2025-05-22 15:59:38,643 [INFO] POST /transcribe | Size: 8684 bytes | Status: 200 | Time: 461.79 ms
+2025-05-22 16:04:40,925 [INFO] Audio energy: 0.016485
+2025-05-22 16:04:41,876 [INFO] Response:  Hello world, my name is Vasudeva Garbha.
+2025-05-22 16:04:41,877 [INFO] POST /transcribe | Size: 988882 bytes | Status: 200 | Time: 958.14 ms
+2025-05-22 16:05:39,578 [INFO] Audio energy: 0.033188
+2025-05-22 16:05:40,045 [INFO] Response:  Hello, my name is Vasudev.
+2025-05-22 16:05:40,046 [INFO] POST /transcribe | Size: 66284 bytes | Status: 200 | Time: 468.12 ms
+2025-05-22 16:05:40,192 [INFO] Audio energy: 0.014071
+2025-05-22 16:05:40,644 [INFO] POST /transcribe | Size: 12524 bytes | Status: 200 | Time: 453.85 ms
+2025-05-22 16:05:41,468 [INFO] Audio energy: 0.013227
+2025-05-22 16:05:41,925 [INFO] POST /transcribe | Size: 27564 bytes | Status: 200 | Time: 458.44 ms
+2025-05-22 16:05:42,312 [INFO] Audio energy: 0.013336
+2025-05-22 16:05:42,732 [INFO] POST /transcribe | Size: 11884 bytes | Status: 200 | Time: 420.85 ms
+2025-05-22 16:05:43,661 [INFO] Audio energy: 0.014044
+2025-05-22 16:05:44,158 [INFO] POST /transcribe | Size: 29164 bytes | Status: 200 | Time: 497.08 ms
+2025-05-22 16:05:44,591 [INFO] Audio energy: 0.013546
+2025-05-22 16:05:45,051 [INFO] POST /transcribe | Size: 15724 bytes | Status: 200 | Time: 461.08 ms
+2025-05-22 16:05:45,662 [INFO] Audio energy: 0.013384
+2025-05-22 16:05:46,126 [INFO] POST /transcribe | Size: 20844 bytes | Status: 200 | Time: 464.53 ms
+2025-05-22 16:06:13,481 [INFO] Audio energy: 0.015774
+2025-05-22 16:06:14,293 [INFO] Response:  Please move to entire body.
+2025-05-22 16:06:14,293 [INFO] POST /transcribe | Size: 790764 bytes | Status: 200 | Time: 819.42 ms
+2025-05-22 16:06:14,855 [INFO] Audio energy: 0.034214
+2025-05-22 16:06:15,427 [INFO] Response:  Moves with the heart.
+2025-05-22 16:06:15,428 [INFO] POST /transcribe | Size: 32044 bytes | Status: 200 | Time: 572.76 ms
+2025-05-22 16:06:15,632 [INFO] Audio energy: 0.012572
+2025-05-22 16:06:16,298 [INFO] POST /transcribe | Size: 16044 bytes | Status: 200 | Time: 667.09 ms
+2025-05-22 16:06:20,383 [INFO] Audio energy: 0.029935
+2025-05-22 16:06:20,768 [INFO] Response:  Move to left lung.
+2025-05-22 16:06:20,769 [INFO] POST /transcribe | Size: 82668 bytes | Status: 200 | Time: 385.73 ms
+2025-05-22 16:07:02,479 [INFO] Audio energy: 0.021150
+2025-05-22 16:07:03,964 [INFO] Response:  Move to the right lung. Move to right lung. Move to right lung. Move to right lung. Move to the hea
+2025-05-22 16:07:03,965 [INFO] POST /transcribe | Size: 1182508 bytes | Status: 200 | Time: 1490.53 ms
+2025-05-22 16:07:04,092 [INFO] Audio energy: 0.030096
+2025-05-22 16:07:04,464 [INFO] Response:  to heart.
+2025-05-22 16:07:04,464 [INFO] POST /transcribe | Size: 34924 bytes | Status: 200 | Time: 373.06 ms
+2025-05-22 16:07:05,949 [INFO] Audio energy: 0.013246
+2025-05-22 16:07:06,363 [INFO] POST /transcribe | Size: 45484 bytes | Status: 200 | Time: 414.36 ms
+2025-05-22 16:07:07,562 [INFO] Audio energy: 0.014071
+2025-05-22 16:07:08,045 [INFO] POST /transcribe | Size: 36524 bytes | Status: 200 | Time: 483.58 ms
+2025-05-22 16:07:08,813 [INFO] Audio energy: 0.013869
+2025-05-22 16:07:09,306 [INFO] POST /transcribe | Size: 24684 bytes | Status: 200 | Time: 493.26 ms
+2025-05-22 16:07:11,245 [INFO] Audio energy: 0.033474
+2025-05-22 16:07:11,598 [INFO] Response:  Move to heart.
+2025-05-22 16:07:11,598 [INFO] POST /transcribe | Size: 62444 bytes | Status: 200 | Time: 353.78 ms
+2025-05-22 16:07:24,855 [INFO] Audio energy: 0.022967
+2025-05-22 16:07:25,354 [INFO] Response:  Move to a trioric vase.
+2025-05-22 16:07:25,354 [INFO] POST /transcribe | Size: 262188 bytes | Status: 200 | Time: 501.34 ms
+2025-05-22 16:07:27,579 [INFO] Audio energy: 0.021812
+2025-05-22 16:07:27,899 [INFO] Response:  Move.
+2025-05-22 16:07:27,899 [INFO] POST /transcribe | Size: 64364 bytes | Status: 200 | Time: 321.11 ms
+2025-05-22 16:07:28,828 [INFO] Audio energy: 0.013460
+2025-05-22 16:07:29,320 [INFO] POST /transcribe | Size: 25644 bytes | Status: 200 | Time: 493.27 ms
+2025-05-22 16:12:50,605 [INFO] Audio energy: 0.028683
+2025-05-22 16:12:51,150 [INFO] Response:  Hi, my name is Vasudev.
+2025-05-22 16:12:51,151 [INFO] POST /transcribe | Size: 54124 bytes | Status: 200 | Time: 546.92 ms
+2025-05-22 16:12:51,352 [INFO] Audio energy: 0.011828
+2025-05-22 16:12:51,862 [INFO] POST /transcribe | Size: 8364 bytes | Status: 200 | Time: 511.25 ms
+2025-05-22 16:12:51,901 [INFO] Audio energy: 0.014165
+2025-05-22 16:12:52,404 [INFO] POST /transcribe | Size: 10604 bytes | Status: 200 | Time: 503.98 ms
+2025-05-22 16:12:54,487 [INFO] Audio energy: 0.051832
+2025-05-22 16:12:54,893 [INFO] Response:  Move to left lung.
+2025-05-22 16:12:54,893 [INFO] POST /transcribe | Size: 64364 bytes | Status: 200 | Time: 407.60 ms
+2025-05-22 16:12:57,485 [INFO] Audio energy: 0.011661
+2025-05-22 16:12:58,057 [INFO] POST /transcribe | Size: 26988 bytes | Status: 200 | Time: 572.15 ms
+2025-05-22 16:13:17,641 [INFO] Audio energy: 0.022724
+2025-05-22 16:13:18,503 [INFO] Response:  Move to right lung. Move to right lung. Move to stomach. Move to heart.
+2025-05-22 16:13:18,504 [INFO] POST /transcribe | Size: 596204 bytes | Status: 200 | Time: 867.64 ms
+2025-05-22 16:13:22,819 [INFO] Audio energy: 0.016635
+2025-05-22 16:13:23,234 [INFO] Response:  back.
+2025-05-22 16:13:23,234 [INFO] POST /transcribe | Size: 31468 bytes | Status: 200 | Time: 416.87 ms
+2025-05-22 16:13:25,943 [INFO] Audio energy: 0.012967
+2025-05-22 16:13:26,447 [INFO] POST /transcribe | Size: 36908 bytes | Status: 200 | Time: 504.53 ms
+2025-05-22 16:13:32,605 [INFO] Audio energy: 0.019585
+2025-05-22 16:13:33,070 [INFO] POST /transcribe | Size: 168044 bytes | Status: 200 | Time: 465.78 ms
+2025-05-22 16:13:34,095 [INFO] Audio energy: 0.015586
+2025-05-22 16:13:46,309 [INFO] Response:  Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. 
+2025-05-22 16:13:46,310 [INFO] POST /transcribe | Size: 25964 bytes | Status: 200 | Time: 12215.36 ms
+2025-05-22 16:13:46,315 [INFO] Audio energy: 0.014125
+2025-05-22 16:13:46,806 [INFO] Audio energy: 0.013689
+2025-05-22 16:13:47,348 [INFO] POST /transcribe | Size: 26284 bytes | Status: 200 | Time: 1035.64 ms
+2025-05-22 16:13:47,349 [INFO] Audio energy: 0.012924
+2025-05-22 16:13:47,873 [INFO] POST /transcribe | Size: 29164 bytes | Status: 200 | Time: 1559.53 ms
+2025-05-22 16:13:47,874 [INFO] Audio energy: 0.013793
+2025-05-22 16:13:48,370 [INFO] POST /transcribe | Size: 11244 bytes | Status: 200 | Time: 2056.99 ms
+2025-05-22 16:13:48,372 [INFO] Audio energy: 0.013713
+2025-05-22 16:13:48,926 [INFO] POST /transcribe | Size: 29804 bytes | Status: 200 | Time: 2612.04 ms
+2025-05-22 16:13:48,930 [INFO] Audio energy: 0.014174
+2025-05-22 16:13:49,508 [INFO] POST /transcribe | Size: 24044 bytes | Status: 200 | Time: 3194.08 ms
+2025-05-22 16:13:49,509 [INFO] POST /transcribe | Size: 19244 bytes | Status: 200 | Time: 2703.59 ms
+2025-05-22 16:36:17,650 [INFO] Loading Whisper model on GPU.
+2025-05-22 16:36:18,716 [INFO] Whisper pipeline initialized successfully.
+2025-05-22 16:37:28,741 [INFO] Audio RMS energy: 0.025038
+2025-05-22 16:37:29,303 [INFO] Transcription complete in 0.56 seconds: Hello.
+2025-05-22 16:37:29,304 [INFO] POST /transcribe | Content-Length: 25004 | Status: 200 | Latency: 562.76 ms
+2025-05-22 16:37:30,547 [INFO] Audio RMS energy: 0.020365
+2025-05-22 16:37:30,944 [INFO] Transcription complete in 0.40 seconds: My name is Sasabe.
+2025-05-22 16:37:30,944 [INFO] POST /transcribe | Content-Length: 51884 | Status: 200 | Latency: 397.59 ms
+2025-05-22 16:37:31,770 [INFO] Audio RMS energy: 0.016840
+2025-05-22 16:37:32,276 [INFO] Transcription complete in 0.51 seconds: 날씨였습니다.
+2025-05-22 16:37:32,277 [INFO] POST /transcribe | Content-Length: 24044 | Status: 200 | Latency: 508.02 ms
+2025-05-22 16:37:33,362 [INFO] Audio RMS energy: 0.017979
+2025-05-22 16:37:33,810 [INFO] Transcription complete in 0.45 seconds: MBC 뉴스 이덕영입니다.
+2025-05-22 16:37:33,810 [INFO] POST /transcribe | Content-Length: 37484 | Status: 200 | Latency: 448.59 ms
+2025-05-22 16:37:34,849 [INFO] Audio RMS energy: 0.016743
+2025-05-22 16:37:35,297 [INFO] Transcription complete in 0.45 seconds: 날씨였습니다.
+2025-05-22 16:37:35,298 [INFO] POST /transcribe | Content-Length: 30124 | Status: 200 | Latency: 448.91 ms
+2025-05-22 16:37:35,606 [INFO] Audio RMS energy: 0.016592
+2025-05-22 16:37:36,020 [INFO] Transcription complete in 0.41 seconds: MBC 뉴스 이덕영입니다.
+2025-05-22 16:37:36,020 [INFO] POST /transcribe | Content-Length: 10284 | Status: 200 | Latency: 415.36 ms
+2025-05-22 16:37:46,879 [INFO] Audio RMS energy: 0.016298
+2025-05-22 16:37:59,222 [INFO] Transcription complete in 12.34 seconds: ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ 
+2025-05-22 16:37:59,222 [INFO] POST /transcribe | Content-Length: 299244 | Status: 200 | Latency: 12344.93 ms
+2025-05-22 16:37:59,225 [INFO] Audio RMS energy: 0.016740
+2025-05-22 16:37:59,678 [INFO] Transcription complete in 0.45 seconds: 날씨였습니다.
+2025-05-22 16:37:59,678 [INFO] Audio RMS energy: 0.016947
+2025-05-22 16:38:00,111 [INFO] Transcription complete in 0.43 seconds: 날씨였습니다.
+2025-05-22 16:38:00,112 [INFO] POST /transcribe | Content-Length: 34924 | Status: 200 | Latency: 888.46 ms
+2025-05-22 16:38:00,112 [INFO] Audio RMS energy: 0.017339
+2025-05-22 16:38:00,572 [INFO] Transcription complete in 0.46 seconds: 날씨였습니다.
+2025-05-22 16:38:00,572 [INFO] POST /transcribe | Content-Length: 32684 | Status: 200 | Latency: 1348.68 ms
+2025-05-22 16:38:00,573 [INFO] Audio RMS energy: 0.017218
+2025-05-22 16:38:01,037 [INFO] Transcription complete in 0.46 seconds: 날씨였습니다.
+2025-05-22 16:38:01,037 [INFO] POST /transcribe | Content-Length: 33644 | Status: 200 | Latency: 1812.72 ms
+2025-05-22 16:38:01,038 [INFO] Audio RMS energy: 0.016795
+2025-05-22 16:38:01,495 [INFO] Transcription complete in 0.46 seconds: 날씨였습니다.
+2025-05-22 16:38:01,496 [INFO] POST /transcribe | Content-Length: 24684 | Status: 200 | Latency: 2270.91 ms
+2025-05-22 16:38:01,496 [INFO] Audio RMS energy: 0.017405
+2025-05-22 16:38:01,964 [INFO] Transcription complete in 0.47 seconds: 날씨였습니다.
+2025-05-22 16:38:01,964 [INFO] POST /transcribe | Content-Length: 25324 | Status: 200 | Latency: 2739.30 ms
+2025-05-22 16:38:01,965 [INFO] POST /transcribe | Content-Length: 44844 | Status: 200 | Latency: 2286.65 ms
+2025-05-22 16:41:39,133 [INFO] Response:  Move to left line. Move to right line.
+2025-05-22 16:41:39,134 [INFO] POST /transcribe | Size: 683884 bytes | Status: 200 | Time: 771.21 ms
+2025-05-22 16:41:40,576 [INFO] Response:  Hello.
+2025-05-22 16:41:40,576 [INFO] POST /transcribe | Size: 35244 bytes | Status: 200 | Time: 331.81 ms
+2025-05-22 16:41:41,817 [INFO] POST /transcribe | Size: 21164 bytes | Status: 200 | Time: 475.56 ms
+2025-05-22 16:41:43,106 [INFO] POST /transcribe | Size: 27564 bytes | Status: 200 | Time: 458.66 ms
+2025-05-22 16:41:44,752 [INFO] POST /transcribe | Size: 37484 bytes | Status: 200 | Time: 464.84 ms
+2025-05-22 16:41:46,803 [INFO] Response:  Hey.
+2025-05-22 16:41:46,804 [INFO] POST /transcribe | Size: 57324 bytes | Status: 200 | Time: 295.30 ms
+2025-05-22 16:42:01,993 [INFO] Response:  To the left line. Move to the right line.
+2025-05-22 16:42:01,993 [INFO] POST /transcribe | Size: 432044 bytes | Status: 200 | Time: 582.48 ms
+2025-05-22 16:42:05,953 [INFO] POST /transcribe | Size: 45228 bytes | Status: 200 | Time: 501.43 ms

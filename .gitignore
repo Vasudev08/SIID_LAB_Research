@@ -8,4 +8,5 @@ XR_Interaction/Assets/Resources/HuggingFaceAPIConfig.asset
 XR_Interaction/Assets/Resources/HuggingFaceAPIConfig.asset.meta
 XR_Interaction/Builds
 *.apk
+env310
 .vs/

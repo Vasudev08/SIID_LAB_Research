@@ -219,8 +219,8 @@ public class VoiceRecognition : MonoBehaviour
         Debug.Log("Reached PostRawWav ");
 
         // URL for request
-        //string url = "http://192.168.18.243:5000/transcribe";
-        string url = "https://vasu14devagarwal--whisper-fastapi-fastapi-app.modal.run/transcribe";
+        string url = "http://localhost:5000/transcribe";
+        //string url = "https://vasu14devagarwal--whisper-fastapi-fastapi-app.modal.run/transcribe";
 
         //string url = "https://1999-165-91-13-70.ngrok-free.app/transcribe";
         //string url = "https://siidlabresearch-production.up.railway.app/transcribe";
